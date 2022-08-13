@@ -1,0 +1,132 @@
+
+[v-clock] {
+    display: none;
+}
+
+
+@font-face {
+    font-family: 'aviny';
+    src: url('../fonts/aviny.ttf');
+}
+
+@font-face {
+    font-family: 'Cinema';
+    src: url('../fonts/Cinema_Full.ttf');
+}
+
+@font-face {
+    font-family: 'dinar';
+    src: url('../fonts/dinar.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'yekan';
+    src: url('../fonts/WebYekan.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'iransans';
+    src: url('../fonts/IRANSansWeb-Light.ttf');
+}
+
+@font-face {
+    font-family: 'alisans';
+    src: url('../fonts/IRANSansFarsi_Bold.woff');
+}
+
+.button-box {
+    margin: 30px;
+    text-align: center;
+}
+
+.button-box button {
+    width: 179px;
+    height: 56px;
+    font-size: 24px;
+    font-family: alisans;
+}
+
+.pdf-box {
+    max-width: 1140px;
+    margin: 0 auto;
+    border: 1px solid;
+}
+
+.content-center {
+    text-align: center;
+}
+
+.g-header {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.g-header .g-header-box {
+    background: #eee;
+    padding: 12px;
+}
+
+.g-header .g-header-box .g-header-title h3 {
+    font-family: Cinema;
+    font-size: 22px;
+    color: #f11e3c;
+}
+
+.g-header .g-header-box .g-header-title p {
+    font-family: yekan;
+
+}
+
+.g-header .img {
+    text-align: center;
+
+}
+
+.g-chart-bar .img {
+    margin-top: 93px;
+    margin-right: -26px;
+}
+
+.g-header .date {
+    line-height: 37px;
+    font-family: yekan;
+    text-align: center;
+}
+
+.g-chart-bar {
+    margin: 15px;
+
+}
+
+.g-chart-bar h5 {
+    font-family: alisans;
+    color:red;
+
+}
+
+.table-box {
+    margin: 100px;
+}
+
+.table th, .table td {
+    text-align: center;
+    font-family: alisans;
+}
+
+
+.mbti-item .chart-box .chart-center div {
+ /*   background: red;
+    display: inline-block;
+    height: 100%;
+    border: 1px solid #eee;
+    border-radius: 55px;*/
+
+}
+
+
+@media (min-width: 768px) {
+    .g-header .container {
+        max-width: 1010px;
+    }
+}
+
