@@ -18,7 +18,7 @@ class Controller extends BaseController
     function __construct(Request $request)
     {
         // نام اپ
-        $option = Options::where('type',5)->first();
+        $option = Options::where('id',5)->first();
         $this->appname = $option->vlaue;
         // نسخه اپ دانش آموز
         $this->VersionStu = 8;
