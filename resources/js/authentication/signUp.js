@@ -1,11 +1,10 @@
 import {useState} from 'react';
 import {Card,Form,Row,Column} from 'react-bootstrap';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+import {Step,StepLabel,Stepper} from '@mui/material';
 import UserDetails from 'steps/UserDetails';
 import Confirmation from 'steps/Confirmation';
 import PersonalDetails from 'steps/PersonalDetails';
+import useValidation from 'useValidation';
 
 const signUp = () =>{
 
