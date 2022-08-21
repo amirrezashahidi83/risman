@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exam_files', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string("file");
-            $table->foreignId("exam_id")->references("id")->on("exams");
-            $table->string("profilePic");
+            $table->string('name');
+            $table->string('password');
+            $table->string('nationalCode');
+            $table->char('phoneNumber');
+            $table->string('profilePic');
+            $table->integer("status");
+            $table->foreignId("counselor_id")->references("id")->on("counselors");
             $table->timestamp('created_at')->useCurrent();
         });
     }
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("exam_files");
+        Schema::dropIfExists('students');
     }
 };

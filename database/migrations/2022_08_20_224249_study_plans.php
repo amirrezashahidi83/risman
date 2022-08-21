@@ -18,9 +18,8 @@ return new class extends Migration
             $table->datetime("study_time");
             $table->datetime("test_time");
             $table->integer("test_count");
-            $table->foreign("lesson_id")->references("id")->on("lessons");
-            $table->integer('student_id');
-            $table->foreign('student_id')->references("id")->on("students");
+            $table->foreignId("topic_id")->references("id")->on("lessons");
+            $table->foreignId('student_id')->references("id")->on("students");
             $table->timestamp('created_at')->useCurrent();
         });
     }
