@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch,Routes } from 'react-router-dom';
 import {routes} from './routes.js';
-
 function App(){
 	return(
 		<div>
 			<BrowserRouter>
-				{routes.map((route) =>
-					<Route key={route.name} element={route.element} />
-				)}
+				<Routes>
+					{routes.map((route) =>
+						<Route key={route.path} path={route.path} element={route.element} />
+					)}
+				</Routes>
 			</BrowserRouter>
 		</div>
 		);

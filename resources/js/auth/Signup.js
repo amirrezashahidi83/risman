@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import {Card,Form,Row,Column} from 'react-bootstrap';
 import {Step,StepLabel,Stepper} from '@mui/material';
-import UserDetails from 'steps/UserDetails';
-import Confirmation from 'steps/Confirmation';
-import PersonalDetails from 'steps/PersonalDetails';
-import useValidation from 'useValidation';
+import UserDetails from './steps/Userdetails';
+import Confirmation from './steps/Confirmation';
+import PersonalDetails from './steps/Personaldetails';
+import useValidation from './validation';
 
 const signUp = () =>{
 
@@ -14,7 +14,7 @@ const signUp = () =>{
 		setStep((prevStep) => step - 1);
 	}
 
-	const PrevStep = ()=>{
+	const NextStep = ()=>{
 		setStep((prevStep) => step + 1);
 	}
 

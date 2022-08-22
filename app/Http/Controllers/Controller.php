@@ -18,8 +18,7 @@ class Controller extends BaseController
     function __construct(Request $request)
     {
         // نام اپ
-        $option = Options::where('id',5)->first();
-        $this->appname = $option->vlaue;
+        $this->appname = "";
         // نسخه اپ دانش آموز
         $this->VersionStu = 8;
         $this->UrlVersionStu = 'https://rismanapp.ir/risman_student_8.apk';

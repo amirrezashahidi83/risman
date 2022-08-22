@@ -16,3 +16,111 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+    Route::post('/mobile', 'ApiController@mobile');
+    Route::post('/ok_code', 'ApiController@ok_code');
+    Route::post('/register', 'ApiController@register');
+    Route::post('/get_home', 'ApiController@get_home');
+    Route::post('/edu_plan', 'ApiController@edu_plan');
+    Route::post('/send_edu', 'ApiController@send_edu');
+    Route::post('/get_edu', 'ApiController@get_edu');
+    Route::post('/get_planing', 'ApiController@get_planing');
+    Route::post('/get_plan_stu', 'ApiController@get_plan_stu');
+    Route::post('/check_pass', 'ApiController@check_pass');
+    Route::get('/test', 'ApiController@test');
+    Route::post('/all_week', 'ApiController@all_week');
+    Route::post('/get_day_week', 'ApiController@get_day_week');
+    Route::post('/get_day_week_mosh', 'ApiController@get_day_week_mosh');
+    Route::post('/get_status', 'ApiController@get_status');
+    Route::post('/send_plan_stu', 'ApiController@send_plan_stu');
+    Route::post('/get_profile', 'ApiController@get_profile');
+    Route::post('/show_planing', 'ApiController@show_planing');
+    Route::post('/report_time_study', 'ApiController@report_time_study');
+    Route::post('/report_time_study_mosh', 'ApiController@report_time_study_mosh');
+    Route::post('/all_day_between', 'ApiController@all_day_between');
+    Route::post('/all_day_between_mosh', 'ApiController@all_day_between_mosh');
+    Route::post('/show_price', 'ApiController@show_price');
+    Route::post('/get_chat', 'ApiController@get_chat');
+    Route::post('/send_chat', 'ApiController@send_chat');
+    Route::post('/transaction', 'ApiController@transaction');
+    Route::get('/pay/{token}/{price}', 'ApiController@pay');
+    // Route::get('/pay/{token}/{price}','AdminController@pay');
+    Route::get('/buyback','ApiController@buyback');
+    Route::get('/backapp','ApiController@backapp');
+    Route::post('/get_plannig_list','ApiController@get_plannig_list');
+    Route::post('/forgetPassword','ApiController@forgetPassword');
+    Route::post('/checkDisposablePassword','ApiController@checkDisposablePassword');
+    Route::post('/chengePassword','ApiController@chengePassword');
+    // -------------------------------------- moshaver ----------------
+    Route::post('/get_stu_mosh','ApiController@get_stu_mosh');
+    Route::post('/show_all_message','ApiController@show_all_message');
+    Route::post('/show_pv','ApiController@show_pv');
+    Route::post('/send_pv','ApiController@send_pv');
+    Route::post('/request_planning','ApiController@request_planning');
+    Route::post('/reject_request','ApiController@reject_request');
+    Route::post('/accept_request','ApiController@accept_request');
+    Route::post('/get_data_planing','ApiController@get_data_planing');
+
+    Route::post('/create_plan','ApiController@create_plan');
+    
+    Route::post('/student_mosh','ApiController@student_mosh');
+    Route::post('/add_groups','ApiController@add_groups');
+    Route::post('/show_groups','ApiController@show_groups');
+    Route::post('/stu_group','ApiController@stu_group');
+    Route::post('/del_group','ApiController@del_group');
+    Route::post('/edit_group','ApiController@edit_group');
+    Route::post('/edit_stu_group','ApiController@edit_stu_group');
+    Route::get('/VersionStu','ApiController@VersionStu');
+    Route::get('/VersionMOsh','ApiController@VersionMOsh');
+    Route::post('/sendPushNotification','ApiController@sendPushNotification');
+    Route::post('/spn','ApiController@spn');
+    Route::post('/GetNumChatStu','ApiController@GetNumChatStu');
+    Route::post('/GetNumChatMosh','ApiController@GetNumChatMosh');
+    Route::post('/detail_report','ApiController@detail_report')->middleware(CheckUser::class);
+    Route::get('/chart_report/{stu_id}/{week_id}','ApiController@chart_report');
+    Route::post('/detail_report_mosh','ApiController@detail_report_mosh');
+    // ----------MoshController
+    Route::post('/get_ms_mosh','MoshController@get_ms_mosh');
+    Route::post('/get_automati_message','MoshController@get_automati_message');
+    Route::post('/send_automati_message','MoshController@send_automati_message');
+    Route::post('/switch_auto','MoshController@switch_auto');
+    Route::post('/mobile_mosh','MoshController@mobile_mosh');
+    Route::post('/ok_code_mosh','MoshController@ok_code_mosh');
+    Route::post('/register_mosh','MoshController@register_mosh');
+    Route::post('/check_pass_mosh','MoshController@check_pass_mosh');
+    Route::post('/all_users_mosh','MoshController@all_users_mosh');
+    Route::post('/ms_edit','MoshController@ms_edit');
+    Route::post('/upload_image_slider','MoshController@UploadImageSlider');
+    Route::post('/RemoveImageSlider','MoshController@RemoveImageSlider');
+    Route::post('/moshTransaction','MoshController@moshTransaction');
+    Route::post('/getlesson','MoshController@getlesson');
+    // ----------CodeController
+    Route::get('/payCode/{mobile}/{PriceSymbol}','CodeController@payCode');
+    Route::get('/payback','CodeController@payback');
+    Route::get('/paybit/{mobile}/{PriceSymbol}','CodeController@payCode');
+    // Route::get('/paybit/{mobile}/{PriceSymbol}','AdminController@paybit');
+    Route::get('/backbit','CodeController@payback');
+    // ----------FirebaseController
+    Route::post('/SetTokenFirebaseStu','FirebaseController@SetTokenFirebaseStu');
+    Route::post('/SetTokenFirebaseMosh','FirebaseController@SetTokenFirebaseMosh');
+    // ----------ChatController
+    Route::post('/GroupChat','ChatController@GroupChat');
+    Route::post('/deleteChat','ChatController@deleteChat');
+
+    // test controller
+    Route::middleware([CheckUser::class])->group(function(){
+        Route::post('/test/list','TestController@list');
+        Route::post('/test/get','TestController@get');
+        Route::post('/test/send','TestController@send');
+        
+    });
+    Route::post('/test/history','TestController@history');
+
+    Route::get('/test/{testKey}','TestController@testView');
+    Route::get('/test_api/{testKey}','TestController@testApi');
+
+    // reportApiController
+    Route::post('/report2weekly','reportApiController@report2weekly');
+    Route::post('/excelReport2weekly','reportApiController@excelReport2weekly');
+    Route::post('/compare_students','reportApiController@compare_students');
+
