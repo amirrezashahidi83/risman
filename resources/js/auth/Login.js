@@ -2,15 +2,17 @@ import {useState} from 'react';
 
 import {Card,Form,Row,Col,Container,Button,InputGroup} from 'react-bootstrap';
 import useValidation from './validation';
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+import useConfirmModal from './signup/ConfirmModal';
 
-const SignIn = () =>{
+const Login = () =>{
+
+	const [show,setShow,ConfirmModal] = useConfirmModal();
 
 	return (
 		<Container>
 			<Row className='d-flex justify-content-center pt-5'>
 				<Col className='col-md-4 col-8'>
+				{show ? ConfirmModal   : <div></div>}
 				<Form>
 					<Card>
 						<Card.Header className='text-center'>
@@ -35,10 +37,8 @@ const SignIn = () =>{
 							</div>
 							
 							<Button className='w-100 mt-4' size="lg">ورود</Button>
+							<Button className='w-100 mt-2' size="lg" onClick={setShow}>ثبت نام</Button>
 						</Card.Body>
-						<Card.Footer className='text-center'>
-							<Card.Link href="">ثبت نام</Card.Link>
-						</Card.Footer>
 					</Card>
 				</Form>
 				</Col>
@@ -46,4 +46,4 @@ const SignIn = () =>{
 		</Container>
 		);	
 }
-export default SignIn;
+export default Login;

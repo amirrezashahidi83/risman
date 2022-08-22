@@ -1,14 +1,9 @@
-import SignUp from './auth/Signup';
-import SignIn from './auth/Signin';
+import Login from './auth/Login';
 export const routes = [
 
 	{
-		path:'/user/signUp',
-		element:<SignUp />
-	},
-	{
-		path:'/user/signIn',
-		element:<SignIn />
+		path:'/user/login',
+		element:<Login />
 
 	}
 ]
