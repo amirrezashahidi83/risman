@@ -13,7 +13,7 @@ export const student_nav = [
       {
         component: CNavItem,
         name: 'لیست مشاوران',
-        to: '/my_counselor/find'
+        to: '/counselors/'
       },
       
       {
