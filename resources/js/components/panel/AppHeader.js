@@ -1,6 +1,5 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { NavLink } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
 import {
   CContainer,
   CHeader,
@@ -9,58 +8,43 @@ import {
   CHeaderNav,
   CHeaderToggler,
   CNavLink,
-  CNavItem,
-} from '@coreui/react'
+  CNavItem
+  } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
+import PaidTwoToneIcon from '@mui/icons-material/Paid';
 
-import { AppBreadcrumb } from './index'
+import { useSelector, useDispatch } from 'react-redux'
+
 import { AppHeaderDropdown } from './header/index'
-import { logo } from 'src/assets/brand/logo'
 
 const AppHeader = () => {
+
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
+
 
   return (
     <CHeader position="sticky" className="mb-4">
       <CContainer fluid>
         <CHeaderToggler
           className="ps-1"
-          onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
-        >
+          onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })
+        }
+                  >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
         <CHeaderBrand className="mx-auto d-md-none" to="/">
-          <CIcon icon={logo} height={48} alt="Logo" />
+          <CIcon  height={48} alt="Logo" />
         </CHeaderBrand>
         <CHeaderNav className="d-none d-md-flex me-auto">
-          <CNavItem>
-            <CNavLink to="/dashboard" component={NavLink}>
-              Dashboard
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Users</CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Settings</CNavLink>
-          </CNavItem>
         </CHeaderNav>
-        <CHeaderNav>
+        <CHeaderNav >
           <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilBell} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilList} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilEnvelopeOpen} size="lg" />
+            <CNavLink href="#" className='bg-warning rounded p-2'>
+              <small>1232312</small>
+              <span></span>
+              <PaidTwoToneIcon fontSize='medium'/> 
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
@@ -69,9 +53,6 @@ const AppHeader = () => {
         </CHeaderNav>
       </CContainer>
       <CHeaderDivider />
-      <CContainer fluid>
-        <AppBreadcrumb />
-      </CContainer>
     </CHeader>
   )
 }

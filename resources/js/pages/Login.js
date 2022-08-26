@@ -1,15 +1,16 @@
 import {useState} from 'react';
 
 import {Card,Form,Row,Col,Container,Button,InputGroup} from 'react-bootstrap';
-import useValidation from './validation';
-import useConfirmModal from './signup/ConfirmModal';
+import useValidation from '../components/auth/validation';
+import useConfirmModal from '../components/auth/signup/ConfirmModal';
+import KeyIcon from '@mui/icons-material/Key';
 
 const Login = () =>{
 
 	const [show,setShow,ConfirmModal] = useConfirmModal();
 
 	return (
-		<Container>
+		<Container dir='ltr'>
 			<Row className='d-flex justify-content-center pt-5'>
 				<Col className='col-md-4 col-8'>
 				{show ? ConfirmModal   : <div></div>}
@@ -25,9 +26,10 @@ const Login = () =>{
 								<InputGroup.Text>+98</InputGroup.Text>
 								<Form.Control type='tel'/>
 							</InputGroup>
-
-							<Form.Control className='mt-3' type='password'/>
-
+							<InputGroup className='mt-3'>
+								<InputGroup.Text> <KeyIcon /> </InputGroup.Text>
+								<Form.Control type='password'/>
+							</InputGroup>
 							<div className='mt-4 text-end'>
 								<Card.Link href="#">رمز عبور خود را فراموش کرده اید؟</Card.Link>
 								<Form.Check className='mt-3' reverse>

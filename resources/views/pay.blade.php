@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html dir='rtl'>
 
 <head>
     <title>پرداخت</title>

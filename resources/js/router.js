@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch,Routes } from 'react-router-dom';
 import {routes} from './routes.js';
+import { Provider } from 'react-redux'
+import store from './store'
 function App(){
 	return(
 		<div>
+			<Provider store={store}>
 			<BrowserRouter>
 				<Routes>
 					{routes.map((route) =>
@@ -12,6 +15,7 @@ function App(){
 					)}
 				</Routes>
 			</BrowserRouter>
+			</Provider>
 		</div>
 		);
 

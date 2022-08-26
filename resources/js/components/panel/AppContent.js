@@ -3,9 +3,15 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
-import routes from '../routes'
+import {student_routes,counselor_routes} from './panel_routes.js'
 
 const AppContent = () => {
+  let role = window.location.href.split("/")[3];
+  
+  let routes = student_routes;
+  if(role == "counselor")
+    routes = counselor_routes;
+
   return (
     <CContainer lg>
       <Suspense fallback={<CSpinner color="primary" />}>
@@ -16,9 +22,7 @@ const AppContent = () => {
                 <Route
                   key={idx}
                   path={route.path}
-                  exact={route.exact}
-                  name={route.name}
-                  element={<route.element />}
+                  element={route.element}
                 />
               )
             )

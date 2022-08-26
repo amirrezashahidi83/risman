@@ -14,7 +14,7 @@ use App\Http\Middleware\CheckUser;
 use App\Http\Middleware\Admin;
 
 
-Route::view("/user/{path?}/{path2?}",'user');
+Route::view("/{path?}/{path2?}",'user');
 
 Route::group(['prefix' => 'admin'], function () {
 
