@@ -1,22 +1,9 @@
-import {CTable,CTableBody,CTableHead,CTableRow,CTableHeaderCell,CTableDataCell} from '@coreui/react';
+import {CTable,CTableBody,CTableHead,CTableRow,CTableHeaderCell,
+  CTableDataCell,CCard,CCardBody} from '@coreui/react';
 
 const StudyTable = ()=>{
 	return(
 <CTable>
-
-  <CTableHead>
-
-    <CTableRow>
-
-      <CTableHeaderCell scope="col">Class</CTableHeaderCell>
-
-      <CTableHeaderCell scope="col">Heading</CTableHeaderCell>
-
-      <CTableHeaderCell scope="col">Heading</CTableHeaderCell>
-
-    </CTableRow>
-
-  </CTableHead>
 
   <CTableBody>
 
