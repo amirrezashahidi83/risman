@@ -3,6 +3,7 @@ import StudentDashboard from './student/Dashboard';
 import CounselorsList from './student/CounselorsList';
 import CounselorsProfile from './student/CounselorsProfile';
 import ReportStudy from './student/ReportStudy';
+import AnalysisExam from './student/AnalysisExam';
 import CounselorDashboard from './counselor/Dashboard';
 export const student_routes = [
 	{
@@ -18,10 +19,13 @@ export const student_routes = [
 		element: <CounselorsProfile />
 	},
 	{
-		path:'/mycounselor/reportstudy',
+		path: '/mycounselor/reportstudy',
 		element: <ReportStudy />
 	},
-	{}
+	{
+		path: '/analysis_exam',
+		element: <AnalysisExam />
+	}
 
 ]
 

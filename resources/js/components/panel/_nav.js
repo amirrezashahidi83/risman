@@ -131,6 +131,11 @@ export const counselor_nav = [
     name: 'مالی',
     icon: <AccountBalanceWallet />,
     items:[
+      {
+        component: CNavItem,
+        name: 'کیف پول',
+        to: '/wallet'
+      }
     ]
   },
   {

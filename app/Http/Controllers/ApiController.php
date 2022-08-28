@@ -10,7 +10,7 @@ use App\group_stu;
 use App\Lesson;
 use App\Mosh;
 use App\Sms;
-use App\Stu;
+use App\Student;
 use App\Options;
 use App\Planing;
 use App\Transaction;
@@ -39,27 +39,26 @@ class ApiController extends Controller
     public function mobile(Request $request)
     {
         $mobile = $request->mobile;
-        $stu = Stu::where('mobile', $mobile)->first();
+        $stu = Student::where('phoneNumber', $mobile)->first();
         // شماره وجود داشته
         if ($stu) {
-            return response()->json(['status' => $stu->status, 'stu_id' => $stu->id]);
+            return response()->json(['status' => $stu->status, 'student_id' => $stu->id]);
         }
         // شماره وجود نداشته یعنی ثبت نام
         else {
-            $new_stu = new Stu;
-            $new_stu->mobile = $mobile;
+            $new_stu = new Student;
+            $new_stu->phoneNumber = $mobile;
             $new_stu->status = 0;
-            $new_stu->time_added = time();
             if ($new_stu->save()) {
-                return response()->json(['status' => 0, 'stu_id' => $new_stu->id]);
+                return response()->json(['status' => 0, 'student_id' => $new_stu->id]);
             }
         }
     }
     public function check_pass(Request $request)
     {
         // return response()->json($request->mobile);
-        $mobile = $request->mobile;
-        $stu = Stu::where('mobile', $mobile)->where('pass', $request->pass)->first();
+        $mobile = $request->phoneNumber;
+        $stu = Student::where('phoneNumber', $mobile)->where('password', $request->pass)->first();
         if ($stu) {
             return response()->json(['type' => 1, 'stu_id' => $stu->id]);
         } else {
