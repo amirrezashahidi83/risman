@@ -6,6 +6,8 @@ import ReportStudy from './student/ReportStudy';
 import AnalysisExam from './student/AnalysisExam';
 import NewTest from './student/NewTest';
 import CounselorDashboard from './counselor/Dashboard';
+import Wallet from './student/Wallet';
+
 export const student_routes = [
 	{
 		path: '/dashboard',
@@ -30,6 +32,10 @@ export const student_routes = [
 	{
 		path: '/test',
 		element: <NewTest />
+	},
+	{
+		path: '/wallet',
+		element: <Wallet />
 	}
 
 ]
