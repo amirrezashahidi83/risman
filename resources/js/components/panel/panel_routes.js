@@ -4,6 +4,7 @@ import CounselorsList from './student/CounselorsList';
 import CounselorsProfile from './student/CounselorsProfile';
 import ReportStudy from './student/ReportStudy';
 import AnalysisExam from './student/AnalysisExam';
+import NewTest from './student/NewTest';
 import CounselorDashboard from './counselor/Dashboard';
 export const student_routes = [
 	{
@@ -25,6 +26,10 @@ export const student_routes = [
 	{
 		path: '/analysis_exam',
 		element: <AnalysisExam />
+	},
+	{
+		path: '/test',
+		element: <NewTest />
 	}
 
 ]
