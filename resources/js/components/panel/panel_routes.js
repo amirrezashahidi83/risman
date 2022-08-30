@@ -7,6 +7,7 @@ import AnalysisExam from './student/AnalysisExam';
 import NewTest from './student/NewTest';
 import CounselorDashboard from './counselor/Dashboard';
 import Wallet from './student/Wallet';
+import Settings from './Settings';
 
 export const student_routes = [
 	{
@@ -36,6 +37,10 @@ export const student_routes = [
 	{
 		path: '/wallet',
 		element: <Wallet />
+	},
+	{
+		path:'/settings',
+		element: <Settings />
 	}
 
 ]
@@ -44,5 +49,13 @@ export const counselor_routes = [
 	{
 		path: '/dashboard',
 		element: <CounselorDashboard />
+	},
+	{
+		path: '/wallet',
+		element: <Wallet />
+	},
+	{
+		path: '/settings',
+		element: <Settings />
 	}
 ]

@@ -1,4 +1,5 @@
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Panel from './pages/Panel';
 export const routes = [
 
@@ -7,10 +8,17 @@ export const routes = [
 		element: <Login />
 
 	},
+
+	{
+		path: '/register',
+		element: <Register />
+	},
+
 	{
 		path: '/student/*',
 		element: <Panel />
 	},
+
 	{
 		path: '/counselor/*',
 		element: <Panel />
