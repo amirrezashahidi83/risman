@@ -20,12 +20,13 @@ class LessonController extends Controller
     	$lesson = new Lesson();
     	$lesson->title = $title;
     	$lesson->grade = $grade;
+        $lesson->major = $major;
 
     	return response()->json($lesson->save(),200)
     }
 
-    public function getLessons($grade){
-    	$lessons = Lesson::where('grade',$grade)->get();
+    public function getAll($grade,$major){
+    	$lessons = Lesson::where('grade',$grade)->where('major',$major)->get();
 
     	return response()->json($lessons,200);
     }

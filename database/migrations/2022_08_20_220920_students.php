@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->integer('major');
+            $table->integer('grade');
             $table->integer("status");
             $table->foreignId('plan_id')->references('id')->on('counselor_plans');
             $table->foreignId('schedule_id')->references("id")->on("school_schedules");

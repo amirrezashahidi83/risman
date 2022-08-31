@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        Schema::create('psycho_tests', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('grade');
-            $table->integer('major');
+            $table->string('name');
+            $table->integer('price');
+            $table->integer('count');
+            $table->integer('answers_count');
+            $table->string('description');
             $table->timestamp('created_at')->useCurrent();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('psycho_tests');
     }
 };

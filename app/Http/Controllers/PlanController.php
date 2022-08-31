@@ -27,7 +27,7 @@ class PlanController extends Controller
     	return response()->json([$result],200);
     }
 
-    public function getPlanByStudent($student_id){
+    public function getByStudent($student_id){
 
     	$plan_id = Student::where('id',$student_id)->first()->$plan_id;
 
@@ -36,13 +36,13 @@ class PlanController extends Controller
     	],200);
     }
 
-    public function getPlansByCounselor($counselor_id){
+    public function getByCounselor($counselor_id){
 
     	$plans = Plan::where('counselor_id',$counselor_id)->get();
     	return response()->json([$plans],200);
     }
 
-    public function comparePlan(Request $request){
+    public function compare(Request $request){
 
     }
 }
