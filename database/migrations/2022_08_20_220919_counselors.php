@@ -15,14 +15,10 @@ return new class extends Migration
     {
         Schema::create('counselors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('password');
-            $table->string('nationalCode');
-            $table->char('phoneNumber');
-            $table->string('profilePic');
             $table->string('logo');
             $table->string("message");
             $table->integer("status");
+            $table->foreignId("user_id")->references("id")->on("users");
             $table->timestamp('created_at')->useCurrent();
         });
     }

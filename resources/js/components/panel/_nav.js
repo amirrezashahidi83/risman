@@ -1,10 +1,18 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {Person,BackupTable,AccountBalanceWallet,Psychology,
-  Assessment,Forum,AddToPhotos} from '@mui/icons-material';
+  Assessment,Forum,AddToPhotos,Dashboard} from '@mui/icons-material';
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 export const student_nav = [
+  
+  {
+    component: CNavItem,
+    name: 'داشبورد',
+    to: '/dashboard',
+    icon: <Dashboard />
+  },
+
   {
     component: CNavGroup,
     name: ' مشاور',
@@ -83,11 +91,17 @@ export const student_nav = [
     name: 'چت روم',
     to: '/chatroom',
     icon: <Forum />
-  }
+  },
 ]
 
 export const counselor_nav = [
   
+  {
+    component: CNavItem,
+    name: 'داشبورد',
+    icon: <Dashboard />
+  },
+
   {
     component: CNavGroup,
     name: 'دانش آموزان من',
