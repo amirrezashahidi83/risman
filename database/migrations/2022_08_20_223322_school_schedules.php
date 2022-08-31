@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer("day");
             $table->integer("part");
             $table->foreignId("lesson_id")->references("id")->on("lessons");
-            $table->foreignId('student_id')->references("id")->on("students");
             $table->timestamp('created_at')->useCurrent();
         });
     }
