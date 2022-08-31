@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->integer('grade');
             $table->timestamp('created_at')->useCurrent();
         });
     }
