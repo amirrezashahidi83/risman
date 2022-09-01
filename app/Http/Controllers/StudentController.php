@@ -9,4 +9,14 @@ class StudentController extends Controller
     public function index($id){
     	return Student::where('id',$id)->first();
     }
+
+    public function update(Request $request){
+
+    }
+    
+    public function getByCounselor($counselor_id){
+
+    }
+
+
 }

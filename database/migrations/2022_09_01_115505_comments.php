@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('counselors', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('logo');
-            $table->string("message");
-            $table->text("resume");
-            $table->integer("rating");
-            $table->integer("status");
-            $table->foreignId("user_id")->references("id")->on("users");
+            $table->text("comment");
+            $table->string('type');
+            $table->integer('rating');
+            $table->foreignId('counselor_id')->references('id')->on('counselors');
+            $table->foreignId("student_id")->references("id")->on("students");
             $table->timestamp('created_at')->useCurrent();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('counselors');
+        Schema::dropIfExists('comments');
     }
 };
