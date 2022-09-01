@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Plan;
+use App\Models\CounselorPlan;
+use App\Models\StudyPlan;
 use App\Models\Student;
 
 class PlanController extends Controller
