@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->text("comment");
+            $table->text("text");
             $table->string('type');
             $table->integer('rating');
             $table->foreignId('counselor_id')->references('id')->on('counselors');
