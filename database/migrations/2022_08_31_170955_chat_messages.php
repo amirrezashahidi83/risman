@@ -19,8 +19,9 @@ return new class extends Migration
             $table->integer('status');
             $table->json("media")->nullable();
             $table->json("attachment")->nullable();
+            $table->foreignId("reply_to")->references("id")->on("users")->nullable();
             $table->foreignId("sender_id")->references("id")->on("users");
-            $table->foreignId("reciever_id")->references("id")->on("chat_members");
+            $table->foreignId("chat_id")->references("id")->on("chats");
             $table->timestamp('created_at')->useCurrent();
         });
     }

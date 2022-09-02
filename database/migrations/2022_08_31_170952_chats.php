@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
             $table->text("title");
-            $table->string('profilePic');
+            $table->string('profilePic')->nullable();
+            $table->json('members');
+            $table->foreignId('creator_id')->references('id')->on('users');
             $table->timestamp('created_at')->useCurrent();
         });
     }
