@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\DailyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,6 +13,17 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
+Route::group(['prefix' => 'student'],function (){
+
+    Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
+
+});
+
+Route::group(['prefix' => 'counselor'],function() {
+
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

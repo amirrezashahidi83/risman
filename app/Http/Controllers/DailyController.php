@@ -33,7 +33,7 @@ class DailyController extends Controller
 		return response()->json($daily->save(),200);
 	}
 
-	public function getLastMessage(Request $request){
+	public function getLastMessage($counselor_id){
 		$counselor_id = $request->counselor_id;
 
 		$daily = Daily::where('counselor_id',$counselor_id)->where('type',0)->orderByDesc('id')->first();

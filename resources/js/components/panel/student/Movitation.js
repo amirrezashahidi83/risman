@@ -1,13 +1,15 @@
 import {useState,useEffect} from 'react';
 import {Modal,Image,Button} from 'react-bootstrap';
 
-const Movitation = ()=>{
+const Movitation = ({counselor_id})=>{
 
 	const [show,setShow] = useState(true);
 	const [image,setImage] = useState("")
 
 	useEffect(()=>{
-		setImage("/images/1592061084.jpg");
+		axios.get('/api/student/getDailyPicture'+counselor_id,function(response){
+			setImage(response.data.picture);
+		});
 	},[]);
 
 	return(

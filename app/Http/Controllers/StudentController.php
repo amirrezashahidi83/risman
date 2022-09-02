@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\User;
-
+use App\Helper\Wallet;
 class StudentController extends Controller
 {
     public function index($id){
@@ -29,6 +29,15 @@ class StudentController extends Controller
     	$students = Student::where('counselor_id',$counselor_id)->get();
 
     	return response()->json($students,200);
+    }
+
+    public function accept($student_id){
+        $result = Student::where('id',$student_id)->update(['status' => 1]) == 1;
+        return response()->json($result,200);
+    }
+
+    public function requestAccept($student_id){
+        Wallet::buy()
     }
 
 
