@@ -163,7 +163,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-
+        Shetabit\Payment\Provider\PaymentServiceProvider::class,
     ],
 
     /*
@@ -216,6 +216,7 @@ return [
         // 'PDF' => Barryvdh\DomPDF\Facade::class,
         'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Payment' => Shetabit\Payment\Facade\Payment::class,
     ],
 
 ];

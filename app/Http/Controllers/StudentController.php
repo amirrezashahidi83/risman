@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\User;
+
 class StudentController extends Controller
 {
     public function index($id){
@@ -11,11 +13,22 @@ class StudentController extends Controller
     }
 
     public function update(Request $request){
+    	$student_data = $request->studentData;
+    	$user_data = $request->userData;
+    	$student_id = $request->studentId;
 
+    	$student = Student::where('id',$student_id)->first();
+    	$user = User::where('id',$student->user_id)->first();
+
+    	$result = $student->update($student_data) == 1 &&  $user->update($user_data) == 1;
+
+    	return response()->json($result,200);
     }
     
     public function getByCounselor($counselor_id){
+    	$students = Student::where('counselor_id',$counselor_id)->get();
 
+    	return response()->json($students,200);
     }
 
 

@@ -11,6 +11,8 @@ class RequestController extends Controller
     }
 
     public function store(Request $request){
-    	
+
     }
+
+    
 }

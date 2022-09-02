@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('displayname');
             $table->string('username');
             $table->string('password');
+            $table->string('merchant_id');
             $table->timestamp('created_at')->useCurrent();
         });
     }

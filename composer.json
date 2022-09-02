@@ -30,6 +30,9 @@
             "App\\": "app/"
         }
     },
+    "files": [
+        "app/Helper/Wallet.php"
+    ],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"

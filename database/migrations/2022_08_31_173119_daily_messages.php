@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('daily_messages', function (Blueprint $table) {
             $table->id();
-            $table->text("text");
-            $table->string('picture');
+            $table->integer('type');
+            $table->text("text")->nullable();
+            $table->string('picture')->nullable();
             $table->foreignId("counselor_id")->references("id")->on("counselors");
             $table->timestamp('created_at')->useCurrent();
         });
