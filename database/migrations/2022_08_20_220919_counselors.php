@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text("resume");
             $table->integer("rating");
             $table->integer("status");
+            $table->json("working_times");
             $table->foreignId("user_id")->references("id")->on("users");
             $table->timestamp('created_at')->useCurrent();
         });

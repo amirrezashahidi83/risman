@@ -43,7 +43,4 @@ class PlanController extends Controller
     	return response()->json([$plans],200);
     }
 
-    public function compare(Request $request){
-
-    }
 }

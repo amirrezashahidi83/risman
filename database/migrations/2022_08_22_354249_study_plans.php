@@ -15,11 +15,7 @@ return new class extends Migration
     {
         Schema::create('study_plans', function (Blueprint $table) {
             $table->id();
-            $table->datetime("study_time");
-            $table->datetime("test_time");
-            $table->integer("test_count");
-            $table->foreignId("lesson_id")->references("id")->on("lessons");
-            $table->foreignId("topic_id")->references("id")->on("topics");
+            $table->json('data');
             $table->foreignId('student_id')->references("id")->on("students");
             $table->timestamp('created_at')->useCurrent();
         });
