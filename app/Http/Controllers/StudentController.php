@@ -38,11 +38,19 @@ class StudentController extends Controller
         return response()->json($result,200);
     }
 
-    public function requestAccept($student_id){
+    public function requestAccept(Request $request){
+        
+        $student_id = $request->student_id;
         $app_price = Option::where('app_price')->first()->value;
         Wallet::buy($app_price,$student_id);
 
         
+    }
+
+    public function checkStatus($student_id){
+        return response()->json(
+            Student::where('id',$student_id)->first()->status
+            ,200);
     }
 
 
