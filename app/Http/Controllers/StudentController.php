@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\User;
 use App\Helper\Wallet;
+use App\Models\Option;
+
 class StudentController extends Controller
 {
     public function index($id){
@@ -37,7 +39,10 @@ class StudentController extends Controller
     }
 
     public function requestAccept($student_id){
-        Wallet::buy()
+        $app_price = Option::where('app_price')->first()->value;
+        Wallet::buy($app_price,$student_id);
+
+        
     }
 
 

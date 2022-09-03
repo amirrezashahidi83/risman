@@ -6,7 +6,7 @@
 	use App\Models\Admin;
 
 	public function getMoney($user_id){
-
+        return User::where('id',$user_id)->balance;
 	}
 
 	public function charge($amount,$user_id){
@@ -41,6 +41,14 @@
 	}
 
 	public function buy($amount,$user_id){
+        if( $amount > getMoney() )
+            return;
+
+        $user = User::where('id',$user_id)->first();
+
+        $user->balance -= $amount;
+
+        return $user->save() == 1;
 
 	}
 
