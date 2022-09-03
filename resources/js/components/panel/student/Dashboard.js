@@ -1,15 +1,14 @@
 import React from 'react';
 import {CContainer,CRow,CCol} from '@coreui/react';
-import Movitation from './Movitation';
-import StudyTable from './StudyTable';
+import Daily from './Daily';
 
 const Dashboard = ()=>{
   return(
     <>
-      <Movitation />
+      <Daily />
       <CRow>
         <CCol>
-          <StudyTable />
+
         </CCol>
         <CCol>
         </CCol>

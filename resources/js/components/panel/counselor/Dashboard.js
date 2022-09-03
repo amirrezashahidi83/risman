@@ -1,15 +1,18 @@
 import React from 'react';
 import {CContainer,CRow,CCol} from '@coreui/react';
-import Movitation from './Movitation';
 import StudyTable from './StudyTable';
+import useStudentChooser from './StudentChooser';
 
 const Dashboard = ()=>{
+  const [ModalData,SelectedId] = useStudentChooser();
+
   return(
     <>
-      <Movitation />
       <CRow>
         <CCol>
+          {ModalData}
           <StudyTable />
+          }
         </CCol>
         <CCol>
         </CCol>
