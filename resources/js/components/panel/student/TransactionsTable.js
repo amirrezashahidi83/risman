@@ -7,7 +7,7 @@ const TransactionsTable = ()=>{
 	useEffect(() =>{
 		
 		axios.get("/api/transactions/"+user_id,function(response){
-			setData(response.data);
+			setRows(response.data);
 		});
 
 	});
