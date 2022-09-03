@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('amount');
+            $table->dateTime('expire');
             $table->string("code");
-            $table->timestamp('expire');
             $table->foreignId("user_id")->references("id")->on("users");
             $table->timestamp('created_at')->useCurrent();
         });
