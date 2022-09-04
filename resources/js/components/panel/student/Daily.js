@@ -7,7 +7,8 @@ const Daily = ({counselor_id})=>{
 	const [image,setImage] = useState("")
 
 	useEffect(()=>{
-		axios.get('/api/student/getDailyPicture'+counselor_id,function(response){
+		axios.get('/api/student/getDailyPicture'+counselor_id)
+		.then(function(response){
 			setImage(response.data.picture);
 		});
 	},[]);

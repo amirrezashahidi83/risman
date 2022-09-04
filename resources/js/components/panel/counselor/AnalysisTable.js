@@ -9,7 +9,8 @@ const AnalysisTable = ()=>{
 	const [selected,setSelected] = useState(1);
 	useEffect(() =>{
 		
-		axios.get("/api/counselor/analysises/"+user_id,function(response){
+		axios.get("/api/counselor/analysises/"+user_id)
+		.then(function(response){
 			setExams(response.data);
 		});
 

@@ -11,7 +11,8 @@ const StudyTable = ()=>{
 	
 	useEffect(() =>{
 		
-		axios.get("/api/counselor/studyplans/"+user_id,function(response){
+		axios.get("/api/counselor/studyplans/"+user_id)
+		.then(function(response){
 			setData(response.data);
 		});
 
