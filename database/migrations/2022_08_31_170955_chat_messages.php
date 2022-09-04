@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->text("text");
             $table->integer('status');
-            $table->json("media")->nullable();
+            $table->json("photo")->nullable();
+            $table->json("video")->nullable();
+            $table->json("audio")->nullable();
             $table->json("attachment")->nullable();
             $table->foreignId("reply_to")->references("id")->on("users")->nullable();
             $table->foreignId("sender_id")->references("id")->on("users");
