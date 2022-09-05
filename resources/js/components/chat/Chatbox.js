@@ -12,7 +12,7 @@ const Chatbox = () => {
 			});
 	},[]);
 
-	const dateItem = (message){
+	const dateItem = (message) => {
 		
 		position = message.sender_id == user_id ? 'right' : 'left';
 		title = '';
@@ -36,38 +36,38 @@ const Chatbox = () => {
 
 	let dataSource = messages.map();
 	return(		
-		<Navbar 
-			left=<Row>
-				<Col>
-					<Avatar />
-				</Col>
-				<Col>
+		<>
+			<Navbar 
+				left=<Row>
+					<Col>
+						<Avatar />
+					</Col>
+					<Col>
 
-				</Col>
-			</Row>
+					</Col>
+				</Row>
+			/>
 
-			right=
-		/>
-
-		<MessageList
-		    className='message-list'
-		    lockable={true}
-		    toBottomHeight={'100%'}
-		    dataSource={[
-		    {
-		      position:"left",
-		      type:"text",
-		      title:"Kursat",
-		      text:"Give me a message list example !",
-		    },
-		    {
-		      position:"right",
-		      type:"text",
-		      title:"Emre",
-		      text:"That's all.",
-		    },
-		    ]}
-		/>
+			<MessageList
+			    className='message-list'
+			    lockable={true}
+			    toBottomHeight={'100%'}
+			    dataSource={[
+			    {
+			      position:"left",
+			      type:"text",
+			      title:"Kursat",
+			      text:"Give me a message list example !",
+			    },
+			    {
+			      position:"right",
+			      type:"text",
+			      title:"Emre",
+			      text:"That's all.",
+			    },
+			    ]}
+			/>
+		</>
 	)
 }
 

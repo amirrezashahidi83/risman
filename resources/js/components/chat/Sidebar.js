@@ -12,7 +12,7 @@ const Sidebar = () => {
 		});
 	},[]);
 
-	const chatItem = (chat) {
+	const chatItem = (chat) => {
 		
 	}
 

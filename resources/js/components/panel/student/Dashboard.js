@@ -5,7 +5,7 @@ import Daily from './Daily';
 const Dashboard = ()=>{
   return(
     <>
-      <Daily />
+      
       <CRow>
         <CCol>
 

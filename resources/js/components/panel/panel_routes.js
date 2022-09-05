@@ -8,7 +8,7 @@ import NewTest from './student/NewTest';
 import CounselorDashboard from './counselor/Dashboard';
 import Wallet from './student/Wallet';
 import Settings from './Settings';
-
+import Daily from './counselor/Daily';
 export const student_routes = [
 	{
 		path: '/dashboard',
@@ -57,5 +57,9 @@ export const counselor_routes = [
 	{
 		path: '/settings',
 		element: <Settings />
+	},
+	{
+		path: '/daily',
+		element: <Daily />
 	}
 ]

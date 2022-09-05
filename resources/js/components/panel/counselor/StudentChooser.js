@@ -9,17 +9,18 @@ const useStudentChooser = ()=>{
 	const [selectedId,setSelectedId] = useState(0);
 	
 	useEffect(() => {
-		axios.get('/api/counselor/students/'+counselor_id,
-			function(response){
-				setStudents(response.data);
+		axios.get('/api/counselor/students')
+		.then(function(response){
+			setStudents(response.data);
 		});
-	});
+	},[]);
 
 	const selectStudent = (id) => {
 		setSelectedId(id);
+		setShow(false);
 	}
 
-	const ModalData = (
+	const ModalData = 
 		<Modal show={show}>
 			<Modal.Body>
 				{students.map((student) =>
@@ -31,16 +32,16 @@ const useStudentChooser = ()=>{
 				)}
 			</Modal.Body>
 			<Modal.Footer>
-				<Button onClick={()=>setShow(false)}>
+				<Button onClick={()=>selectStudent(3)}>
 				انتخاب
 				</Button>
 			</Modal.Footer>
 		</Modal>
-		);
+		;
 	
-	return{
+	return[
 		ModalData,
 		selectedId
-	}
+	]
 }
 export default useStudentChooser;
