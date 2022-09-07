@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {CContainer,CRow,CCol} from '@coreui/react';
-import useStudentChooser from './StudentChooser';
+import useStudentChooser from './modals/StudentChooser';
 const Dashboard = ()=>{
 
   const [ModalData,selectedId] = useStudentChooser();

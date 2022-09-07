@@ -1,8 +1,8 @@
-import AppContent from './AppContent'
-import AppFooter from './AppFooter'
-import AppHeader from './AppHeader'
-import AppHeaderDropdown from './header/AppHeaderDropdown'
-import AppSidebar from './AppSidebar'
+import AppContent from './structure/AppContent'
+import AppFooter from './structure/AppFooter'
+import AppHeader from './structure/AppHeader'
+import AppHeaderDropdown from './structure/header/AppHeaderDropdown'
+import AppSidebar from './structure/AppSidebar'
 export {
   AppContent,
   AppFooter,

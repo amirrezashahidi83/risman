@@ -1,6 +1,6 @@
 import React from 'react';
 import {CContainer,CRow,CCol} from '@coreui/react';
-import Daily from './Daily';
+import Daily from './modals/Daily';
 
 const Dashboard = ()=>{
   return(

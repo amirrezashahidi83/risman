@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
-import {student_routes,counselor_routes} from './panel_routes.js'
+import {student_routes,counselor_routes} from '../panel_routes.js'
 
 const AppContent = () => {
   let role = window.location.href.split("/")[3];

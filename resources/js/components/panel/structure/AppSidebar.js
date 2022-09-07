@@ -11,7 +11,7 @@ import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 
 // sidebar nav config
-import {student_nav,counselor_nav} from './_nav'
+import {student_nav,counselor_nav} from '../_nav'
 
 const AppSidebar = () => {
 

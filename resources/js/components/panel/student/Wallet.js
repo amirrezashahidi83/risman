@@ -1,5 +1,5 @@
 import {CCard,CCardBody,CButton,CFormSelect,CRow,CCol} from '@coreui/react';
-import TransactionsTable from './TransactionsTable';
+import TransactionsTable from './tables/TransactionsTable';
 const Wallet = ()=>{
 	return(
 		<CRow>

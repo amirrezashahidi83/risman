@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react';
 import {CCard,CCardBody,CCol,CRow,CButton,CFormInput,CInputGroup,CFormTextarea,CFormLabel
 	} from '@coreui/react';
-import DailiesTable from './DailiesTable';
+import DailiesTable from './tables/DailiesTable';
 
 const Daily = () => {
 	
