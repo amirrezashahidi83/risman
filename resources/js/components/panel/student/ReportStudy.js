@@ -2,6 +2,8 @@ import {useState} from 'react';
 import {CCard,CCardBody,CCardHeader,CForm,CInputGroup
 	,CFormLabel,CFormInput,CFormText,CFormSelect,CRow,CCol,CButton} from '@coreui/react';
 import Select from 'react-select';
+import StudyTable from './tables/StudyTable';
+
 const ReportStudy = ()=>{
 
 	const [lessons,setLessons] = useState([]);
@@ -100,10 +102,13 @@ const ReportStudy = ()=>{
 	</CCol>
 	<CCol>
 		<CCard>
-			<CCardHeader>
-			
-			</CCardHeader>	
 			<CCardBody>
+				<CForm>
+					<StudyTable />
+					<CButton>
+						ثبت برنامه
+					</CButton>
+				</CForm>
 
 			</CCardBody>
 		</CCard>

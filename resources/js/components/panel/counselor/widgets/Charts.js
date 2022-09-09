@@ -34,3 +34,17 @@ export const PieChartWrapper = ({data}) => {
         </PieChart>
 	)
 }
+
+export const ProgressChart = ({student_id}) => {
+
+}
+
+export const LessonsChart = ({student_id}) => {
+
+}
+ 
+export const SingleLessonChart = ({student_id}) => {
+  return(
+
+  )
+}
