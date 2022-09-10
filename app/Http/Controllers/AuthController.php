@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Student;
 use App\Models\Counselor;
 use Kavenegar\KavenegarApi;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -49,8 +50,7 @@ class AuthController extends Controller
 
 	}
 
-	public function acceptCode(Request $request){
-		$phoneNumber = $request->phoneNumber;
+	public function acceptCode($phoneNumber){
 
 		$user = new User();
 		$user->phoneNumber = $phoneNumber;

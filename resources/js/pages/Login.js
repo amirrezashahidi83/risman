@@ -1,20 +1,46 @@
 import {useState} from 'react';
-
+import {useNavigate} from 'react-router-dom';
 import {Card,Form,Row,Col,Container,Button,InputGroup} from 'react-bootstrap';
 import useValidation from '../components/auth/validation';
 import useConfirmModal from '../components/auth/signup/ConfirmModal';
 import KeyIcon from '@mui/icons-material/Key';
-
+import {login as loginAction,useAuthDispatch} from '../Context';
+ 
 const Login = () =>{
 
 	const [show,setShow,ConfirmModal] = useConfirmModal();
+	const [phone,setPhone] = useState('');
+	const [password,setPassword] = useState('');
+	const dispatch = useAuthDispatch();
+	let navigate = useNavigate();
+
+	const checkForm = async (e) => {
+
+		e.preventDefault();
+		let result = await loginAction(dispatch,phone,password);
+
+	}
+
+	const sendCode = () => {
+		axios.get("/api/sendCode/"+phone)
+			.then(function(response){
+
+		});
+	}
+
+	const acceptCode = () => {
+		axios.get("/api/acceptCode/"+phone)
+			.then(function(response){
+				navigate('/register');
+		});
+	}
 
 	return (
 		<Container dir='ltr'>
 			<Row className='d-flex justify-content-center pt-5'>
 				<Col className='col-md-4 col-8'>
 				{show ? ConfirmModal   : <div></div>}
-				<Form>
+				<Form onSubmit={checkForm}>
 					<Card>
 						<Card.Header className='text-center'>
 							<Card.Title>ورود به ریسمان</Card.Title>
@@ -24,11 +50,11 @@ const Login = () =>{
 
 							<InputGroup className='mt-3'>
 								<InputGroup.Text>+98</InputGroup.Text>
-								<Form.Control type='tel'/>
+								<Form.Control type='tel' onChange={(e) => setPhone(e.target.value)} />
 							</InputGroup>
 							<InputGroup className='mt-3'>
 								<InputGroup.Text> <KeyIcon /> </InputGroup.Text>
-								<Form.Control type='password'/>
+								<Form.Control type='password' onChange={(e) =>setPassword(e.target.value)} />
 							</InputGroup>
 							<div className='mt-4 text-end'>
 								<Card.Link href="#">رمز عبور خود را فراموش کرده اید؟</Card.Link>
@@ -38,7 +64,7 @@ const Login = () =>{
 								</Form.Check>
 							</div>
 							
-							<Button className='w-100 mt-4' size="lg">ورود</Button>
+							<Button className='w-100 mt-4' size="lg" type='submit'>ورود</Button>
 							<Button className='w-100 mt-2' size="lg" onClick={setShow}>ثبت نام</Button>
 						</Card.Body>
 					</Card>

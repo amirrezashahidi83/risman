@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Counselor;
+use App\Models\User;
 use App\Models\Comment;
 
 class CounselorController extends Controller
 {
-    public function index($id){
-    	return Counselor::where('id',$id)->first();
+    public function index($counselor_id){
+    	$counselor = Counselor::where('id',$counselor_id)->first();
+        $user = User::where('id',$counselor->user_id)->first();
+        $counselor['name'] = $user->name;
+        return response()->json($counselor,200);
     }
 
-    public function acceptCounselor($id){
+    public function accept($id){
     	$result = Counselor::where('id',$id)->update(['status' => 1]);
 
         return response()->json($result,200);

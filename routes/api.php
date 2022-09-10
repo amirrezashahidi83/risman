@@ -14,6 +14,14 @@ use App\Http\Controllers\DailyController;
 |
 */
 
+Route::post('/login','AuthController@login');
+Route::post('/register','AuthController@register');
+Route::get('/sendCode/{phoneNumber}','AuthController@sendCode');
+Route::get('/acceptCode/{phoneNumber}','AuthController@acceptCode');
+
+Route::get('/lessons/{grade}/{major}','LessonController@getAll');
+Route::get('/topics/{lesson_id}','LessonController@getTopics');
+
 Route::group(['prefix' => 'user'],function (){
     Route::get('/transactions','TransactionController@getAll');
 
@@ -22,13 +30,18 @@ Route::group(['prefix' => 'student'],function (){
 
     Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
     Route::get('/getDailyMessage/{counselor_id','DailyController@getLastMessage');
+    
     Route::get('/studyplans/{student_id}/{start_week}','StudyController@index');
+    Route::post('/studyplans/new','StudyController@store');
 
     Route::get('/schedule/{student_id}','ScheduleController@index');
     Route::post('/schedule/new','ScheduleController@store');
 });
 
 Route::group(['prefix' => 'counselor'],function() {
+    Route::get('/{counselor_id}',"CounselorController@index");
+    Route::post('/counselor/{counselor_id}/accept',"CounselorController@accept");
+    
     Route::get('/students/{counselor_id}',"StudentController@getByCounselor");
     Route::get('/dailies/{counselor_id}',"DailyController@getAll");
     Route::post('/dailies/newMessage',"DailyController@addMessage");
