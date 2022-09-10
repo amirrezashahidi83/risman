@@ -23,14 +23,22 @@ Route::group(['prefix' => 'student'],function (){
     Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
     Route::get('/getDailyMessage/{counselor_id','DailyController@getLastMessage');
     Route::get('/studyplans/{student_id}/{start_week}','StudyController@index');
+
+    Route::get('/schedule/{student_id}','ScheduleController@index');
+    Route::post('/schedule/new','ScheduleController@store');
 });
 
 Route::group(['prefix' => 'counselor'],function() {
     Route::get('/students/{counselor_id}',"StudentController@getByCounselor");
     Route::get('/dailies/{counselor_id}',"DailyController@getAll");
-    Route::get('/compare2weeks/{counselor_id}',"StudyController@compareweeks");
+    Route::post('/dailies/newMessage',"DailyController@addMessage");
+    Route::post('/dailies/newPicture',"DailyController@addPicture");
+
     Route::get('/analysises/{student_id}',"StudyController@getAnalysises");
+
+    Route::get('/compare2weeks/{counselor_id}',"StudyController@compareweeks");
     Route::post('/compareperiods',"StudyController@comparePeriods");
+
 
 });
 
