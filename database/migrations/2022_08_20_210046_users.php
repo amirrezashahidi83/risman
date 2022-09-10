@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nationalCode');
             $table->char('phoneNumber');
             $table->string('profilePic');
-            $table->string("role");
+            $table->integer("role");
             $table->integer("balance");
             $table->timestamp('created_at')->useCurrent();
         });

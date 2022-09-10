@@ -8,7 +8,7 @@ const DailiesTable = ()=>{
 	const [dailies,setDailies] = useState([]);
 	useEffect(() =>{
 		
-		axios.get("/api/counselor/analysises/"+user_id)
+		axios.get("/api/counselor/dailies/"+user_id)
 		.then(function(response){
 			setDailies(response.data);
 		});

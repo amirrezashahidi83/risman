@@ -14,14 +14,23 @@ use App\Http\Controllers\DailyController;
 |
 */
 
+Route::group(['prefix' => 'user'],function (){
+    Route::get('/transactions','TransactionController@getAll');
 
+});
 Route::group(['prefix' => 'student'],function (){
 
     Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
-
+    Route::get('/getDailyMessage/{counselor_id','DailyController@getLastMessage');
+    Route::get('/studyplans/{student_id}/{start_week}','StudyController@index');
 });
 
 Route::group(['prefix' => 'counselor'],function() {
+    Route::get('/students/{counselor_id}',"StudentController@getByCounselor");
+    Route::get('/dailies/{counselor_id}',"DailyController@getAll");
+    Route::get('/compare2weeks/{counselor_id}',"StudyController@compareweeks");
+    Route::get('/analysises/{student_id}',"StudyController@getAnalysises");
+    Route::post('/compareperiods',"StudyController@comparePeriods");
 
 });
 

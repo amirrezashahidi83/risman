@@ -29,6 +29,11 @@ class StudentController extends Controller
     
     public function getByCounselor($counselor_id){
     	$students = Student::where('counselor_id',$counselor_id)->get();
+        foreach($students as $student)
+        {
+            $name = User::where('id',$student->user_id)->first()->name;
+            $student['name'] = $name;
+        }
 
     	return response()->json($students,200);
     }

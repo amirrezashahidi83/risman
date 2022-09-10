@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Daily extends Model
 {
     use HasFactory;
+    protected $table = 'daily_messages';
 }

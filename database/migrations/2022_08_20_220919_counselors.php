@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('counselors', function (Blueprint $table) {
             $table->id();
-            $table->string('logo');
+            $table->string('profilePic');
             $table->string("message");
-            $table->text("resume");
-            $table->integer("rating");
+            $table->text("resume")->nullable();
+            $table->integer("rating")->nullable();
             $table->integer("status");
-            $table->json("working_times");
             $table->foreignId("user_id")->references("id")->on("users");
             $table->timestamp('created_at')->useCurrent();
         });

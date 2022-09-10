@@ -30,10 +30,7 @@ class StudyController extends Controller
         return response()->json($study_plan,200);
     }
 
-    public function compareWithPlan(Request $request){
-        $student_id = $request->student_id;
-
-        $start_week = $request->start_week;
+    public function compareWithPlan($student_id,$start_week){
         $end_week = strtotime('friday',$start_week);
 
         $student = Student::where('id',$student_id)->first();
@@ -44,72 +41,95 @@ class StudyController extends Controller
 
         $CounselorPlan = CounselorPlan::where('counselor_id',$counselor_id)->where('created_at','>=',$start_time)->where('created_at','<',$end_time)->get();
 
-        $red_boxes = array();
-        $yellow_boxes = array();
-        $green_boxes = array();
+        $allSum = array();
 
-        foreach($CounselorPlan as $day){
-            $plan = json_decode($day['data']);
+        for($i = 0;$i<2;$i++){
+            foreach(array($StudyPlan,$CounselorPlan)[$i] as $day){
+                $plan = json_decode($day['data']);
 
-            $lessons = $plan->lessons;
-            foreach($lessons as $lesson){
+                $lessons = $plan->lessons;
+                foreach($lessons as $lesson){
+                    $allSum[$i][$lesson]['study_time'] += $lesson->study_time;
+                    $allSum[$i][$lesson]['test_time'] += $lesson->test_time;
+                    $allSum[$i][$lesson]['test_count'] += $lesson->test_count; 
+                }
             }
-
-
-
         }
+
+        $result = array();
+
+        foreach ($sum[1] as $lesson) {
+            
+            array_push($lesson,$lesson['study_time'],$sum[0][$lesson]['study_time'],);
+        }
+        
+
 
     }
 
-    public function compareWeeks($student_id){
+    public function compareWeeks($counselor_id){
         
         $start_week1 = $request->start_week1;
         $start_week2 = $request->start_week2;
 
         $start_weeks = array($start_week1,$start_week2);
-        $week_sum = array(0,0,0);
+        $students = Student::where('counselor_id',$counselor_id)->get();
 
-        for($i = 0;$i<2;$i++){
-            $start_week = $start_weeks[$i];
-            $end_week = strtotime('friday',$start_week);
+        $allSum = array();
+        foreach($students as $student){
+            $week_sum = array($student,0,0,0);
 
-            $study_plan = StudyPlan::where('student_id',$student_id)->where('created_at','>=',$start_week)->where('created_at','<',$end_week)->get();
+            for($i = 1;$i<3;$i++){
+                $start_week = $start_weeks[$i];
+                $end_week = strtotime('friday',$start_week);
 
-            foreach($study_plan as $day){
-                $plan = $day['data'];
-                $lessons = $plan->lessons;
+                $study_plan = StudyPlan::where('student_id',$student->id)->where('created_at','>=',$start_week)->where('created_at','<',$end_week)->get();
 
-                foreach($lessons as $lesson)
-                    $week_sum[$i] += $lesson->test_time + $lesson->study_time;
+                foreach($study_plan as $day){
+                    $plan = $day['data'];
+                    $lessons = $plan->lessons;
+
+                    foreach($lessons as $lesson)
+                        $week_sum[$i] += $lesson->test_time + $lesson->study_time;
+                }
+        
             }
-    
+            $week_sum[3] = $week_sum[2] - $week_sum[1];
+            array_push($allSum,$week_sum);
         }
 
-        return response()->json($week_sum,200);
+        return response()->json($allSum,200);
 
     }
 
     public function comaprePeriods(Request $request){
         $period1 = $request->period1;
         $period2 = $request->period2;
+        $counselor_id = $request->counselor_id;
 
-        $study_plans = StudyPlan::where('created_at','>=',$period1)->where('created_at','<',$period2)->get();
+        $students = Student::where('counselor_id',$counselor_id)->get();
+        $allSum = array();
 
-        $sum_study = 0;
-        $sum_test_count = 0;
-        $sum_test_time = 0;
+        foreach($students as $student){
+            $study_plans = StudyPlan::where('created_at','>=',$period1)->where('created_at','<',$period2)->where('student_id',$student->id)->get();
 
-        foreach($study_plans as $day){
-            $plan = json_decode($day['data']);
+            $sum_study = 0;
+            $sum_test_count = 0;
+            $sum_test_time = 0;
 
-            $lessons = $plan->lessons;
+            foreach($study_plans as $day){
+                $plan = json_decode($day['data']);
 
-            foreach($lessons as $lesson){
-                $sum_study += $lesson->study_time;
-                $sum_test_time += $lesson->test_time;
-                $sum_test_count += $lesson->test_count;
+                $lessons = $plan->lessons;
+
+                foreach($lessons as $lesson){
+                    $sum_study += $lesson->study_time;
+                    $sum_test_time += $lesson->test_time;
+                    $sum_test_count += $lesson->test_count;
+                }
+
             }
-
+            array_push($allSum,array($student,$sum_study,$sum_test_count,$sum_test_time))
         }
 
         return response()->json([],200);

@@ -18,7 +18,7 @@ class DailyController extends Controller
 		$daily->picture = $path;
 		$daily->counselor_id = $counselor_id;
 
-		return response()->json($daily->save(),200)
+		return response()->json($daily->save(),200);
 
 	}
 
