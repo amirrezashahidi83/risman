@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('major');
             $table->integer('grade');
+            $table->string('school');
             $table->integer("status");
             $table->foreignId('plan_id')->nullable()->references('id')->on('counselor_plans')->nullable();
             $table->foreignId('schedule_id')->nullable()->references("id")->on("school_schedules")->nullable();

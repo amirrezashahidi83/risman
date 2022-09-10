@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {Card,Form,Row,Col,Container,Button,InputGroup} from 'react-bootstrap';
 import useValidation from '../components/auth/validation';
 import useConfirmModal from '../components/auth/signup/ConfirmModal';
@@ -12,14 +11,6 @@ const Login = () =>{
 	const [phone,setPhone] = useState('');
 	const [password,setPassword] = useState('');
 	const dispatch = useAuthDispatch();
-	let navigate = useNavigate();
-
-	const checkForm = async (e) => {
-
-		e.preventDefault();
-		let result = await loginAction(dispatch,phone,password);
-
-	}
 
 	const sendCode = () => {
 		axios.get("/api/sendCode/"+phone)
@@ -27,12 +18,11 @@ const Login = () =>{
 
 		});
 	}
+	const checkForm = async (e) => {
 
-	const acceptCode = () => {
-		axios.get("/api/acceptCode/"+phone)
-			.then(function(response){
-				navigate('/register');
-		});
+		e.preventDefault();
+		let result = await loginAction(dispatch,phone,password);
+
 	}
 
 	return (

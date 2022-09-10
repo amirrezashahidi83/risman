@@ -4,8 +4,13 @@ import {Modal,Form,Card,Button} from 'react-bootstrap';
 const useConfirmModal = ()=>{
 	const [show,setShow] = useState(false);
 
-	const sendCode = ()=>{
+	let navigate = useNavigate();
 
+	const acceptCode = () => {
+		axios.get("/api/acceptCode/"+phone)
+			.then(function(response){
+				navigate('/register');
+		});
 	}
 	const ConfimModal = 
 		<Modal show={show} >
