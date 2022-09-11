@@ -24,6 +24,7 @@ Route::get('/topics/{lesson_id}','LessonController@getTopics');
 
 Route::group(['prefix' => 'user'],function (){
     Route::get('/transactions','TransactionController@getAll');
+    Route::post('/wallet/buy','TransactionController@buywallet');
 
 });
 Route::group(['prefix' => 'student'],function (){
@@ -36,6 +37,8 @@ Route::group(['prefix' => 'student'],function (){
 
     Route::get('/schedule/{student_id}','ScheduleController@index');
     Route::post('/schedule/new','ScheduleController@store');
+
+    Route::get('/plan/requests','Plan\RequestController@getByStudent');
 });
 
 Route::group(['prefix' => 'counselor'],function() {

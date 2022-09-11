@@ -21,4 +21,8 @@ class TransactionController extends Controller
     public function verifyPayment(Request $request){
 
     }
+
+    public function buyWallet(Request $request){
+        
+    }
 }
