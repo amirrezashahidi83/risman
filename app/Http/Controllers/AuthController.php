@@ -7,7 +7,10 @@ use App\Models\User;
 use App\Models\Student;
 use App\Models\Counselor;
 use Kavenegar\KavenegarApi;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use JWTAuth;
 
 class AuthController extends Controller
 {
@@ -27,8 +30,7 @@ class AuthController extends Controller
 			return response()->json(['error' => 'Unauthorized']);
 		}
 
-		if(Auth::attempt(['phoneNumber' => $phoneNumber,'password' => $password]) ){
-			$token = auth()->user()->createToken('NewToken')->accessToken;
+		if(($token = JWTAuth::attempt(['phoneNumber' => $phoneNumber,'password' => $password]) )){
 			return response()->json([
 				'token' => $token,
 				'code' => 200
@@ -54,10 +56,13 @@ class AuthController extends Controller
 
 		$user = new User();
 		$user->phoneNumber = $phoneNumber;
+		$user->password = Hash::make('');
 		$user_id = $user->save();
+		$token = JWTAuth::attempt(['phoneNumber' => $phoneNumber , 'password' => '']);
 
 		return response()->json([
-			'user_id' => $user_id
+			'user_id' => $user->id,
+			'token' => $token
 		],200);
 	}
 
@@ -73,27 +78,28 @@ class AuthController extends Controller
 		$user->name = $name;
 		$user->role = $role;
 		$user->nationalCode = $nationalCode;
-		$user->password = $password;
+		$user->password = Hash::make($password);
 
-		$user_id = $user->save();
+		$user->save();
 		
-		$token = $user->createToken('NewToken')->accessToken;
-
+		$result = '';
 		if($role == 'student'){
 		
 			$student = new Student();
-			$student->user_id = $user_id;
+			$student->user_id = $user->id;
+			$student->status = 0;
 			$student->save();
+			$result = $student;
 		}
 		else{
 			$counselor = new Counselor();
-			$counselor->user_id = $user_id;
+			$counselor->user_id = $user->id;
+			$counselor->status = 0;
 			$counselor->save();
+			$result = $counselor;
 		}
 
-		return response()->json([
-			'token' => $token
-		],200);
+		return response()->json([$result],200);
 
 	}
 		

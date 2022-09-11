@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use HasFactory,Notifiable;
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -26,4 +31,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

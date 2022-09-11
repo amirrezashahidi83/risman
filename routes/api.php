@@ -14,57 +14,62 @@ use App\Http\Controllers\DailyController;
 |
 */
 
-Route::post('/login','AuthController@login');
-Route::post('/register','AuthController@register');
+Route::post('/login','AuthController@login')->name('login');
 Route::get('/sendCode/{phoneNumber}','AuthController@sendCode');
 Route::get('/acceptCode/{phoneNumber}','AuthController@acceptCode');
 
-Route::get('/lessons/{grade}/{major}','LessonController@getAll');
-Route::get('/topics/{lesson_id}','LessonController@getTopics');
+Route::middleware('auth:api')->group(function(){
+    Route::post('/register','AuthController@register');
 
-Route::group(['prefix' => 'user'],function (){
-    Route::get('/transactions','TransactionController@getAll');
-    Route::post('/wallet/buy','TransactionController@buywallet');
+    Route::get('/lessons/{grade}/{major}','LessonController@getAll');
+    Route::get('/topics/{lesson_id}','LessonController@getTopics');
 
-});
-Route::group(['prefix' => 'student'],function (){
+    Route::group(['prefix' => 'user'],function (){
+        Route::get('/transactions','TransactionController@getAll');
+        Route::post('/wallet/buy','TransactionController@buywallet');
 
-    Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
-    Route::get('/getDailyMessage/{counselor_id','DailyController@getLastMessage');
-    
-    Route::get('/studyplans/{student_id}/{start_week}','StudyController@index');
-    Route::post('/studyplans/new','StudyController@store');
+    });
+    Route::group(['prefix' => 'student'],function (){
 
-    Route::get('/schedule/{student_id}','ScheduleController@index');
-    Route::post('/schedule/new','ScheduleController@store');
+        Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
+        Route::get('/getDailyMessage/{counselor_id','DailyController@getLastMessage');
+        
+        Route::get('/studyplans/{student_id}/{start_week}','StudyController@index');
+        Route::post('/studyplans/new','StudyController@store');
 
-    Route::get('/plan/requests','Plan\RequestController@getByStudent');
-});
+        Route::get('/schedule/{student_id}','ScheduleController@index');
+        Route::post('/schedule/new','ScheduleController@store');
 
-Route::group(['prefix' => 'counselor'],function() {
-    Route::get('/{counselor_id}',"CounselorController@index");
-    Route::post('/counselor/{counselor_id}/accept',"CounselorController@accept");
-    
-    Route::get('/students/{counselor_id}',"StudentController@getByCounselor");
-    Route::get('/dailies/{counselor_id}',"DailyController@getAll");
-    Route::post('/dailies/newMessage',"DailyController@addMessage");
-    Route::post('/dailies/newPicture',"DailyController@addPicture");
+        Route::get('/plan/requests','Plan\RequestController@getByStudent');
+    });
 
-    Route::get('/analysises/{student_id}',"StudyController@getAnalysises");
+    Route::group(['prefix' => 'counselor'],function() {
 
-    Route::get('/compare2weeks/{counselor_id}',"StudyController@compareweeks");
-    Route::post('/compareperiods',"StudyController@comparePeriods");
+        Route::get('/counselors/{keyword}',"CounselorController@search");
+        Route::get('/{counselor_id}',"CounselorController@index");
+        Route::post('/counselor/{counselor_id}/accept',"CounselorController@accept");
+        
+        Route::get('/{counselor_id}/students',"StudentController@getByCounselor");
+        Route::get('/dailies/{counselor_id}',"DailyController@getAll");
+        Route::post('/dailies/newMessage',"DailyController@addMessage");
+        Route::post('/dailies/newPicture',"DailyController@addPicture");
 
+        Route::get('/analysises/{student_id}',"StudyController@getAnalysises");
+
+        Route::get('/compare2weeks/{counselor_id}',"StudyController@compareweeks");
+        Route::post('/compareperiods',"StudyController@comparePeriods");
+
+
+    });
 
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
 });
 
     Route::post('/mobile', 'ApiController@mobile');
     Route::post('/ok_code', 'ApiController@ok_code');
-    Route::post('/register', 'ApiController@register');
     Route::post('/get_home', 'ApiController@get_home');
     Route::post('/edu_plan', 'ApiController@edu_plan');
     Route::post('/send_edu', 'ApiController@send_edu');

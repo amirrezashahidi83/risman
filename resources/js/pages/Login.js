@@ -7,17 +7,11 @@ import {login as loginAction,useAuthDispatch} from '../Context';
  
 const Login = () =>{
 
-	const [show,setShow,ConfirmModal] = useConfirmModal();
 	const [phone,setPhone] = useState('');
 	const [password,setPassword] = useState('');
+	const [show,setShow,ConfirmModal] = useConfirmModal(phone);
 	const dispatch = useAuthDispatch();
 
-	const sendCode = () => {
-		axios.get("/api/sendCode/"+phone)
-			.then(function(response){
-
-		});
-	}
 	const checkForm = async (e) => {
 
 		e.preventDefault();

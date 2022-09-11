@@ -22,8 +22,10 @@ return new class extends Migration
             $table->foreignId('plan_id')->nullable()->references('id')->on('counselor_plans')->nullable();
             $table->foreignId('schedule_id')->nullable()->references("id")->on("school_schedules")->nullable();
             $table->foreignId("counselor_id")->nullable()->references("id")->on("counselors");
-            $table->foreignId("user_id")->references("id")->on("users");
+            $table->foreignId("user_id")->references("id")->on("users")->unique();
             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+
         });
     }
 
