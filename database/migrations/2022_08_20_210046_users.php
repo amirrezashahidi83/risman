@@ -21,7 +21,9 @@ return new class extends Migration
             $table->char('phoneNumber')->unique();
             $table->string('profilePic')->nullable();
             $table->integer("role")->nullable();
-            $table->integer("balance")->nullable();
+            $table->integer("state")->nullable();
+            $table->integer("city");
+            $table->integer("balance");
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

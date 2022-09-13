@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Counselor;
+use App\Models\User;
 
 class CounselorController extends Controller
 {
@@ -19,12 +20,20 @@ class CounselorController extends Controller
     	Counselor::where('id',$id)->update(['status' => 1]);
     }
 
-    public function getComments($counselor_id){
+    public function search(Request $request){
+        $state = $request->state;
+        $city = $request->city;
+        $search = $request->search;
 
-    }
+        $users = User::where('role',1)->get();
+        $counseolrs = array();
+        foreach($users as $user){
+            $Counselor = Counselor::where('user_id',$user->id)->first();
+            $specialities = json_decode($Counselor->speciality);
+            if(in_array($search,$specialities))
 
-    public function addComment(Request $request){
-    	
+        }
+
     }
     
 }

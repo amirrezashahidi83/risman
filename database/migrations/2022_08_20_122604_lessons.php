@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->integer('grade');
             $table->integer('major');
+            $table->integer('type');
             $table->timestamp('created_at')->useCurrent();
         });
     }

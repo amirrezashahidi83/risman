@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text("resume")->nullable();
             $table->integer("rating")->nullable();
             $table->integer("status");
+            $table->integer("automatic_message");
+            $table->json("specialities");
             $table->foreignId("user_id")->references("id")->on("users")->unique();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

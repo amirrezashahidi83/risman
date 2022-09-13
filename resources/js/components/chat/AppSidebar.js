@@ -36,7 +36,8 @@ const AppSidebar = () => {
         <Select className='w-100' />
       </CSidebarBrand>
       <CSidebarNav>
-        <ChatList>
+        <ChatList
+          >
           {items.map((item) => 
             <ChatItem
               avatar={item.avatar}

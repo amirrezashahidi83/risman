@@ -57,6 +57,7 @@ class AuthController extends Controller
 		$user = new User();
 		$user->phoneNumber = $phoneNumber;
 		$user->password = Hash::make('');
+		$user->balance = 0;
 		$user_id = $user->save();
 		$token = JWTAuth::attempt(['phoneNumber' => $phoneNumber , 'password' => '']);
 

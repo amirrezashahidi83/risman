@@ -6,26 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\CounselorPlan;
 use App\Models\StudyPlan;
 use App\Models\Student;
+use App\Models\Schedule;
 
 class PlanController extends Controller
 {
-    public function index($id){
-    	return response()->json([Plan::where('id',$id)->first()],200);
-    }
 
     public function store(Request $request){
     	$counselor_id = $request->counselor_id;
     	$data = $request->data;
 
-    }
-
-    public function assignPlan(Request $request){
-    	$student_id = $request->student_id;
-    	$plan_id = $request->plan_id;
-
-    	$result = Student::where("id",$student_id)->first()->update(['plan_id' => $plan_id]);
-
-    	return response()->json([$result],200);
     }
 
     public function getByStudent($student_id){
@@ -41,6 +30,21 @@ class PlanController extends Controller
 
     	$plans = Plan::where('counselor_id',$counselor_id)->get();
     	return response()->json([$plans],200);
+    }
+
+    public function createSmart(Request $request){
+        $student_id = $request->student_id;
+        $schedules = Schedule::where('student_id',$student_id)->get();
+        
+        $plan = array();
+        for($i = 1;$i < 8;$i++){
+            $today = $schedules->where('day',$i);
+            $tomorrow = $schedules->where('day',($i + 1) / 7);
+
+            foreach($tomorrow as $part){
+                if($part)
+            }
+        }
     }
 
 }
