@@ -58,13 +58,23 @@ class StudyController extends Controller
 
         $result = array();
 
-        foreach ($sum[1] as $lesson) {
-            
-            array_push($lesson,$lesson['study_time'],$sum[0][$lesson]['study_time'],);
+        foreach ($sum[0] as $counselor_lesson) {
+            if(!in_array($sum[1],$lesson))
+                $sum[1][$lesson] = array();
+
+            $student_lesson = $sum[1][$lesson];
+
+            $result[$lesson] = array(
+                "need_study_time" => $counselor_lesson['study_time'],
+                "diff_study_time" => ($counselor_lesson['study_time'] - $student_lesson['study_time']),
+                "need_test_time" => $counselor_lesson['test_time'],
+                "diff_test_time" => ($counselor_lesson['test_time'] - $student_lesson['test_time']),
+                "need_test_count" => $counselor_lesson['test_count'],
+                "diff_test_count" => ($counselor_lesson['test_count'] - $student_lesson['test_count']),
+            );    
         }
         
-
-
+        return $result;
     }
 
     public function compareWeeks($counselor_id){
