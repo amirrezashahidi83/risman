@@ -1,4 +1,5 @@
 import {useState,useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {Modal,Form,Card,Button} from 'react-bootstrap';
 
 const useConfirmModal = (phone)=>{
@@ -10,7 +11,7 @@ const useConfirmModal = (phone)=>{
 	useEffect( () => {
 		axios.get("/api/sendCode/"+phone)
 			.then(function(response){
-				sendCode(response.data);
+				setSentCode(response.data);
 		});
 	},[show]);
 

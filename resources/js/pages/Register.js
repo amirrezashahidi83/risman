@@ -5,7 +5,7 @@ import Select from 'react-select';
 import KeyIcon from '@mui/icons-material/VpnKey';
 import PersonIcon from '@mui/icons-material/Person';
 import NationalCodeIcon from '@mui/icons-material/AccountBalance';
-import { useValidation } from '../components/auth/validation.js';
+import { useValidation } from '../components/auth/validation';
 const Register = ()=>{
 	const [isStudent,setIsStudent] = useState(false);
 

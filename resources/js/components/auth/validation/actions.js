@@ -1,9 +1,9 @@
 	
-export const isPhone = (value){
+export const isPhone = (value) => {
 	return new RegExp("^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$").test(value);
 }
 
-export const isNationalCode = (value){
+export const isNationalCode = (value) => {
 	return Number.isInteger(value) && value.toString().length == 10;
  }
 

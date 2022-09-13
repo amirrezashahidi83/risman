@@ -1,32 +1,19 @@
-import React, { Suspense } from 'react'
+import React, { Suspense,useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { CContainer, CSpinner } from '@coreui/react'
-import { MessageList } from "react-chat-elements"
+import { CContainer, CSpinner, CRow } from '@coreui/react'
 import "react-chat-elements/dist/main.css"
-
+import InputMessage from './InputMessage';
+import ChatBox from './ChatBox';
 const AppContent = () => {
+
+  const [messages,setMessages] = useState([]);
 
   return (
     <CContainer lg>
-    <MessageList
-    className='message-list'
-    lockable={true}
-    toBottomHeight={'100%'}
-    dataSource={[
-    {
-      position:"left",
-      type:"text",
-      title:"Kursat",
-      text:"Give me a message list example !",
-    },
-    {
-      position:"right",
-      type:"text",
-      title:"Emre",
-      text:"That's all.",
-    },
-    ]}
-/>
+      <ChatBox />
+      <CRow>
+        <InputMessage />
+      </CRow>
     </CContainer>
   )
 }
