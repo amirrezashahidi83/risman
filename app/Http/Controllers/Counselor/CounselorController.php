@@ -16,7 +16,15 @@ class CounselorController extends Controller
     	return Counselor::where('id',$id)->first();
     }
 
-    public function acceptCounselor($id){
+    public function getAll(){
+        return Counselor::limit(100)->get();
+    }
+
+    public function destroy($counselor_id){
+        Counselor::where('id',$counselor_id)->forceDelete();
+    }
+
+    public function accept($id){
     	Counselor::where('id',$id)->update(['status' => 1]);
     }
 
@@ -34,6 +42,13 @@ class CounselorController extends Controller
 
         }
 
+    }
+    public function searchByName($name){
+        return response()->json(
+            User::where('name',$name)
+            ->where('role',1)
+            ->get()
+            ,200);
     }
     
 }

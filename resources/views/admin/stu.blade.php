@@ -4,7 +4,7 @@
 <div class="inner-block">
 	<div class="search-box">
 		<!-- <form> -->
-		<input type="text" v-model="search_item" placeholder="جستوجو..." required="">
+		<input type="text" v-model="search_item" placeholder="جستجو..." required="">
 		<input type="submit" @click="search_stu" value="">
 		<!-- </form> -->
 	</div>

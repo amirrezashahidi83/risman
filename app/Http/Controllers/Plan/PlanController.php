@@ -40,6 +40,8 @@ class PlanController extends Controller
         $general_lessons = Lesson::where('type',1)->only(['id']);
         $special_lessons = Lesson::where('type',2)->only(['id']);
 
+        $main_lessons = array();
+
         $plan = array();
         for($i = 1;$i < 8;$i++){
             array_push($plan,array());
@@ -55,11 +57,14 @@ class PlanController extends Controller
 
                 if(count($tomorrow_general) > 0 && count($tomorrow_special) > 0)
                 {
-                                        
+                    $plan[$j] = array_merge($plan[$j],$tomorrow_special);
+                    $plan[$j] = array_merge($plan[$j],$tomorrow_general);                
                 }else if(count($tomorrow_general) > 0){
+                    $plan[$j] = array_merge($plan[$j],$today_special);
+                    $plan[$j] = array_merge($plan[$j],$tomorrow_general);                
 
                 }else{
-
+                    $plan[$j] = $main_lessons;
                 }
 
             }

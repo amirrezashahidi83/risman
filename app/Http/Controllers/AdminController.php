@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin;
+use App\Models\Admin;
 use App\Lesson;
 use App\Mosh;
 use App\Options;
 use App\Planing;
-use App\Stu;
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Verta;
 use DB;
@@ -15,27 +16,17 @@ use Session;
 
 class AdminController extends Controller
 {
-    public function login()
-    {
-        return view('login');
-    }
-
     public function login_admin(Request $request)
     {
         $username = $request->username;
         $pass = $request->pass;
 
-        $logined = Admin::where('username', $username)->where('pass', $pass)->first();
+        $logined = Admin::where('username', $username)->where('password', $pass)->first();
 
         if ($logined) {
             Session::put('username', $username);
             return $logined;
         }
-    }
-
-    public function dashbord()
-    {
-        return view('admin.dashbord');
     }
 
     public function getuser()
@@ -107,17 +98,6 @@ class AdminController extends Controller
         ]);
     }
 
-    // student
-    public function stu()
-    {
-        return view('admin.stu');
-    }
-
-    public function create_stu()
-    {
-        return view('admin.create-stu');
-    }
-
     public function add_stu(Request $request)
     {
         $name = $request->name;
@@ -125,7 +105,7 @@ class AdminController extends Controller
         $paye_id = $request->paye_id;
         $reshte_id = $request->reshte_id;
 
-        $stu = Stu::where('mobile',$mobile)->first();
+        $stu = Student::where('phoneNumber',$mobile)->first();
 
         if($stu)
             return [
@@ -133,16 +113,17 @@ class AdminController extends Controller
                 'mesaage'=> 'شماره موبایل تکراری'
             ];
 
-        Stu::insert([
-            'name'=> $name,
-            'mobile'=> $mobile,
-            'pass'=> $mobile,
-            'base_id'=> $paye_id,
-            'r_id'=> $reshte_id,
-            'status' => 2,
-            'time_added'=> time(),
-        ]);
-
+        $user = new User();
+        $user->name = $name;
+        $user->phoneNumber = $mobile;
+        $user->balance = 0;
+        $user->role = 2;
+        $user->save();
+        $student = new Student();
+        $student->user_id = $user->id;
+        $student->grade = $paye_id;
+        $student->major = $reshte_id;
+        $student->save();
             return [
                 'success'=> true
             ];
@@ -154,7 +135,7 @@ class AdminController extends Controller
     {
         $stu_id = $request->stu_id;
 
-        $stu = Stu::where('id',$stu_id)->delete();
+        $stu = Student::where('id',$stu_id)->delete();
 
 
         return [
@@ -167,12 +148,12 @@ class AdminController extends Controller
     public function get_stu(Request $request)
     {
         if ($request->ar) {
-            $stu = DB::table('stu')
-                ->where('mosh_id', $request->mosh_id)
+            $stu = DB::table('students')
+                ->where('counselor_id', $request->mosh_id)
                 ->orderby('id', 'desc')
                 ->get();
         } else {
-            $stu = DB::table('stu')
+            $stu = DB::table('students')
                 ->orderby('id', 'desc')
                 // ->limit(100)
                 ->get();
@@ -182,9 +163,9 @@ class AdminController extends Controller
 
     public function search_stu(Request $request)
     {
-        $stu = DB::table('stu')
+        $stu = DB::table('users')
             ->where('name', 'like', '%' . $request->name . '%')
-            ->get();
+            ->where('role',2)->get();
         return $stu;
     }
 
@@ -235,15 +216,9 @@ class AdminController extends Controller
         return response()->json($all_lesson);
     }
 
-    // mosh
-    public function mosh()
-    {
-        return view('admin.mosh');
-    }
-
     public function get_mosh()
     {
-        $mosh = DB::table('mosh')
+        $mosh = DB::table('counselors')
             ->orderby('id', 'desc')
             ->limit(100)
             ->get();
@@ -252,8 +227,9 @@ class AdminController extends Controller
 
     public function search_mosh(Request $request)
     {
-        $stu = DB::table('mosh')
+        $stu = DB::table('users')
             ->where('name', 'like', '%' . $request->name . '%')
+            ->where('role',1)
             ->get();
         return $stu;
     }

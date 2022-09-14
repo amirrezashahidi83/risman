@@ -13,6 +13,6 @@
 	<div id="index" class='w-100 h-100'></div>
 
 </body>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/vue.js') }}"></script>
 
 </html>

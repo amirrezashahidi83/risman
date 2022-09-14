@@ -9,18 +9,18 @@
             <li id="menu-home"><a href="/dashbord"><i class="fa fa-tachometer"></i><span>داشبورد</span></a>
             </li>
             </li>
-            <li id="menu-home"><a href="/stu"><i class="fa fa-user"></i><span>دانش آموزان</span></a>
+            <li id="menu-home"><a href="/admin/stu"><i class="fa fa-user"></i><span>دانش آموزان</span></a>
             </li>
-            <li id="menu-home"><a href="/lesson"><i class="fa fa-book"></i><span>دروس</span></a>
+            <li id="menu-home"><a href="/admin/lesson"><i class="fa fa-book"></i><span>دروس</span></a>
             </li>
-            <li id="menu-home"><a href="/mosh"><i class="fa fa-users"></i><span>مشاور</span></a>
+            <li id="menu-home"><a href="/admin/mosh"><i class="fa fa-users"></i><span>مشاور</span></a>
             </li>
-            <li id="menu-home"><a href="/plan"><i class="fa fa-calculator"></i><span>برنامه ها</span></a>
+            <li id="menu-home"><a href="/admin/plan"><i class="fa fa-calculator"></i><span>برنامه ها</span></a>
             </li>
-            <li id="menu-home"><a href="/transactions"><i class="fa fa-credit-card"></i><span>مالی</span></a>
+            <li id="menu-home"><a href="/admin/transactions"><i class="fa fa-credit-card"></i><span>مالی</span></a>
             </li>
-            <li id="menu-home"><a href="/slider"><i class="fa fa-cog"></i><span>تنظیمات</span></a></li>
-            <li id="menu-home"><a href="/weeks"><i class="fa fa-calendar"></i><span>هفته ها</span></a></li>
+            <li id="menu-home"><a href="/admin/slider"><i class="fa fa-cog"></i><span>تنظیمات</span></a></li>
+            <li id="menu-home"><a href="/admin/weeks"><i class="fa fa-calendar"></i><span>هفته ها</span></a></li>
         </ul>
     </div>
 </div>

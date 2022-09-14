@@ -49,7 +49,7 @@
     <script src="/as/js/bootstrap.js"> </script>
     <!-- mother grid end here-->
     <!-- vue.js -->
-    <script src="/js/app.js"></script>
+    <script src="/js/vue.js"></script>
 </body>
 
 </html>

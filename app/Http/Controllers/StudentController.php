@@ -14,6 +14,10 @@ class StudentController extends Controller
     	return Student::where('id',$id)->first();
     }
 
+    public function getAll(){
+        return Student::limit(100)->get();
+    }
+
     public function update(Request $request){
     	$student_data = $request->studentData;
     	$user_data = $request->userData;
@@ -55,6 +59,14 @@ class StudentController extends Controller
     public function checkStatus($student_id){
         return response()->json(
             Student::where('id',$student_id)->first()->status
+            ,200);
+    }
+
+    public function searchByName($name){
+        return response()->json(
+            User::where('name',$name)
+            ->where('role',2)
+            ->get()
             ,200);
     }
 
