@@ -36,11 +36,6 @@ class AdminController extends Controller
         return $user;
     }
 
-    public function slider()
-    {
-        return view('admin.slider');
-    }
-
     public function exit_admin()
     {
         $exit_user = Session::forget('username');
@@ -82,20 +77,6 @@ class AdminController extends Controller
         if (Options::where('id', $request->id)->delete()) {
             return response()->json(['mes' => 'عکس اسلایدر حذف شد']);
         }
-    }
-
-    public function get_message()
-    {
-        $all_img = Options::where('type', 2)->first();
-
-        return response()->json($all_img);
-    }
-
-    public function edit_message(Request $request)
-    {
-        Options::where('type', 2)->update([
-            'vlaue' => $request->message
-        ]);
     }
 
     public function add_stu(Request $request)
@@ -145,34 +126,12 @@ class AdminController extends Controller
             
     }
 
-    public function get_stu(Request $request)
-    {
-        if ($request->ar) {
-            $stu = DB::table('students')
-                ->where('counselor_id', $request->mosh_id)
-                ->orderby('id', 'desc')
-                ->get();
-        } else {
-            $stu = DB::table('students')
-                ->orderby('id', 'desc')
-                // ->limit(100)
-                ->get();
-        }
-        return $stu;
-    }
-
     public function search_stu(Request $request)
     {
         $stu = DB::table('users')
             ->where('name', 'like', '%' . $request->name . '%')
             ->where('role',2)->get();
         return $stu;
-    }
-
-    // lesson
-    public function lesson()
-    {
-        return view('admin.lesson');
     }
 
     public function add_lesson(Request $request)
@@ -204,53 +163,6 @@ class AdminController extends Controller
                 return response()->json(['mes' => 'درس جدید ایجاد شد']);
             }
         }
-    }
-
-    public function get_lesson(Request $request)
-    {
-        $all_lesson = Lesson::where('base_id', $request->p_id)
-        ->where('r_id', $request->r_id)
-        ->orderBy('priority')
-        ->get();
-
-        return response()->json($all_lesson);
-    }
-
-    public function get_mosh()
-    {
-        $mosh = DB::table('counselors')
-            ->orderby('id', 'desc')
-            ->limit(100)
-            ->get();
-        return $mosh;
-    }
-
-    public function search_mosh(Request $request)
-    {
-        $stu = DB::table('users')
-            ->where('name', 'like', '%' . $request->name . '%')
-            ->where('role',1)
-            ->get();
-        return $stu;
-    }
-
-    public function unactive_mosh(Request $request)
-    {
-        $mosh = Mosh::where('id', $request->id)->update([
-            'active' => $request->active
-        ]);
-        if ($mosh) {
-            return response()->json([
-                'mosh'=>$mosh ,
-                'success'=> true ,
-            ]);
-        }
-    }
-
-    // plan
-    public function plan()
-    {
-        return view('admin.plan');
     }
 
     public function formimgplan(Request $request)
@@ -302,25 +214,6 @@ class AdminController extends Controller
                 // ]);
                 return response()->json(['id' => $new_plan->id, 'mes' => 'برنامه ایجاد شد']);
             }
-        }
-    }
-
-    public function get_plan()
-    {
-        // $all_img = Planing::all();
-        $all_planing =
-            DB::table('planing')
-            ->leftJoin('plan_exam', 'planing.id', '=', 'plan_exam.planing_id')
-            ->select('planing.*', 'plan_exam.file')
-            ->get();
-
-        return response()->json($all_planing);
-    }
-
-    public function delete_plan(Request $request)
-    {
-        if (Planing::where('id', $request->id)->delete()) {
-            return response()->json('با موفقیت حذف شد');
         }
     }
 
@@ -464,13 +357,4 @@ class AdminController extends Controller
         ]]);
     }
 
-    public function pay()
-    {
-        return view('pay',['mes'=>'در حال حاضر درگاه پرداخت دردسترس نمیباشد برای افزایش اعتبار با شماره ی 09100045125 در پیامرسان واتساپ در ارتباط باشید']);
-    }
-
-    public function paybit()
-    {
-        return view('pay',['mes'=>'در حال حاضر درگاه پرداخت دردسترس نمیباشد برای خرید کد ورود با شماره ی 09100045125 در پیامرسان واتساپ در ارتباط باشید']);
-    }
 }

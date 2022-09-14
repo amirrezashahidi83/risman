@@ -25,25 +25,18 @@ class LessonController extends Controller
     	return response()->json($lesson->save(),200)
     }
 
+    public function update(){
+
+    }
+
+    public function destroy(){
+
+    }
+    
     public function getAll($grade,$major){
     	$lessons = Lesson::where('grade',$grade)->where('major',$major)->get();
 
     	return response()->json($lessons,200);
     }
 
-    public function addTopic(Request $request){
-    	$lesson_id = $request->lesson_id;
-    	$title = $request->title;
-
-    	$topic = new Topic();
-    	$topic->lesson_id = $lesson_id;
-    	$topic->title = $title;
-
-    	return response()->json($topic->save(),200);	
-    }
-
-    public function getTopics($lesson_id){
-    	$topics = Topic::where('lesson_id',$lesson_id)->get();
-    	return response()->json($topics,200);
-    }
 }

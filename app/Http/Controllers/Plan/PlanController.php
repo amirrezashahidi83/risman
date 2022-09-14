@@ -18,6 +18,10 @@ class PlanController extends Controller
 
     }
 
+    public function destroy(){
+        
+    }
+
     public function getByStudent($student_id){
 
     	$plan_id = Student::where('id',$student_id)->first()->$plan_id;
