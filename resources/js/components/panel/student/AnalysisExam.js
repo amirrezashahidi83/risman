@@ -1,8 +1,10 @@
 import {CCard,CCardBody,CForm,CFormInput,CFormLabel,CRow,
 CCol,CFormTextarea,CButton} from '@coreui/react';
 import Select from 'react-select';
+import {useAuthState} from '../../../Context';
 
 const AnalysisExam = ()=>{
+	const user = useAuthState();
 	return(
 		<>
 			<CCard>

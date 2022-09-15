@@ -2,9 +2,10 @@ import {useState,useEffect} from 'react';
 import {CCard,CCardBody,CCol,CRow,CButton,CFormInput,CInputGroup,CFormTextarea,CFormLabel
 	} from '@coreui/react';
 import DailiesTable from './tables/DailiesTable';
+import {useAuthState} from '../../../Context';
 
 const Daily = () => {
-	
+	const user = useAuthState();	
 	const [messages,setMessages] = useState([]);
 	const [pictures,setPictures] = useState([]);
 

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer("state")->nullable();
             $table->integer("city");
             $table->integer("balance");
+            $table->integer("score");
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

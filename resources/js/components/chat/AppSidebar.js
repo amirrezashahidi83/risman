@@ -7,6 +7,7 @@ import CIcon from '@coreui/icons-react'
 import { ChatList,ChatItem } from "react-chat-elements"
 import "react-chat-elements/dist/main.css"
 import Select from 'react-select';
+import {useAuthState} from '../../Context';
 
 const AppSidebar = () => {
 
@@ -15,7 +16,8 @@ const AppSidebar = () => {
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
   const [items,setItems] = useState([]);
-
+  const user = useAuthState();
+  
   const searchChat = () => {
     axios.get('/api/chat/search/')
     .then(function(response){

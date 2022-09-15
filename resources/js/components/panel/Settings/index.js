@@ -2,7 +2,10 @@ import {useState} from 'react';
 import {CNav,CNavItem,CNavLink,CTabContent,CTabPane,CCard
 ,CRow,CCol,CCardBody} from '@coreui/react';
 import Personal from './Personal';
+import {useAuthState} from '../../../Context';
+
 const Settings = ()=>{
+	
 	const [activeKey,setActivekey] = useState(0);
 
 	let Tabs = ['اطلاعات شخصی'];

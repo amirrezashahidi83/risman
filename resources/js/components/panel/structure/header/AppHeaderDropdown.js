@@ -22,15 +22,15 @@ import {
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
-const AppHeaderDropdown = () => {
+const AppHeaderDropdown = ({user}) => {
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar className='bg-secondary' size='lg'>Av</CAvatar>
+        <CAvatar className='bg-secondary' size='lg' src={user.profilePic} >{user.name}</CAvatar>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0 text-start" placement="bottom-center">
         <CDropdownHeader className="bg-light fw-semibold py-2">تنظیمات</CDropdownHeader>
-        <CDropdownItem href="#">
+        <CDropdownItem href="/user/settings">
           <CIcon icon={cilSettings} className="me-2" />
           تنظیمات
         </CDropdownItem>

@@ -9,7 +9,7 @@ export const student_nav = [
   {
     component: CNavItem,
     name: 'داشبورد',
-    to: '/dashboard',
+    to: '/student/dashboard',
     icon: <Dashboard />
   },
 
@@ -21,26 +21,20 @@ export const student_nav = [
       {
         component: CNavItem,
         name: 'لیست مشاوران',
-        to: '/counselors/'
-      },
-      
-      {
-        component: CNavItem,
-        name: 'مشاور من',
-        to: '/my_counselor/'
+        to: '/student/counselors/'
       },
 
       {
         component: CNavItem,
         name: 'گزارش ساعت مطالعه',
-        to: '/my_counselor/reportStudy'
+        to: '/student/my_counselor/reportStudy'
       }
     ]
   },
   {
     component: CNavItem,
     name: 'تحلیل آزمون',
-    to: '/analysis_exam',
+    to: '/student/analysis_exam',
     icon: <Assessment />
   },
   {
@@ -50,14 +44,9 @@ export const student_nav = [
     items:[
       {
         component: CNavItem,
-        name: 'درخواست برنامه جدید',
-        to: '/plan/find'
+        name: 'درخواست برنامه ',
+        to: '/student/plan/request'
       },
-      {
-        component: CNavItem,
-        name: 'برنامه های من',
-        to: '/plan/my_plans'
-      }
     ]
   },
   
@@ -69,7 +58,7 @@ export const student_nav = [
       {
         component: CNavItem,
         name: 'آزمون جدید',
-        to: 'نتیاج آزمون های قبلی'
+        to: '/student/psychology_tests'
       }
     ]
   },
@@ -82,14 +71,21 @@ export const student_nav = [
       {
         component: CNavItem,
         name: 'کیف پول',
-        to: '/wallet'
+        to: '/user/wallet'
       }
     ]
   },
+
+  {
+    component: CNavItem,
+    name: 'ابزارک ها',
+    to: '/student/toolkits'
+  },
+
   {
     component: CNavItem,
     name: 'چت روم',
-    to: '/chatroom',
+    to: '/user/chatroom',
     icon: <Forum />
   },
 ]
@@ -99,52 +95,50 @@ export const counselor_nav = [
   {
     component: CNavItem,
     name: 'داشبورد',
-    icon: <Dashboard />
+    icon: <Dashboard />,
+    to: '/counselor/dashboard'
   },
 
   {
-    component: CNavGroup,
-    name: 'دانش آموزان من',
+    component: CNavItem,
+    name: 'مقایسه گزارش ها',
+    to: '/counselor/compare'
+  },
+
+  {
+    component: CNavItem,
+    name: 'تحلیل آزمون',
     icon: <Person />,
-    items:[
-      {
-        component: CNavItem,
-        name: 'گزارش مطالعه',
-        to: '/my_students/study_reports'
-      },
-      {
-        component: CNavItem,
-        name: 'تحلیل آزمون',
-        to: '/my_students/analysis_exam'
-      }
-    ]
-  },
-  
-  {
-    component: CNavGroup,
-    name: 'برنامه',
-    icon: <BackupTable />,
-    items:[
-      {
-        component: CNavItem,
-        name: 'ارسال برنامه جدید',
-        to:'/study_plans/new'
-      },
-      {
-        component: CNavItem,
-        name: 'برنامه های در حال اجرا',
-        to:'/study_plans'
-      }
-    ]
-
+    to: '/counselor/my_students/analysis_exam'
   },
   
   {
     component: CNavItem,
-    name: 'عکس و جمله روزانه',
-    to: '/daily_movitation',
-    icon: <AddToPhotos />
+    name: 'درخواست ها',
+    icon: <BackupTable />,
+    to: '/counselor/plan/requests'
+
   },
+  
+  {
+    component: CNavGroup,
+    name: 'عکس و جمله روزانه',
+    icon: <AddToPhotos />,
+    items:[
+      {
+        component: CNavItem,
+        name: 'مشاهده',
+        to: '/counselor/daily/'
+      },
+
+      {
+        component: CNavItem,
+        name: 'حالت اتوماتیک',
+        to: '/counselor/automatic_daily'
+      }
+    ]
+  },
+
   {
     component: CNavGroup,
     name: 'مالی',
@@ -153,14 +147,14 @@ export const counselor_nav = [
       {
         component: CNavItem,
         name: 'کیف پول',
-        to: '/wallet'
+        to: '/user/wallet'
       }
     ]
   },
   {
     component: CNavItem,
     name: 'چت روم',
-    to: '/chatroom',
+    to: '/user/chatroom',
     icon: <Forum />
   }
 ]

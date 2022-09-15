@@ -13,16 +13,15 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
 import PaidTwoToneIcon from '@mui/icons-material/Paid';
-
 import { useSelector, useDispatch } from 'react-redux'
-
 import { AppHeaderDropdown } from './header/index'
+import { useAuthState } from '../../../Context';
 
 const AppHeader = () => {
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
-
+  const user = useAuthState();
 
   return (
     <CHeader position="sticky" className="mb-4">
@@ -42,14 +41,14 @@ const AppHeader = () => {
         <CHeaderNav >
           <CNavItem>
             <CNavLink href="#" className='bg-warning rounded p-2'>
-              <small>1232312</small>
+              <small>{user.score}</small>
               <span></span>
               <PaidTwoToneIcon fontSize='medium'/> 
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-3">
-          <AppHeaderDropdown />
+          <AppHeaderDropdown user={user}/>
         </CHeaderNav>
       </CContainer>
     </CHeader>
