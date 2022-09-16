@@ -3,8 +3,10 @@ import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 	CTableCaption,CButton} from '@coreui/react';
 import Select from 'react-select';
 
-const DailiesTable = ()=>{
+const DailiesTable = (user)=>{
 	
+	let user_id = user.id;
+
 	const [dailies,setDailies] = useState([]);
 	useEffect(() =>{
 		
