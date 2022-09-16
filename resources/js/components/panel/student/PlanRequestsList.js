@@ -6,12 +6,12 @@ const PlanRequestsList = () =>{
 	const [requests,setRequests] = useState([]);
 
 	useEffect( () =>{
-		axios.get("/api/requests/")
+		axios.get("/api/student/requests/")
 		.then(function(response){
 
 		});
 	});
 
-	
+
 
 }
