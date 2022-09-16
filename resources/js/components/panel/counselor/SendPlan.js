@@ -4,12 +4,13 @@ import {CCard,CCardBody,CForm,CTable,CTableCaption,CTableBody,CTableRow
 import useLessonChooser from './modals/useLessonChooser';
 const SendPlan = () => {
 	
-	const [modalData,selectedLesson,selectedTopic,description,
+	const [modalData,setShow,selectedLesson,selectedTopic,description,
 		studyTime,testTime,testCount] = useLessonChooser('');
 	
 	const [plan,setPlan] = useState([]);
 
-	const handleClick = () => {
+	const handleClick = (e) => {
+		setShow(true);
 		setPlan((plan) => [
 			...plan,
 			[
@@ -21,6 +22,7 @@ const SendPlan = () => {
 				testCount
 			]
 		]);
+		e.target.value = selectedLesson;
 	}
 
 	return(
@@ -30,7 +32,7 @@ const SendPlan = () => {
 					<ScheduleTable />
 				</CCardBody>
 			</CCard>
-
+			{modalData}
 			<CCard>
 				<CForm>
 					<CCardBody>

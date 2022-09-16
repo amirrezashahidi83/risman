@@ -46,9 +46,13 @@ const useLessonChooser = ({student})=>{
 	
 	return [
 	ModalData,
+	setShow,
 	selectedLesson,
 	selectedTopic,
-	description
+	description,
+	studyTime,
+	testTime,
+	testCount
 	];
 }
 export default useLessonChooser;
