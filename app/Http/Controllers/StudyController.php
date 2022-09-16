@@ -45,7 +45,7 @@ class StudyController extends Controller
 
         for($i = 0;$i<2;$i++){
             foreach(array($StudyPlan,$CounselorPlan)[$i] as $day){
-                $plan = json_decode($day['data']);
+                $plan = json_decode($day);
 
                 $lessons = $plan->lessons;
                 foreach($lessons as $lesson){
@@ -128,7 +128,7 @@ class StudyController extends Controller
             $sum_test_time = 0;
 
             foreach($study_plans as $day){
-                $plan = json_decode($day['data']);
+                $plan = json_decode($day);
 
                 $lessons = $plan->lessons;
 
