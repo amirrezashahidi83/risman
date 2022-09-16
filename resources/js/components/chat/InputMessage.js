@@ -2,7 +2,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import SendIcon from '@mui/icons-material/Send';
 import { Input,Button } from "react-chat-elements";
-
+import VoiceRecorder from './VoiceRecorder';
 const InputMessage = () => {
 
 	const sendMessage = () =>{
@@ -34,7 +34,8 @@ const InputMessage = () => {
 
 			/>
 			
-			<Button 
+			<VoiceRecorder
+				record={true}
 			/>
 
 			<Button
