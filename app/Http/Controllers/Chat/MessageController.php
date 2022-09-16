@@ -60,7 +60,7 @@ class MessageController extends Controller
 
     }
 
-    public function seeMessage(Request $request){
+    public function setSeen(Request $request){
         $message_id = $request->message_id;
         $result = Message::where('id',$message_id)->update(['status' => 1]);
 

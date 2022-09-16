@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import SendIcon from '@mui/icons-material/Send';
@@ -5,6 +6,7 @@ import { Input,Button } from "react-chat-elements";
 import VoiceRecorder from './VoiceRecorder';
 const InputMessage = () => {
 
+	const [text,setText] = useState("");
 	const sendMessage = () =>{
 		axios.post("/api/message/new")
 		.then(function(response){
@@ -12,14 +14,21 @@ const InputMessage = () => {
 		});
 	}
 	const sendVoice = () => {
-		axios.post("/api/message/newVoice")
+		axios.post("/api/message/voice")
 		.then(function(response){
 
 		});
 	}
 
-	const AttachFile = () => {
-		axios.post("/api/message/attachFile")
+	const attachFile = () => {
+		axios.post("/api/message/file")
+		.then(function(response){
+
+		});
+	}
+
+	const attachMedia = () => {
+		axios.post("/api/message/media")
 		.then(function(response){
 
 		});
@@ -28,6 +37,7 @@ const InputMessage = () => {
 	return(
 		<>
 			<Input 
+				onChange={(e) => setText(e.target.value)}
 				multiline={true}
 			/>
 			<Button 

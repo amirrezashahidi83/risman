@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\DailyController;
+use App\Http\Controllers\Chat\ChatController;
+use App\Http\Controllers\Chat\MessageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,8 +23,20 @@ Route::get('/acceptCode/{phoneNumber}','AuthController@acceptCode');
 Route::middleware('auth:api')->group(function(){
     Route::post('/register','AuthController@register');
 
+
     Route::get('/lessons/{grade}/{major}','LessonController@getAll');
     Route::get('/topics/{lesson_id}','LessonController@getTopics');
+
+    Route::post("/message/new",[MessageController::class,'store']);
+    Route::post("/message/forward",[MessageController::class,'forward']);
+    Route::post("/message/delete",[MessageController::class,'destroy']);
+    Route::post("/message/see",[MessageController::class,'setSeen']);
+
+    Route::get("/chat/",[ChatController::class,'index']);
+    Route::get("/chat/messages",[ChatController::class,'getMessages']);
+    Route::post("/chat/new",[ChatController::class,'store']);
+    Route::get("/chat/delete",[ChatController::class,'destroy']);
+    Route::post("/chat/search",[ChatController::class,'search']);
 
     Route::group(['prefix' => 'user'],function (){
         Route::get('/transactions','TransactionController@getAll');
