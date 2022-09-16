@@ -220,6 +220,19 @@ const app = new Vue({
                 })
 
         },
+        get_all_counselors() {
+            axios.get('/students/getAll')
+            .then(function(response){
+                this.all_stu = response.data;
+            });
+        },
+
+        get_all_students() {
+            axios.get('/students/getAll')
+            .then(function(response){
+                this.all_stu = response.data;
+            });
+        },
         search_stu() {
             if (this.search_item) {
                 this.isLoading = true
@@ -273,7 +286,9 @@ const app = new Vue({
                 })
             }
         },
-        //mosh
+        remove_lesson(){
+
+        },
         get_last_mosh() {
             axios.get('/admin/get_mosh')
                 .then(response => {

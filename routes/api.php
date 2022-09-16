@@ -31,6 +31,7 @@ Route::middleware('auth:api')->group(function(){
     });
     Route::group(['prefix' => 'student'],function (){
 
+        Route::get('/getAll/{page}','StudentController@getAll');
         Route::post('/report','StudyController@store');
         Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
         Route::get('/getDailyMessage/{counselor_id','DailyController@getLastMessage');
