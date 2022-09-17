@@ -39,20 +39,23 @@ class PlanController extends Controller
 
     public function createSmart(Request $request){
         $student_id = $request->student_id;
+        $student = Student::where('id',$student_id)->first();
+
+        $major = $student->major;
+        $grade = $student->grade;
         $schedules = Schedule::where('student_id',$student_id)->get();
         
-        $general_lessons = Lesson::where('type',1)->only(['id']);
-        $special_lessons = Lesson::where('type',2)->only(['id']);
+        $general_lessons = Lesson::where('type',1)->where('major',$major)->where('grade','>=',$grade)->only(['id']);
+        $special_lessons = Lesson::where('type',2)->where('major',$major)->where('grade','>=',$grade)->only(['id']);
 
-        $main_lessons = array();
+        $main_lessons = $special_lessons->where('main',1);
 
         $plan = array();
         for($i = 1;$i < 8;$i++){
-            array_push($plan,array());
+            array_push($plan,array('data'=>array(),'day'=> 1));
             $today = $schedules->where('day',$i);
             $tomorrow = $schedules->where('day',($i + 1) / 7);
 
-            for($j = 1;$j < 7;$j++){
                 $tomorrow_special = $tomorrow->whereIn('lesson_id',$special_lessons);
                 $tomorrow_general = $tomorrow->whereIn('lesson_id',$general_lessons);
 
@@ -61,17 +64,18 @@ class PlanController extends Controller
 
                 if(count($tomorrow_general) > 0 && count($tomorrow_special) > 0)
                 {
-                    $plan[$j] = array_merge($plan[$j],$tomorrow_special);
-                    $plan[$j] = array_merge($plan[$j],$tomorrow_general);                
+                    $plan[$i]['data'] = array_merge($plan[$i],$tomorrow_special);
+                    $plan[$i]['data'] = array_merge($plan[$i],$tomorrow_general);                
                 }else if(count($tomorrow_general) > 0){
-                    $plan[$j] = array_merge($plan[$j],$today_special);
-                    $plan[$j] = array_merge($plan[$j],$tomorrow_general);                
+                    $plan[$i]['data'] = array_merge($plan[$i],$main_lessons);
+                    $plan[$i]['data'] = array_merge($plan[$i],$tomorrow_general);                
 
                 }else{
-                    $plan[$j] = $main_lessons;
+                    $plan[$i]['data'] = $main_lessons;
+                    $plan[$i]['day'] = 1;
                 }
 
-            }
+            
         }
     }
 
