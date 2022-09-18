@@ -46,9 +46,10 @@ class AuthController extends Controller
 		$apiKey = "7A71544551417865657250637655412F616E4D54617146454159347A59672F33";
 		
 		$api = new KavenegarApi($apiKey);
-        $message = $new_random->code;
+        $message = rand(10000,99999);
         $receptor = $phoneNumber;
         $result = $api->VerifyLookup($receptor, $message, '', '', 'verify');
+        return response()->json($message,200);
 
 	}
 
@@ -58,12 +59,12 @@ class AuthController extends Controller
 		$user->phoneNumber = $phoneNumber;
 		$user->password = Hash::make('');
 		$user->balance = 0;
-		$user->score = 0;
+		//$user->score = 0;
 		$user_id = $user->save();
 		$token = JWTAuth::attempt(['phoneNumber' => $phoneNumber , 'password' => '']);
 
 		return response()->json([
-			'user_id' => $user->id,
+			'user' => $user,
 			'token' => $token
 		],200);
 	}

@@ -11,7 +11,6 @@ const VoiceRecorder = () => {
 
 	}
 
-	const 
 	return(
 		<Recorder
 			record={true}

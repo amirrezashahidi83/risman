@@ -11,7 +11,7 @@ const Dashboard = ()=>{
     <>
       <CRow>
         <CCol>
-          <SendPlan />
+          <StudentTable user={user.userDetails.id} />
         </CCol>
         <CCol>
         </CCol>

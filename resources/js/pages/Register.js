@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
+import {useNavigate,useParams} from 'react-router-dom';
 import {Container,Card,Row,Col,InputGroup,Form,Button} from 'react-bootstrap';
 import {CFormCheck} from '@coreui/react';
 import Select from 'react-select';
@@ -6,29 +7,46 @@ import KeyIcon from '@mui/icons-material/VpnKey';
 import PersonIcon from '@mui/icons-material/Person';
 import NationalCodeIcon from '@mui/icons-material/AccountBalance';
 import { useValidation } from '../components/auth/validation';
-const Register = ()=>{
+import {useAuthState} from '../Context';
+
+const Register = () => {
+	
+	const navigate = useNavigate();
+	let user = useAuthState();
+	
+	useEffect(() => {
+		if(user == null)
+			navigate('/login');
+	});
+	
 	const [isStudent,setIsStudent] = useState(false);
 
 	const sendData = (e) => {
 
-		let name = e.name;
-		let password = e.password;
-		let againPassword = e.againPassword;
-		let nationalCode = e.nationalCode;
-		let role = isStudent ? 1 : 2;
+		let name = e[0].value;
+		let password = e[2].value;
+		let againPassword = e[3].value;
+		let nationalCode = e[1].value;
+		let role = isStudent ? 2 : 1;
+		let user_id = user.userDetails.id;
+		console.log(user.userDetails.id);
+		let token = user.token;
+		let data = {token: token,name : name,password: password, nationalCode: nationalCode,
+			role: role,user_id: user_id};
 
-		data = {name : e.name,password: e.password, nationalCode: e.nationalCode,
-			role: role};
-		if(role == 1){
-			data['grade'] = e.grade;
-			data['major'] = e.major;
-			data['school'] = e.school;
-			data['code'] = e.code;
+		if(role == 2){
+			data['grade'] = e[6].value;
+			data['major'] = e[7].value;
+			data['school'] = e[8].value;
+			data['code'] = e[9].value;
 		}
 
 		axios.post('/api/register',data)
 		.then(function(response){
-
+			if(response.data.length == 1)
+			{
+				navigate(role == 1 ? '/counselor' : '/student');
+			}
 		});
 	}
 
@@ -41,7 +59,7 @@ const Register = ()=>{
 							<Card.Title>ثبت نام در ریسمان</Card.Title>
 						</Card.Header>
 							<Card.Body>
-								<Form onSubmit={(e) => sendData(e.target)} >
+								<Form>
 									<InputGroup className='mt-4'>
 										<InputGroup.Text><PersonIcon /></InputGroup.Text>
 										<Form.Control name='name' placeholder='نام و نام  خانوادگی'/>
@@ -88,16 +106,30 @@ const Register = ()=>{
 									{
 										isStudent?
 										<Form.Group className='mt-2'>
-											<Select name='grade' />
-											<Select name='major' className='mt-2' />
-											<Form.Control name='school' />
-											<Form.Control name='code' />
+									
+											<CFormSelect name='grade'>
+												<option>دهم</option>
+												<option>یازدهم</option>
+												<option>دوازدهم</option>
+											</CFormSelect>
+									
+											<CFormSelect name='major'>
+												<option>ریاضی</option>
+												<option>تجربی</option>
+												<option>انسانی</option>
+											</CFormSelect>
+
+											<Form.Control name='school' placeholder='نام مدرسه' />
+											<Form.Control name='code' placeholder='کد مشاوره' />
+									
 										</Form.Group>
 										:
 										<div></div>
 									}	
 
-									<Button className='w-100 mt-3' type='submit' >تکمیل اطلاعات</Button>
+									<Button className='w-100 mt-3' onClick={(e) => sendData(e.target.parentNode)} >
+										تکمیل اطلاعات
+									</Button>
 								</Form>
 							</Card.Body>
 						<Card.Footer className='text-center'>

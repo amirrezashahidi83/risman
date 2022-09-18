@@ -1,37 +1,39 @@
 import {useState,useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Modal,Form,Card,Button} from 'react-bootstrap';
+import {useAuthDispatch} from '../../../Context';
+import {register} from '../../../Context';
 
 const useConfirmModal = (phone)=>{
+
 	const [show,setShow] = useState(false);
 	const [sentCode,setSentCode] = useState('');
 
+	const dispatch = useAuthDispatch();
+
 	let navigate = useNavigate();
 
-	useEffect( () => {
+	const sendCode = () => {
 		axios.get("/api/sendCode/"+phone)
 			.then(function(response){
 				setSentCode(response.data);
-		});
-	},[show]);
-
-	const refresh = () =>{
-		setShow(false);
-		setShow(true);
+				setShow(true);
+		});	
 	}
-	const acceptCode = (e) => {
-		let writtenCode = e.target.cinput.value;
-		if(writtenCode == sentCode)
-			axios.get("/api/acceptCode/"+phone)
-				.then(function(response){
 
-					setShow(false);
-					navigate('/register');
-			});
+	const acceptCode = async (e) => {
+		let writtenCode = e.target.parentNode.parentNode[1].value;
+
+		if(writtenCode == sentCode){
+			let result = await register(dispatch,phone);
+			if(result){
+				navigate("/register");
+			}			
+		}	
 	}
 	const ConfimModal = 
 		<Modal show={show} >
-			<Form onSubmit={acceptCode}>
+			<Form>
 			    <Modal.Header closeButton>
 			    <div></div>
 	        	</Modal.Header>
@@ -42,13 +44,13 @@ const useConfirmModal = (phone)=>{
 	کد ارسال شده لطفا تلفن همراه خود را چک کنید.
 		        			</Card.Text>
 		        			<Form.Control name='cinput' placeholder="کد تایید"/>
-		        			<Card.Link onClick={refresh}>
+		        			<Card.Link className='btn' onClick={sendCode}>
 		        			<small>ارسال مجدد کد</small>
 		        			</Card.Link>
 		        	</div>
 		        </Modal.Body>
 		        <Modal.Footer className='d-flex justify-content-start'>
-		        	<Button variant="primary" >
+		        	<Button variant="primary" onClick={acceptCode} >
 		            	ثبت کد
 		        	</Button>
 		        </Modal.Footer>
@@ -58,7 +60,7 @@ const useConfirmModal = (phone)=>{
 
 	return(
 		[show
-		,setShow
+		,sendCode
 		,ConfimModal]
 		)
 }

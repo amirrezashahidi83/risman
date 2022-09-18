@@ -203,6 +203,9 @@ const app = new Vue({
                 })
         },
         // stu
+        edit_student(){
+
+        },
         get_last_stu(ar = 0, mosh_id = 0) {
             if (ar) {
                 this.isLoading = true
@@ -328,6 +331,21 @@ const app = new Vue({
         funcgetaddr(val) {
             console.log(val)
             this.img_addr = val;
+        },
+        add_exam_plan() {
+
+        },
+        get_exam_plans(){
+
+        },
+        get_analysises_exam(){
+
+        },
+        add_link(){
+
+        },
+        get_links(){
+
         },
         add_plan() {
             if (this.plan_title) {

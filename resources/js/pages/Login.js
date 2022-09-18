@@ -10,13 +10,13 @@ const Login = () =>{
 
 	const [phone,setPhone] = useState('');
 	const [password,setPassword] = useState('');
-	const [show,setShow,ConfirmModal] = useConfirmModal(phone);
+	const [show,sendCode,ConfirmModal] = useConfirmModal(phone);
 	const dispatch = useAuthDispatch();
 
 	const checkForm = async (e) => {
 
 		e.preventDefault();
-		let result = await loginAction(dispatch,phone,password);
+		let result = await loginAction(dispatch,"98"+phone,password);
 
 	}
 
@@ -50,7 +50,7 @@ const Login = () =>{
 							</div>
 							
 							<Button className='w-100 mt-4' size="lg" type='submit'>ورود</Button>
-							<Button className='w-100 mt-2' size="lg" onClick={setShow}>ثبت نام</Button>
+							<Button className='w-100 mt-2' size="lg" onClick={sendCode}>ثبت نام</Button>
 						</Card.Body>
 					</Card>
 				</Form>

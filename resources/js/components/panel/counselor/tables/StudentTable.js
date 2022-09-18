@@ -8,7 +8,7 @@ const StudentTable = ()=>{
 
 	useEffect(() =>{
 		
-		axios.get("/api/counselor/students"+user_id)
+		axios.get("/api/counselor/"+user_id+"/students/")
 		.then(function(response){
 			setStudents(response.data);
 		});
