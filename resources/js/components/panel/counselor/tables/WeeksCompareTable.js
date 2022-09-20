@@ -3,18 +3,18 @@ import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 	CTableCaption} from '@coreui/react';
 import Select from 'react-select';
 
-const WeeksCompareTable = ()=>{
+const WeeksCompareTable = ({counselor_id})=>{
 	
 	const [compares,setCompares] = useState([]);
 	
 	useEffect(() =>{
 		
-		axios.get("/api/counselor/compare2weeks/")
+		axios.get("/api/counselor/compare2weeks/"+counselor_id)
 		.then(function(response){
 			setCompares(response.data);
 		});
 
-	});
+	},[]);
 
 	return(
 		<CTable>

@@ -10,6 +10,7 @@ import Wallet from './student/Wallet';
 import Settings from './Settings';
 import Daily from './counselor/Daily';
 import ReportCounselor from './counselor/ReportStudy';
+import Compare from './counselor/Compare';
 
 export const student_routes = [
 	{
@@ -67,5 +68,9 @@ export const counselor_routes = [
 	{
 		path: '/reports/:id',
 		element: <ReportCounselor />
+	},
+	{
+		path: '/compare/',
+		element: <Compare />
 	}
 ]
