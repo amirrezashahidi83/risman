@@ -38,7 +38,6 @@ class StudentController extends Controller
             $name = User::where('id',$student->user_id)->first()->name;
             $student['name'] = $name;
         }
-
     	return response()->json($students,200);
     }
 

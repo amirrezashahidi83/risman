@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Counselor;
+use App\Models\SmsCode;
 use Kavenegar\KavenegarApi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -18,12 +19,10 @@ class AuthController extends Controller
 		
 		$phoneNumber = $request->phoneNumber;
 		$password = $request->password;
-		$role = $request->role;
 
 		$validator = Validator::make($request->all(),[
 			'phoneNumber' => 'required',
 			'password' => 'required',
-			'role' => 'required'
 		]);
 
 		if($validator->fails()){
@@ -31,10 +30,17 @@ class AuthController extends Controller
 		}
 
 		if(($token = JWTAuth::attempt(['phoneNumber' => $phoneNumber,'password' => $password]) )){
+			$user = JWTAuth::user();
+			if($user->role == 1)
+				$user['special'] = Counselor::where('user_id',$user->id)->first();
+			else{
+				$user['special'] = Student::where('user_id',$user->id)->first();
+			}
+
 			return response()->json([
-				'token' => $token,
-				'code' => 200
-			]);
+				'user' => $user,
+				'token' => $token
+			],200);
 
 		}else{
 			return response()->json(['error' => 'Unauthorized']);
@@ -49,6 +55,10 @@ class AuthController extends Controller
         $message = rand(10000,99999);
         $receptor = $phoneNumber;
         $result = $api->VerifyLookup($receptor, $message, '', '', 'verify');
+       	/*$sms = new SmsCode();
+       	$sms->code = $message;
+       	$sms->phoneNumber = $phoneNumber;
+       	$sms->save();*/
         return response()->json($message,200);
 
 	}
@@ -85,22 +95,26 @@ class AuthController extends Controller
 
 		$user->save();
 		
-		$result = '';
-		if($role == 'student'){
+		$special = '';
+		if($role == 2){
 		
 			$student = new Student();
 			$student->user_id = $user->id;
 			$student->status = 0;
+			$student->major = $request->major;
+			$student->grade = $request->grade;
+			$student->school = $request->school;
 			$student->save();
-			$result = $student;
+			$special = $student;
 		}
 		else{
 			$counselor = new Counselor();
 			$counselor->user_id = $user->id;
 			$counselor->status = 0;
 			$counselor->save();
-			$result = $counselor;
+			$special = $counselor;
 		}
+		$user['special'] = $details;
 
 		return response()->json([$result],200);
 

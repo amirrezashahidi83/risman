@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom';
 import {Container,Card,Row,Col,InputGroup,Form,Button} from 'react-bootstrap';
-import {CFormCheck} from '@coreui/react';
+import {CFormCheck,CFormSelect} from '@coreui/react';
 import Select from 'react-select';
 import KeyIcon from '@mui/icons-material/VpnKey';
 import PersonIcon from '@mui/icons-material/Person';
@@ -20,6 +20,7 @@ const Register = () => {
 	});
 	
 	const [isStudent,setIsStudent] = useState(false);
+	const [haveCode,setHaveCode] = useState(false);
 
 	const sendData = (e) => {
 
@@ -29,7 +30,6 @@ const Register = () => {
 		let nationalCode = e[1].value;
 		let role = isStudent ? 2 : 1;
 		let user_id = user.userDetails.id;
-		console.log(user.userDetails.id);
 		let token = user.token;
 		let data = {token: token,name : name,password: password, nationalCode: nationalCode,
 			role: role,user_id: user_id};
@@ -108,20 +108,31 @@ const Register = () => {
 										<Form.Group className='mt-2'>
 									
 											<CFormSelect name='grade'>
-												<option>دهم</option>
-												<option>یازدهم</option>
-												<option>دوازدهم</option>
+												<option value='1'>هفتم</option>
+												<option value='2'>هشتم</option>
+												<option value='3'>نهم</option>
+												<option value='4'>دهم</option>
+												<option value='5'>یازدهم</option>
+												<option value='6'>دوازدهم</option>
 											</CFormSelect>
 									
 											<CFormSelect name='major'>
-												<option>ریاضی</option>
-												<option>تجربی</option>
-												<option>انسانی</option>
+												<option value='1'>ریاضی</option>
+												<option value='2'>تجربی</option>
+												<option value='3'>انسانی</option>
+												<option value='4'>ندارم</option>
 											</CFormSelect>
 
 											<Form.Control name='school' placeholder='نام مدرسه' />
-											<Form.Control name='code' placeholder='کد مشاوره' />
-									
+											<CFormCheck
+											 label='کد مشاوره دارم'
+											 onChange={()=>setHaveCode(!haveCode)}/>
+											{haveCode ? 
+												<Form.Control name='code' placeholder='کد مشاوره' />
+												:
+												<div></div>
+											}
+
 										</Form.Group>
 										:
 										<div></div>

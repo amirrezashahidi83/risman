@@ -2,13 +2,15 @@
 import StudentDashboard from './student/Dashboard';
 import CounselorsList from './student/CounselorsList';
 import CounselorsProfile from './student/CounselorsProfile';
-import ReportStudy from './student/ReportStudy';
+import ReportStudent from './student/ReportStudy';
 import AnalysisExam from './student/AnalysisExam';
 import NewTest from './student/NewTest';
 import CounselorDashboard from './counselor/Dashboard';
 import Wallet from './student/Wallet';
 import Settings from './Settings';
 import Daily from './counselor/Daily';
+import ReportCounselor from './counselor/ReportStudy';
+
 export const student_routes = [
 	{
 		path: '/dashboard',
@@ -24,7 +26,7 @@ export const student_routes = [
 	},
 	{
 		path: '/mycounselor/reportstudy',
-		element: <ReportStudy />
+		element: <ReportStudent />
 	},
 	{
 		path: '/analysis_exam',
@@ -61,5 +63,9 @@ export const counselor_routes = [
 	{
 		path: '/daily',
 		element: <Daily />
+	},
+	{
+		path: '/reports/:id',
+		element: <ReportCounselor />
 	}
 ]

@@ -13,10 +13,14 @@ const Login = () =>{
 	const [show,sendCode,ConfirmModal] = useConfirmModal(phone);
 	const dispatch = useAuthDispatch();
 
+	let navigate = useNavigate();
+
 	const checkForm = async (e) => {
 
 		e.preventDefault();
-		let result = await loginAction(dispatch,"98"+phone,password);
+		let result = await loginAction(dispatch,phone,password);
+		if(result.user)
+			navigate(result.user.role == 1 ? '/counselor' : '/student');
 
 	}
 

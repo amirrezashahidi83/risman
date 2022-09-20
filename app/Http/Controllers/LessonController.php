@@ -22,7 +22,7 @@ class LessonController extends Controller
     	$lesson->grade = $grade;
         $lesson->major = $major;
 
-    	return response()->json($lesson->save(),200)
+    	return response()->json($lesson->save(),200);
     }
 
     public function update(){

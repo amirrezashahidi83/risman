@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react';
-import { Pie,PieChart } from 'recharts';
+import { Pie,PieChart,Line,LineChart,XAxis,YAxis } from 'recharts';
 
 export const LineChartWrapper = ({data}) => {
 
@@ -32,11 +32,7 @@ export const PieChartWrapper = ({data}) => {
 	)
 }
 
-export const ProgressChart = ({student_id}) => {
-  const [weeks,setWeeks] = useState([]);
-  useEffect( () => {
-    
-  });  
+export const ProgressChart = ({data}) => {
   return(
     <LineChart width={500} height={300} data={data}>
       <XAxis dataKey="name"/>
@@ -46,18 +42,7 @@ export const ProgressChart = ({student_id}) => {
   )
 }
 
-export const LessonsChart = ({student_id}) => {
-  const [data,setData] = useState([]);
-  
-  useEffect( () => {
-    axios.get("/api/student/report/lessons/"+student_id)
-    .then(function(response){
-  
-      setData(response.data);
-  
-    });
-  
-  },[]);
+export const LessonsChart = ({data}) => {
 
   return(
     <PieChart width={400} height={400}>
@@ -77,19 +62,7 @@ export const LessonsChart = ({student_id}) => {
   )
 }
  
-export const SingleLessonChart = ({student_id,lesson_id}) => {
-  
-  const [data,setData] = useState([]);
-  
-  useEffect( () => {
-    axios.get("/api/student/report/"+student_id+"/"+lesson_id)
-    .then(function(response){
-  
-      setData(response.data);
-  
-    });
-  
-  },[]);
+export const SingleLessonChart = ({data}) => {
 
   return(
     <PieChart width={400} height={400}>

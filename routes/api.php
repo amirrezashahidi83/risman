@@ -45,6 +45,7 @@ Route::middleware('auth:api')->group(function(){
     });
     Route::group(['prefix' => 'student'],function (){
 
+        Route::get('/{id}','StudentController@index');
         Route::get('/getAll/{page}','StudentController@getAll');
         Route::post('/report','StudyController@store');
         Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
@@ -63,6 +64,7 @@ Route::middleware('auth:api')->group(function(){
 
         Route::get('/counselors/{keyword}',"CounselorController@search");
         Route::get('/{counselor_id}',"CounselorController@index");
+        Route::get('/{counselor_id}/students',"StudentController@getByCounselor");
         Route::post('/counselor/{counselor_id}/accept',"CounselorController@accept");
         
         Route::get('/{counselor_id}/students',"StudentController@getByCounselor");

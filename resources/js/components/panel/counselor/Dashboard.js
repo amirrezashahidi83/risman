@@ -6,12 +6,12 @@ import {useAuthState} from '../../../Context';
 
 const Dashboard = ()=>{
   const user = useAuthState();
-  
+
   return(
     <>
       <CRow>
         <CCol>
-          <StudentTable user={user.userDetails.id} />
+          <StudentTable user={user} />
         </CCol>
         <CCol>
         </CCol>
