@@ -69,7 +69,8 @@ class AuthController extends Controller
 		$user->phoneNumber = $phoneNumber;
 		$user->password = Hash::make('');
 		$user->balance = 0;
-		//$user->score = 0;
+		$user->city = 0;
+		$user->score = 0;
 		$user_id = $user->save();
 		$token = JWTAuth::attempt(['phoneNumber' => $phoneNumber , 'password' => '']);
 
@@ -95,7 +96,6 @@ class AuthController extends Controller
 
 		$user->save();
 		
-		$special = '';
 		if($role == 2){
 		
 			$student = new Student();
@@ -105,18 +105,19 @@ class AuthController extends Controller
 			$student->grade = $request->grade;
 			$student->school = $request->school;
 			$student->save();
-			$special = $student;
+			$user['special'] = $student;
 		}
 		else{
 			$counselor = new Counselor();
 			$counselor->user_id = $user->id;
 			$counselor->status = 0;
+			$counselor->automatic_message = 0;
+			$counselor->specialities = json_encode('');
 			$counselor->save();
-			$special = $counselor;
+			$user['special'] = $counselor;
 		}
-		$user['special'] = $details;
 
-		return response()->json([$result],200);
+		return response()->json([$user],200);
 
 	}
 		

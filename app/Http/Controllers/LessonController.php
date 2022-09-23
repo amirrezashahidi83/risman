@@ -34,7 +34,7 @@ class LessonController extends Controller
     }
     
     public function getAll($grade,$major){
-    	$lessons = Lesson::where('grade',$grade)->where('major',$major)->get();
+    	$lessons = Lesson::where('grade',"<=",$grade)->where('major',$major)->get();
 
     	return response()->json($lessons,200);
     }

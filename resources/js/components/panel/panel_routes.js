@@ -17,6 +17,7 @@ export const student_routes = [
 		path: '/dashboard',
 		element: <StudentDashboard />
 	},
+
 	{
 		path: '/counselors/',
 		element: <CounselorsList />

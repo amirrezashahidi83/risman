@@ -1,28 +1,25 @@
 import {useEffect,useState} from 'react';
 import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
-	CTableCaption,CFormInput} from '@coreui/react';
+	CTableCaption,CFormInput,CFormSelect} from '@coreui/react';
 import Select from 'react-select';
 
-const StudyTable = ()=>{
+const StudyTable = ({user,lessons}) => {
 	
-	const [lessons,setLessons] = useState([]);
-
-	useEffect(() =>{
-		axios.get("/api/lessons/")
-			.then(function(response){
-				setLessons(response.data);
-			});
-
-	});
-
+	const daysName = ['شنبه','یکشنبه','دو شنبه','سه شنبه','چهارشنبه','پنجشنبه','جمعه']
+	
 	return(
 		<CTable>
 			<CTableCaption>
-				<Select options={daysName} onChange={onSelectChange} />
+				<CFormSelect>
+					{daysName.map((name,idx) =>
+						<option key={idx} ></option>
+					)}
+				</CFormSelect>
 			</CTableCaption>
 			<CTableHead>
 				<CTableRow>
       				<CTableHeaderCell scope="col">درس</CTableHeaderCell>
+      				<CTableHeaderCell scope="col">مبحث</CTableHeaderCell>
       				<CTableHeaderCell scope="col">پایه</CTableHeaderCell>
       				<CTableHeaderCell scope="col">ساعت مطالعه</CTableHeaderCell>
       				<CTableHeaderCell scope="col">ساعت تست</CTableHeaderCell>
@@ -32,11 +29,23 @@ const StudyTable = ()=>{
 			<CTableBody>
 				{lessons.map((lesson) => 
 				<CTableRow key={lesson.id} >
-					<CTableHeaderCell scope='row'>{lesson.name}</CTableHeaderCell>
-					<CTableDataCell>{lesson.grade}</CTableDataCell>
-					<CTableDataCell><CFormInput /></CTableDataCell>
-					<CTableDataCell><CFormInput /></CTableDataCell>
-					<CTableDataCell><CFormInput /></CTableDataCell>
+					
+					<CTableDataCell>
+						<CFormInput name='lesson_id' type='hidden' value={lesson.id}/>
+						{lesson.title}
+					</CTableDataCell>
+
+					<CTableDataCell>
+						<CFormSelect name='topic' >
+							{JSON.parse(lesson.topics).map((topic,idx) => 
+								<option key={idx} value={idx}>{topic}</option>
+							)}
+						</CFormSelect>
+					</CTableDataCell>
+					<CTableDataCell name='grade'>{lesson.grade}</CTableDataCell>
+					<CTableDataCell><CFormInput name='study_time' /></CTableDataCell>
+					<CTableDataCell><CFormInput name='test_time' /></CTableDataCell>
+					<CTableDataCell><CFormInput name='test_count' /></CTableDataCell>
 				</CTableRow>
 				)}
 			</CTableBody>

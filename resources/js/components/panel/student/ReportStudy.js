@@ -1,18 +1,32 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {CCard,CCardBody,CCardHeader,CCardFooter,CForm,CInputGroup
 	,CFormLabel,CFormInput,CFormText,CFormSelect,CRow,CCol,CButton} from '@coreui/react';
 import Select from 'react-select';
 import StudyTable from './tables/StudyTable';
+import {useAuthState} from '../../../Context';
 
-const ReportStudy = ()=>{
+const ReportStudy = () => {
 
+	const user = useAuthState().userDetails;
+	const token = useAuthState().token;
 	const [lessons,setLessons] = useState([]);
 	const [topics,setTopics] = useState([]);
 	const [data,setData] = useState({});
 	
+	useEffect(() => {
+		axios
+		.get("/api/lessons/"+user.special.grade+"/"+user.special.major
+			+"?token="+token)
+		.then(function(response){
+			setLessons(response.data);
+		});
+	},[]);
+
 	const handleSubmit = (e) => {
 		
-		for(let i = 0;i<5;i++){
+		for(let i =0;i<e.target.length;i++)
+			alert(e.target[i].name);
+		/*for(let i = 0;i<5;i++){
 			setData(...data,
 				lesson= {
 					'study_time': StudyTime,
@@ -21,10 +35,11 @@ const ReportStudy = ()=>{
 				}
 			)
 		}
-		axios.post('/api/student/report',{data:data})
+		axios.post('/api/student/report',
+		{data: data,student_id: user.userDetails.id,token: user.token})
 		.then(function(response){
 
-		});
+		});*/
 	}
 
 	return(
@@ -40,9 +55,9 @@ const ReportStudy = ()=>{
 
 								<CCol>
 									<CFormSelect>
-										{lessons.map((lesson,id)=>{
-											<option key={id}>{lesson}</option>
-										})}
+										{lessons.map((lesson,id)=>
+											<option key={id}>{lesson.title}</option>
+										)}
 									</CFormSelect>
 								</CCol>
 							</CRow>
@@ -106,26 +121,14 @@ const ReportStudy = ()=>{
 			<CCol>
 				<CCard>
 					<CCardBody>
-						<CForm>
-							<StudyTable />
-							<CButton>
+						<CForm onSubmit={handleSubmit} >
+							<StudyTable user={user} lessons={lessons} />
+							<CButton type='submit' >
 								ثبت برنامه
 							</CButton>
 						</CForm>
 
 					</CCardBody>
-				</CCard>
-			</CCol>
-			<CCol>
-				<CCard>
-					<CForm onSubmit={handleSubmit} >
-						<CCardBody>
-							<StudyTable />
-						</CCardBody>
-						<CCardFooter>
-							<CButton type='submit'>ارسال برنامه</CButton>
-						</CCardFooter>
-					</CForm>
 				</CCard>
 			</CCol>
 		</CRow>

@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import {CCard,CCardBody,CCardHeader,CRow,CCol,CFormSelect} from '@coreui/react';
 import {ProgressChart,LessonsChart,SingleLessonChart} from './widgets/Charts';
 import {useAuthState} from '../../../Context';
+import SumStudyTable from './tables/SumStudyTable';
 
 const ReportStudy = () => {
 	
@@ -70,15 +71,29 @@ const ReportStudy = () => {
 					</CCard>
 				</CCol>
 			</CRow>
+			<CRow>
+				<CCol>
+					<CCard>
+						<CCardHeader>
+						</CCardHeader>
 
-			<CCard>
-				<CCardHeader>
-				</CCardHeader>
+						<CCardBody>
+							<ProgressChart user_id={studentData.id} />
+						</CCardBody>
+					</CCard>
+				</CCol>
 
-				<CCardBody>
-					<ProgressChart user_id={studentData.id} />
-				</CCardBody>
-			</CCard>
+				<CCol>
+					<CCard>
+						<CCardHeader>
+						</CCardHeader>
+						
+						<CCardBody>
+							<SumStudyTable user={studentData} />
+						</CCardBody>
+					</CCard>
+				</CCol>
+			</CRow>
 		</>
 	)
 }

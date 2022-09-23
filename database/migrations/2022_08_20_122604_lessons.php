@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('major');
             $table->integer('type');
             $table->integer("main");
+            $table->json("topics");
             $table->timestamp('created_at')->useCurrent();
         });
     }

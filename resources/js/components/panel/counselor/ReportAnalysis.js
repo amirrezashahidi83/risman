@@ -1,5 +1,5 @@
 import {CCard,CCardBody} from '@coreui/react';
-import ReportAnalysis from './ReportAnalysis';
+import AnalysisTable from './tables/AnalysisTable';
 import {useAuthState} from '../../../Context';
 
 const ReportAnalysis = () => {
