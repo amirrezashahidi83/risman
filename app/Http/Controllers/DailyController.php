@@ -16,6 +16,7 @@ class DailyController extends Controller
 
 		$daily = new Daily();
 		$daily->picture = $path;
+		$daily->type = 2;
 		$daily->counselor_id = $counselor_id;
 
 		return response()->json($daily->save(),200);
@@ -24,10 +25,11 @@ class DailyController extends Controller
 
 	public function addMessage(Request $request){
 		$counselor_id = $request->counselor_id;
-		$message = $request->message;
+		$text = $request->text;
 
 		$daily = new Daily();
-		$daily->message = $message;
+		$daily->text = $text;
+		$daily->type = 1;
 		$daily->counselor_id = $counselor_id;
 
 		return response()->json($daily->save(),200);

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer("status");
             $table->integer("automatic_message");
             $table->json("specialities")->nullable();
-            $table->foreignId("user_id")->references("id")->on("users")->unique();
+            $table->foreignId("user_id")->unique()->references("id")->on("users");
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

@@ -3,20 +3,9 @@ import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 	CTableCaption,CButton} from '@coreui/react';
 import Select from 'react-select';
 
-const DailiesTable = (user)=>{
+const DailiesTable = ({user,dailies})=>{
 	
-	let user_id = user.id;
-
-	const [dailies,setDailies] = useState([]);
-	useEffect(() =>{
-		
-		axios.get("/api/counselor/dailies/"+user_id)
-		.then(function(response){
-			setDailies(response.data);
-		});
-
-	});
-
+	console.log(dailies);
 	const onSelectChange = (event) => {
 		setSelected(event.target.id);
 	}
@@ -32,6 +21,8 @@ const DailiesTable = (user)=>{
       				<CTableHeaderCell scope="col">نوع</CTableHeaderCell>
       				<CTableHeaderCell scope="col">جمله</CTableHeaderCell>
       				<CTableHeaderCell scope="col">عکس</CTableHeaderCell>
+      				<CTableHeaderCell scope="col">ساعت شروع</CTableHeaderCell>
+      				<CTableHeaderCell scope="col">ساعت پایان</CTableHeaderCell>
     			</CTableRow>
 			</CTableHead>
 			<CTableBody>
@@ -41,8 +32,14 @@ const DailiesTable = (user)=>{
 						<CTableDataCell>{row.type}</CTableDataCell>
 						<CTableDataCell>{row.text == null ? '-' : row.text}</CTableDataCell>
 						<CTableDataCell>
-							<CButton><a href={row.picture}></a></CButton>
+							{row.picture ? 
+								<CButton><a href={row.picture}></a></CButton>
+								:
+								'-'
+							}
 						</CTableDataCell>
+						<CTableDataCell>{row.start_time}</CTableDataCell>
+						<CTableDataCell>{row.end_time}</CTableDataCell>
 					</CTableRow>
 				)}
 			</CTableBody>

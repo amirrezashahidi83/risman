@@ -6,23 +6,38 @@ import { CSidebar, CSidebarBrand, CSidebarNav, CSidebarToggler } from '@coreui/r
 import CIcon from '@coreui/icons-react'
 import { ChatList,ChatItem } from "react-chat-elements"
 import "react-chat-elements/dist/main.css"
-import Select from 'react-select';
+import SearchBox from 'react-search-box';
 import {useAuthState} from '../../Context';
 
-const AppSidebar = () => {
+const AppSidebar = (setSelectedChat) => {
 
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
+  const [member,setMember] = useState({});
   const [items,setItems] = useState([]);
-  const user = useAuthState();
-  
-  const searchChat = () => {
-    axios.get('/api/chat/search/')
-    .then(function(response){
+  const user = useAuthState().userDetails;
+  const token = useAuthState().token;
 
+  useEffect(() => {
+    axios.get("/api/member/"+user.id+"&token="+token)
+    .then(function(response){
+      setMember(response.data);
     });
+  });
+
+  const searchChat = (e) => {
+    let value = e.target.value;
+    axios.post('/api/chat/search/',
+      {member:member,token:token})
+    .then(function(response){
+      setItems(response.data);
+    });
+  }
+
+  const onSelectHandle = (e) => {
+    setSelectedChat(e.target.ids);
   }
 
   return (
@@ -35,13 +50,19 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <Select className='w-100' />
+        <SearchBox 
+          placeholder="جستجو..."
+          data={items}
+          onChange={searchChat}
+
+        />
       </CSidebarBrand>
       <CSidebarNav>
         <ChatList
           >
           {items.map((item) => 
             <ChatItem
+              id={item.id}
               avatar={item.avatar}
               title={item.title}
               date={new Date()}

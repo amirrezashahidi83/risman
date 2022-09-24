@@ -1,5 +1,8 @@
 import React from 'react'
-import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/chat/index'
+import { CContainer, CSpinner, CRow } from '@coreui/react'
+import ChatBox from '../components/chat/ChatBox';
+import InputMessage from '../components/chat/InputMessage';
+import { AppSidebar, AppFooter, AppHeader } from '../components/chat/index'
 
 const Chatroom = () => {
   return (
@@ -8,7 +11,12 @@ const Chatroom = () => {
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
         <div className="body flex-grow-1 px-3">
-          <AppContent />
+          <CContainer lg>
+            <ChatBox />
+            <CRow>
+              <InputMessage />
+            </CRow>
+          </CContainer>
         </div>
         <AppFooter />
       </div>

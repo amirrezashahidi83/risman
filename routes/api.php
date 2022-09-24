@@ -68,7 +68,7 @@ Route::middleware('auth:api')->group(function(){
         Route::post('/counselor/{counselor_id}/accept',"CounselorController@accept");
         
         Route::get('/{counselor_id}/students',"StudentController@getByCounselor");
-        Route::get('/dailies/{counselor_id}',"DailyController@getAll");
+        Route::get('{counselor_id}/dailies/',"DailyController@getAll");
         Route::post('/dailies/newMessage',"DailyController@addMessage");
         Route::post('/dailies/newPicture',"DailyController@addPicture");
 

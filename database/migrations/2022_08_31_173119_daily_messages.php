@@ -18,9 +18,12 @@ return new class extends Migration
             $table->integer('type');
             $table->text("text")->nullable();
             $table->string('picture')->nullable();
-            $table->string("times");
+            $table->integer("start_time")->nullable();
+            $table->integer("end_time")->nullable();
             $table->foreignId("counselor_id")->references("id")->on("counselors");
             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
+
         });
     }
 

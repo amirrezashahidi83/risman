@@ -4,11 +4,19 @@ import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import SendIcon from '@mui/icons-material/Send';
 import { Input,Button } from "react-chat-elements";
 import VoiceRecorder from './VoiceRecorder';
-const InputMessage = () => {
+
+const InputMessage = ({user}) => {
 
 	const [text,setText] = useState("");
-	const sendMessage = () =>{
-		axios.post("/api/message/new")
+	const token = user.token;
+
+	const sendMessage = (e) => {
+
+		e.preventdefault();
+		let message = e.target.message;
+
+		axios.post("/api/message/new",
+			{message:message,token:token})
 		.then(function(response){
 
 		});

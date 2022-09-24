@@ -5,29 +5,36 @@ import DailiesTable from './tables/DailiesTable';
 import {useAuthState} from '../../../Context';
 
 const Daily = () => {
-	const user = useAuthState();	
-	const [messages,setMessages] = useState([]);
-	const [pictures,setPictures] = useState([]);
 
-	useEffect(()=>{
-		axios.get('/api/counselor/dailies/'+'')
+	const user = useAuthState().userDetails;
+	const token = useAuthState().token;
+	
+	const [dailies,setDailies] = useState([]);
+
+	useEffect( () => {
+		
+		axios.get('/api/counselor/'+user.special.id+'/dailies?token='+token)
 			.then(function(response){
-				setMessages(response.data.messages);
-				setPictures(response.data.pictures);
+				setDailies(response.data);
 			});
+
 	},[]);
 
 	const handleNewMessage = (event) => {
+		    event.preventDefault();
 		let message = event.target.message.value;
-		axios.post("/api/counselor/dailies/newMessage",{counselor_id:user.id,message:message})
+		axios.post("/api/counselor/dailies/newMessage",
+			{counselor_id:user.special.id,text:message,token:token,type:1})
 			.then(function(response){
 				window.location.reload();
 			});
 	}
 
 	const handleNewPicture = (event) => {
+		
 		let picture = event.target.picture.value;
-		axios.post("/api/counselor/dailies/newPicture",{counselor_id:user.id,picture:picture})
+		axios.post("/api/counselor/dailies/newPicture",
+			{counselor_id:user.userDetails.id,picture:picture,token:token})
 			.then(function(response){
 				window.location.reload();
 			});
@@ -51,9 +58,9 @@ const Daily = () => {
 						<CForm>
 							<CCardBody>
 								<CInputGroup>
-									<CFormInput />
+									<CFormInput name='message' />
 								</CInputGroup>
-								<CButton className='w-100 mt-3'>افزودن</CButton>
+								<CButton className='w-100 mt-3' type='submit'>افزودن</CButton>
 							</CCardBody>
 						</CForm>
 					</CCard>
@@ -61,7 +68,7 @@ const Daily = () => {
 			</CRow>
 			<CCard>
 				<CCardBody>
-					<DailiesTable user={user} />
+					<DailiesTable user={user} dailies={dailies} />
 				</CCardBody>
 			</CCard>
 		</>
