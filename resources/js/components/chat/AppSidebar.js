@@ -8,8 +8,7 @@ import { ChatList,ChatItem } from "react-chat-elements"
 import "react-chat-elements/dist/main.css"
 import SearchBox from 'react-search-box';
 import {useAuthState} from '../../Context/auth';
-import {useChatDispatch} from '../../Context/chat';
-import {setChat,enterGhost} from '../../Context/chat';
+import {useChatState,useChatDispatch,setChat,enterGhost} from '../../Context/chat';
 import useHoldEvent from './HoldEvent';
 
 const AppSidebar = () => {
@@ -49,6 +48,13 @@ const AppSidebar = () => {
       });
   }
 
+  onHoldHandler(() => {
+    enterGhost(useChatDispatch());
+  });
+
+  onHoldLeaveHandler(() => {
+    exitGhost(useChatDispatch());
+  });
 
   return (
     <CSidebar

@@ -16,7 +16,7 @@ class ExamController extends Controller
 	}
 
 	public function getAll($grade,$major){
-		$exams = Exam::where('grade',$grade)->where('major',$major)->get();
+		$exams = Exam::where('grade',"<=",$grade)->where('major',$major)->get();
 		return response()->json($exams,200);
 	}
 

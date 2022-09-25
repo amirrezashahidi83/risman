@@ -47,6 +47,11 @@ Route::middleware('auth:api')->group(function(){
 
         Route::get('/{id}','StudentController@index');
         Route::get('/getAll/{page}','StudentController@getAll');
+
+        Route::get("/{student_id}/analysises","ExamController@getAnalysises");
+        Route::post('/analysises/add',"ExamController@addAnalysis");
+
+        Route::get("/{student_id}/exams","ExamController@getAll");
         Route::post('/report','StudyController@store');
         Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
         Route::get('/getDailyMessage/{counselor_id','DailyController@getLastMessage');

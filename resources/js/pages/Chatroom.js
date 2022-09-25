@@ -3,20 +3,22 @@ import { CContainer, CSpinner, CRow } from '@coreui/react'
 import ChatBox from '../components/chat/ChatBox';
 import InputMessage from '../components/chat/InputMessage';
 import { AppSidebar, AppFooter, AppHeader } from '../components/chat/index'
+import {useChatState} from '../Context/chat';
 
 const Chatroom = () => {
 
-  const [chat,setChat] = useState({});
+  const ghost_mode = useChatState().ghost_mode;
+  
   return (
     <div>
-      <AppSidebar setChat={setChat} />
+      <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <AppHeader chat={chat} />
+        <AppHeader />
         <div className="body flex-grow-1 px-3">
           <CContainer lg>
-            <ChatBox chat={chat} />
+            <ChatBox />
             <CRow>
-              <InputMessage chat={chat} />
+              <InputMessage />
             </CRow>
           </CContainer>
         </div>
