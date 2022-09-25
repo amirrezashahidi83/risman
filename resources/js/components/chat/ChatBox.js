@@ -1,15 +1,16 @@
 import {useState} from 'react';
-import {MessageBox,MessageList} from 'react-chat-elements';
-
-const ChatBox = ({user}) => {
+import {MessageBox,MessageList,Navbar} from 'react-chat-elements';
+import {useAuthState} from '../../Context';
+const ChatBox = ({chat}) => {
 
 	const [selectedMessage,SetSelectedMessage] = useState(0);
 	const [showMenu,setShowMenu] = useState(false);
-	const token = user.token;
+	const user = useAuthState().userDetails;
+	const token = useAuthState().token;
 
 	const readMessage = (messages) => {
 		axios.post("/api/message/read",
-		{token:token,messages:messages,chat_id:chat_id})
+		{token:token,messages:messages,chat_id:chat.id})
 		.then(function(response){
 
 		});
@@ -72,14 +73,27 @@ const ChatBox = ({user}) => {
 	            }
 	        </CDropdownMenu>
 
-	        {messages.map( (message) =>
-	          <MessageBox
-	            key={message.id}
-	            position={message.sender_id == user_id ? 'right' : 'left'}
-	            title={message.title}
-	            type={message.type}>
-          </MessageBox>
-        )}
+	        {messages.map( (message) => {
+	        	return(
+	        	<>
+		        	{
+		        		message.id == chat.members[user.id]
+		        		? 
+		        		<Navbar 
+		        		center=<span>You have {chat.members[user.id]}</span>
+		        		/> 
+		        	:
+		        		<div></div>
+		        	}
+		        	<MessageBox
+		             key={message.id}
+		             position={message.sender_id == user_id ? 'right' : 'left'}
+		             title={message.title}
+		             type={message.type}>
+	          		</MessageBox>
+          		</>
+          		)
+        	})}
     	</MessageList>
 
 	)

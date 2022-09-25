@@ -18,7 +18,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { AppHeaderDropdown } from './header/index'
 
-const AppHeader = () => {
+const AppHeader = ({chat}) => {
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)

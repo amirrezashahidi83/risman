@@ -4,11 +4,13 @@ import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import SendIcon from '@mui/icons-material/Send';
 import { Input,Button } from "react-chat-elements";
 import VoiceRecorder from './VoiceRecorder';
+import { useAuthState } from '../../Context';
 
-const InputMessage = ({user}) => {
+const InputMessage = ({chat}) => {
 
 	const [text,setText] = useState("");
-	const token = user.token;
+	const user = useAuthState().userDetails;
+	const token = useAuthState().token;
 
 	const sendMessage = (e) => {
 

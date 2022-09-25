@@ -8,11 +8,11 @@ import { ChatList,ChatItem } from "react-chat-elements"
 import "react-chat-elements/dist/main.css"
 import SearchBox from 'react-search-box';
 import {useAuthState} from '../../Context';
+import HoldEvent from './HoldEvent';
 
-const AppSidebar = (setSelectedChat) => {
+const AppSidebar = ({setChat}) => {
 
   const dispatch = useDispatch()
-  const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
   const [member,setMember] = useState({});
@@ -29,21 +29,32 @@ const AppSidebar = (setSelectedChat) => {
 
   const searchChat = (e) => {
     let value = e.target.value;
+
     axios.post('/api/chat/search/',
-      {member:member,token:token})
-    .then(function(response){
-      setItems(response.data);
-    });
+     {member:member,token:token})
+      .then(function(response){
+      
+        setItems(response.data);
+      
+      });
   }
 
   const onSelectHandle = (e) => {
-    setSelectedChat(e.target.ids);
+    let chat_id = e.target.id;
+
+    axios.get("/api/chat/"+chat_id+"?token="+token)
+      .then(function(response){
+        setChat(response.data);
+      });
   }
+
+  HoldEvent("chatlist",() => {
+
+  });
 
   return (
     <CSidebar
       position="fixed"
-      unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
         dispatch({ type: 'set', sidebarShow: visible })
@@ -59,6 +70,7 @@ const AppSidebar = (setSelectedChat) => {
       </CSidebarBrand>
       <CSidebarNav>
         <ChatList
+          id='chatlist'
           >
           {items.map((item) => 
             <ChatItem
@@ -66,7 +78,7 @@ const AppSidebar = (setSelectedChat) => {
               avatar={item.avatar}
               title={item.title}
               date={new Date()}
-              unread={item.unread}
+              unread={item.members[user.id]}
             />
           )}
         </ChatList>
