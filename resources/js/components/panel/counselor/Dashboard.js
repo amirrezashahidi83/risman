@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import {CContainer,CRow,CCol} from '@coreui/react';
 import StudentTable from './tables/StudentTable';
 import SendPlan from './SendPlan';
-import {useAuthState} from '../../../Context';
+import {useAuthState} from '../../../Context/auth';
 
 const Dashboard = ()=>{
   const user = useAuthState();

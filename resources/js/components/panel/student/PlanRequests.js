@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react';
 import {CCard,CCardBody,CRow,CButton} from '@coreui/react';
-import {useAuthState} from '../../../Context';
+import {useAuthState} from '../../../Context/auth';
 
 const PlanRequests = () => {
 	const [requests,setRequests] = useState([]);

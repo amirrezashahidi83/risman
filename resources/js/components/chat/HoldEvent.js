@@ -1,23 +1,36 @@
 
-const HoldEvent = (element_id,callback) => {
+const useHoldEvent = (element_id) => {
   
   var mouseTimer;
+
+  const HoldHanlder = (callback) => {
+    callback();
+  }
+
+  const HoldLeaveHandler = (callback) => {
+    callback();
+  }
 
   const onMouseUp = () => {
     if(mouseTimer)
     	window.clearTimeout(callback);
-    //change background
+    HoldLeaveHanlder();
   }
 
   const onMouseDown = () => {
     onMouseUp();
-    mouseTimer = window.setTimeout(callback,2000);
+    mouseTimer = window.setTimeout(HoldHanlder,2000);
   }
 
   var element = document.getElementById(element_id);
   element.addEventListener("mousedown",onMouseDown);
   document.body.addEventListener("mouseup",onMouseUp);
+
+  return{
+    HoldHanlder,
+    HoldLeaveHanlder
+  }
 }
 
-export default HoldEvent;
+export default useHoldEvent;
 

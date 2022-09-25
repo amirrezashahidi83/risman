@@ -1,8 +1,8 @@
 import {useState,useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Modal,Form,Card,Button} from 'react-bootstrap';
-import {useAuthDispatch} from '../../../Context';
-import {register} from '../../../Context';
+import {useAuthDispatch} from '../../../Context/auth';
+import {register} from '../../../Context/auth';
 
 const useConfirmModal = (phone)=>{
 

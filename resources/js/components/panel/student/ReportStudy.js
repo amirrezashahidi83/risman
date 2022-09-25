@@ -3,7 +3,7 @@ import {CCard,CCardBody,CCardHeader,CCardFooter,CForm,CInputGroup
 	,CFormLabel,CFormInput,CFormText,CFormSelect,CRow,CCol,CButton} from '@coreui/react';
 import Select from 'react-select';
 import StudyTable from './tables/StudyTable';
-import {useAuthState} from '../../../Context';
+import {useAuthState} from '../../../Context/auth';
 
 const ReportStudy = () => {
 

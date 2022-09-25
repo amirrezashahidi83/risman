@@ -7,21 +7,22 @@ import CIcon from '@coreui/icons-react'
 import { ChatList,ChatItem } from "react-chat-elements"
 import "react-chat-elements/dist/main.css"
 import SearchBox from 'react-search-box';
-import {useAuthState} from '../../Context';
-import HoldEvent from './HoldEvent';
+import {useAuthState} from '../../Context/auth';
+import {useChatDispatch} from '../../Context/chat';
+import {setChat,enterGhost} from '../../Context/chat';
+import useHoldEvent from './HoldEvent';
 
-const AppSidebar = ({setChat}) => {
+const AppSidebar = () => {
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
-
+  const [onHoldHandler,onHoldLeaveHandler] = useHoldEvent('chatlist');
   const [member,setMember] = useState({});
   const [items,setItems] = useState([]);
-  const user = useAuthState().userDetails;
-  const token = useAuthState().token;
+  const [userDetails,token] = useAuthState();
 
   useEffect(() => {
-    axios.get("/api/member/"+user.id+"&token="+token)
+    axios.get("/api/member/"+userDetails.id+"&token="+token)
     .then(function(response){
       setMember(response.data);
     });
@@ -44,13 +45,10 @@ const AppSidebar = ({setChat}) => {
 
     axios.get("/api/chat/"+chat_id+"?token="+token)
       .then(function(response){
-        setChat(response.data);
+        setChat(useChatDispatch(),response.data);
       });
   }
 
-  HoldEvent("chatlist",() => {
-
-  });
 
   return (
     <CSidebar

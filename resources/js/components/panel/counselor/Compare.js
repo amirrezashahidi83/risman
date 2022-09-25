@@ -4,7 +4,7 @@ import {CCard,CCardBody,CCardHeader,CCardFooter,CButton,CFormSelect
 import Select from 'react-select';
 import PeriodCompareTable from './tables/PeriodCompareTable';
 import WeeksCompareTable from './tables/WeeksCompareTable';
-import {useAuthState} from '../../../Context';
+import {useAuthState} from '../../../Context/auth';
 
 const Compare = () => {
 	

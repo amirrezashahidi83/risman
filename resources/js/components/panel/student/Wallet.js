@@ -1,6 +1,6 @@
 import {CCard,CCardBody,CButton,CFormSelect,CRow,CCol} from '@coreui/react';
 import TransactionsTable from './tables/TransactionsTable';
-import {useAuthState} from '../../../Context';
+import {useAuthState} from '../../../Context/auth';
 
 const Wallet = ()=>{
 	const user = useAuthState();

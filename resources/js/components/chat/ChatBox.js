@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {MessageBox,MessageList,Navbar} from 'react-chat-elements';
-import {useAuthState} from '../../Context';
+import {useAuthState} from '../../Context/auth';
 const ChatBox = ({chat}) => {
 
 	const [selectedMessage,SetSelectedMessage] = useState(0);

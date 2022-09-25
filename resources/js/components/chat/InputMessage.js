@@ -4,7 +4,7 @@ import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import SendIcon from '@mui/icons-material/Send';
 import { Input,Button } from "react-chat-elements";
 import VoiceRecorder from './VoiceRecorder';
-import { useAuthState } from '../../Context';
+import { useAuthState } from '../../Context/auth';
 
 const InputMessage = ({chat}) => {
 

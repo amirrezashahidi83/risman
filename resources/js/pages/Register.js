@@ -7,7 +7,7 @@ import KeyIcon from '@mui/icons-material/VpnKey';
 import PersonIcon from '@mui/icons-material/Person';
 import NationalCodeIcon from '@mui/icons-material/AccountBalance';
 import { useValidation } from '../components/auth/validation';
-import {useAuthState} from '../Context';
+import {useAuthState} from '../Context/auth';
 
 const Register = () => {
 	

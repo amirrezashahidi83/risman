@@ -1,7 +1,7 @@
 import React from 'react';
 import {CContainer,CRow,CCol} from '@coreui/react';
 import Daily from './modals/Daily';
-import {useAuthState} from '../../../Context';
+import {useAuthState} from '../../../Context/auth';
 
 const Dashboard = ()=>{
     const user = useAuthState();

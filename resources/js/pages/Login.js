@@ -4,7 +4,7 @@ import {Card,Form,Row,Col,Container,Button,InputGroup} from 'react-bootstrap';
 import useValidation from '../components/auth/validation';
 import useConfirmModal from '../components/auth/signup/ConfirmModal';
 import KeyIcon from '@mui/icons-material/Key';
-import {login as loginAction,useAuthDispatch} from '../Context';
+import {login as loginAction,useAuthDispatch} from '../Context/auth';
  
 const Login = () =>{
 

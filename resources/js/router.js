@@ -4,7 +4,9 @@ import { BrowserRouter, Route, Switch,Routes } from 'react-router-dom';
 import {routes} from './routes.js';
 import { Provider } from 'react-redux'
 import store from './store'
-import { AuthProvider } from "./Context";
+import { AuthProvider } from "./Context/auth";
+import { ChatProvider } from "./Context/chat";
+import Chatroom from './pages/Chatroom';
 
 function App(){
 	return(
@@ -16,6 +18,9 @@ function App(){
 						{routes.map((route) =>
 							<Route key={route.path} path={route.path} element={route.element} />
 						)}
+						<ChatProvider>
+							<Route path="/chatroom" element={<Chatroom />} />
+						</ChatProvider>
 					</Routes>
 				</BrowserRouter>
 				</Provider>

@@ -2,7 +2,7 @@ import {useState,useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {CCard,CCardBody,CCardHeader,CRow,CCol,CFormSelect} from '@coreui/react';
 import {ProgressChart,LessonsChart,SingleLessonChart} from './widgets/Charts';
-import {useAuthState} from '../../../Context';
+import {useAuthState} from '../../../Context/auth';
 import SumStudyTable from './tables/SumStudyTable';
 
 const ReportStudy = () => {

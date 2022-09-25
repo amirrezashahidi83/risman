@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {CNav,CNavItem,CNavLink,CTabContent,CTabPane,CCard
 ,CRow,CCol,CCardBody} from '@coreui/react';
 import Personal from './Personal';
-import {useAuthState} from '../../../Context';
+import {useAuthState} from '../../../Context/auth';
 
 const Settings = ()=>{
 	

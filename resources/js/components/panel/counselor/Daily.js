@@ -2,7 +2,7 @@ import {useState,useEffect} from 'react';
 import {CCard,CCardBody,CCol,CRow,CButton,CFormInput,CInputGroup,CFormTextarea,CFormLabel
 	,CForm} from '@coreui/react';
 import DailiesTable from './tables/DailiesTable';
-import {useAuthState} from '../../../Context';
+import {useAuthState} from '../../../Context/auth';
 
 const Daily = () => {
 
