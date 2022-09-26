@@ -1,7 +1,30 @@
+import {useState,useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 import {CCard,CCardBody,CCardHeader,CCardTitle,CRow,CCol,CButton} from '@coreui/react';
 import Avatar from 'react-avatar';
-const CounselorProfile = ()=>{
+import {useAuthState} from '../../../Context/auth';
+
+const CounselorProfile = () => {
 	
+	let { counselor_id } = useParams();
+	const [token,userDetails] = useAuthState();
+	const [counselor,setCounselor] = useState({});
+
+	useEffect( () =>{
+		axios.get("/api/counselor/"+counselor_id+"?token="+token)
+		.then(function(response){
+			setCounselor(response.data);
+		});
+	},[]);
+
+	const handleOnClick = () => {
+		axios.post("/api/student/"+userDetails.special.id
+			+"/request/"+counselor_id+"?token="+token)
+			.then(function(response){
+				
+		});
+	}
+
 	return(
 		<>
 			<CRow>

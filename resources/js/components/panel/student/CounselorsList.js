@@ -1,39 +1,35 @@
 import {useState} from 'react';
 import {CCard,CCardBody,CForm,CFormInput,CRow,CCol,CButton} from "@coreui/react";
 import Select from 'react-select';
+import SearchBox from 'react-search-box';
 
-const CounselorsList = ()=>{
+const CounselorsList = ({user}) => {
 
 	const [counselors,setCounselors] = useState([]);
+
+	const handleOnChange = () => {
+		axios.get("/api/counselor/getAll?token="+user.token)
+		.then(function(response){
+			setCounselors(response.data);
+		});
+	}
 
 	return (
 		<>
 			<CCard>
 				<CCardBody>
-					<CRow>
-						<CCol>
-							<CFormInput placeholder='کلمه کلیدی'/>
-						</CCol>
-						<CCol>
-							<Select />
-						</CCol>
-					</CRow>
-					<CRow>
-						<CCol>
-							<Select />
-						</CCol>
-						<CCol>
-							<Select />
-						</CCol>
-					</CRow>
-					<CRow>
-						<CButton>کلمه کلیدی</CButton>
-					</CRow>
+					<SearchBox data={counselors} />
 				</CCardBody>
 			</CCard>
 			<CCard>
 				<CCardBody>
-
+					{counselors.map((counselor) => 
+						<CCard key={counselor.id} >
+							<CCardBody>
+								{counselor.name}
+							</CCardBody>
+						</CCard>
+					)}
 				</CCardBody>
 			</CCard>
 		</>
