@@ -1,23 +1,27 @@
 import {useState,useEffect} from 'react';
+import {Form,Modal} from 'react-bootstrap';
 
 const useForgetPassword = () => {
 	const [show,setShow] = useState(false);
 
-	useEffect(() =>{
-		axios.get("/api/user/forgetpassword")
+	const handleOnSubmit = (e) => {
+		e.preventDefault();
+		let phoneNumber = e.target[0].value;
+
+		axios.get("/api/forgetpassword/"+phoneNumber)
 		.then(function(response){
 
 		});
-	});
+	}
 
 	return(
 		<Modal show={show} >
-			<Form onSubmit={acceptCode}>
+			<Form onSubmit={handleOnSubmit}>
 			    <Modal.Header closeButton>
 			    <div></div>
 	        	</Modal.Header>
 		        <Modal.Body>
-
+		        	<Form.Control name='phone' />
 		        	<div className='text-end'>
 		        		    <Card.Text>
 	کد ارسال شده لطفا تلفن همراه خود را چک کنید.

@@ -120,6 +120,25 @@ class AuthController extends Controller
 		return response()->json([$user],200);
 
 	}
+
+	public function foregetpassword($phoneNumber){
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < 5; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+
+	    $user = User::where('phoneNumber',$phoneNumber)->first()->
+	    update(['password' => $randomString]);
+
+	   	$api = new KavenegarApi($apiKey);
+		$receptor = $phoneNumber;
+		$message = $randomString;
+		$result = $api->VerifyLookup($receptor, $message, '', '', 'verify');
+
+		return response()->json($result,200);
+	}
 		
 		
 

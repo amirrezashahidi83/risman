@@ -20,6 +20,7 @@ use App\Http\Controllers\Counselor\RequestController;
 Route::post('/login','AuthController@login')->name('login');
 Route::get('/sendCode/{phoneNumber}','AuthController@sendCode');
 Route::get('/acceptCode/{phoneNumber}','AuthController@acceptCode');
+Route::get('/forgetpassword/{phoneNumber}','AuthController@forgetPassword');
 
 Route::middleware('auth:api')->group(function(){
     Route::post('/register','AuthController@register');
