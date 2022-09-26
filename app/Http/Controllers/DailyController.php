@@ -35,25 +35,20 @@ class DailyController extends Controller
 		return response()->json($daily->save(),200);
 	}
 
-	public function getLastMessage($counselor_id){
-		$counselor_id = $request->counselor_id;
-
-		$daily = Daily::where('counselor_id',$counselor_id)->where('type',0)->orderByDesc('id')->first();
-
-		return response()->json($daily,200);
-	}
-
-	public function getLastPicture(Request $request){
-		$counselor_id = $request->counselor_id;
-
-		$daily = Daily::where('counselor_id',$counselor_id)->where('type',1)->orderByDesc('id')->first();
-
-		return response()->json($daily,200);
-	}
-
 	public function getAll($counselor_id){
 		return response()->json(
 			Daily::where('counselor_id',$counselor_id)->get()
+			,200);
+	}
+
+	public function getByTime($counselor_id,$time){
+
+		$dailies = Daily::where('counselor_id',$counselor_id)->where("start_time","<=",$time)
+		->where("end_time",">=",$time)->get();
+		return response()->json({
+			'texts' => $dailies->where('type',1),
+			'images' => $dailies->where('type',2)
+			}
 			,200);
 	}
 }

@@ -22,7 +22,7 @@ const CounselorProfile = () => {
 			+"/request/"+counselor_id+"?token="+token)
 			.then(function(response){
 				
-		});
+			});
 	}
 
 	return(

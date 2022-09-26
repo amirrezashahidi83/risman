@@ -55,8 +55,8 @@ Route::middleware('auth:api')->group(function(){
 
         Route::get("/{student_id}/exams","ExamController@getAll");
         
-        Route::get('/getDailyPicture/{counselor_id}',[DailyController::class,'getLastPicture']);
-        Route::get('/getDailyMessage/{counselor_id','DailyController@getLastMessage');
+        Route::get('/daily/{counselor_id}/getAll','DailyController@getAll');
+        Route::get('/daily/{counselor_id}/time/{time}','DailyController@getByTime');
         
         Route::get('/studyplans/{student_id}/{start_week}','StudyController@index');
         Route::post('/studyplans/new','StudyController@store');
