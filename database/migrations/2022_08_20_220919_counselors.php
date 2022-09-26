@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('counselors', function (Blueprint $table) {
             $table->id();
+            $table->string("code")->unique();
             $table->string("message")->nullable();
             $table->text("resume")->nullable();
             $table->integer("rating")->nullable();

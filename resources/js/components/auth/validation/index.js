@@ -1,15 +1,15 @@
 import {useState} from 'react';
 
-import {phoneExists,nationalExists} from './actions';
+import {phoneExists,nationalExists,codeExists} from './actions';
 
-const useValidation = ()=>{
+const useValidation = () => {
 
 	const [errors,setErrors] = useState([]);
 
-	const validate = (event,name,value) => {
+	const validate = async (event,name,value) => {
 
 		if(name == 'phoneNumber'){
-			if(phoneExists(value)){
+			if( await phoneExists(value)){
 				setErrors({...errors,phoneNumber:'این شماره تلفن در سیستم ثبت شده است.'});
 			}
 		}else if(name == 'password'){
@@ -20,12 +20,14 @@ const useValidation = ()=>{
 			}
 
 		}else if(name == 'nationalCode'){
-			if(nationalExists(value)){
-				setErrors({...errors,phoneNumber:'این کد ملی ثبلا ثبت شده است.'});
+			if(await nationalExists(value)){
+				setErrors({...errors,nationalCode:'این کد ملی ثبلا ثبت شده است.'});
 			}
 
 		}else if(name == 'counselorCode'){
-
+			if(value.length > 0)
+				if(await codeExists(value))
+					setErrors({...errors,counselorCode:'کد مشاور صحیح نمی باشد'});
 		}
 	
 	}

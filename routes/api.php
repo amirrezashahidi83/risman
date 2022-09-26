@@ -22,6 +22,10 @@ Route::get('/sendCode/{phoneNumber}','AuthController@sendCode');
 Route::get('/acceptCode/{phoneNumber}','AuthController@acceptCode');
 Route::get('/forgetpassword/{phoneNumber}','AuthController@forgetPassword');
 
+Route::get('/checkphone/{phoneNumber}','ValidationController@phoneExists');
+Route::get('/checknational/{nationalCode}','ValidationController@nationalExists');
+Route::get('/checkcode/{counselorCode}','ValidationController@counselorExists');
+
 Route::middleware('auth:api')->group(function(){
     Route::post('/register','AuthController@register');
 

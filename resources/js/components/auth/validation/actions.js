@@ -7,10 +7,14 @@ export const isNationalCode = (value) => {
 	return Number.isInteger(value) && value.toString().length == 10;
  }
 
-export const phoneExists = (phone) => {
-	axios.get('');
+export const phoneExists = async (phone) => {
+	return (await axios.get('/api/checkphone/'+phone)).data;
 }
 	
-export const nationalExists = (nationalCode) => {
-	axios.get('');
+export const nationalExists = async (nationalCode) => {
+	return (await axios.get('/api/checknational/'+nationalCode));
+}
+
+export const codeExists = async (counselorCode) => {
+	return (await axios.get('/api/checkcode/'+counselorCode));
 }

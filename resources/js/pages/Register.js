@@ -6,14 +6,15 @@ import Select from 'react-select';
 import KeyIcon from '@mui/icons-material/VpnKey';
 import PersonIcon from '@mui/icons-material/Person';
 import NationalCodeIcon from '@mui/icons-material/AccountBalance';
-import { useValidation } from '../components/auth/validation';
+import useValidation from '../components/auth/validation';
 import {useAuthState} from '../Context/auth';
 
 const Register = () => {
 	
 	const navigate = useNavigate();
-	let user = useAuthState();
-	
+	let [userDetails,token] = useAuthState();
+	let [errors,handleChange] = useValidation();
+
 	useEffect(() => {
 		if(user == null)
 			navigate('/login');
@@ -29,8 +30,8 @@ const Register = () => {
 		let againPassword = e[3].value;
 		let nationalCode = e[1].value;
 		let role = isStudent ? 2 : 1;
-		let user_id = user.userDetails.id;
-		let token = user.token;
+		let user_id = userDetails.id;
+		let token = token;
 		let data = {token: token,name : name,password: password, nationalCode: nationalCode,
 			role: role,user_id: user_id};
 

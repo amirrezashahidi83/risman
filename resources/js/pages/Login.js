@@ -8,6 +8,7 @@ import {login as loginAction,useAuthDispatch} from '../Context/auth';
  
 const Login = () =>{
 
+	let [errors,handleChange] = useValidation();
 	const [phone,setPhone] = useState('');
 	const [password,setPassword] = useState('');
 	const [show,sendCode,ConfirmModal] = useConfirmModal(phone);
