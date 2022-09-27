@@ -23,9 +23,11 @@ const AdvancedStudy = () => {
 		let practice = root[3].value;
 		let summary = root[4].value;
 		let review = root[5].value;
-		
+		let learning_test = root[6].value;
+		let tutorial = root[7].value;
+
 		if(pre_study == '' && deep_study == '' && practice == '' && summary == ''
-			&& review == '')
+			&& review == '' && learning_test == '' && tutorial == '')
 			return;
 		
 		setData({...data,
@@ -34,7 +36,9 @@ const AdvancedStudy = () => {
 				'deep_study' : deep_study,
 				'practice' : practice,
 				'summary' : summary,
-				'review' : review
+				'review' : review,
+				'learning_test': learning_test,
+				'tutorial': tutorial
 			}
 		});
 	}
@@ -108,6 +112,24 @@ const AdvancedStudy = () => {
 
 					<CCol>
 						<CFormInput name='review' />
+					</CCol>
+				</CRow>
+
+				<CRow>
+					<CCol>
+					</CCol>
+
+					<CCol>
+						<CFormInput name='learning_test' />
+					</CCol>
+				</CRow>
+
+				<CRow>
+					<CCol>
+					</CCol>
+
+					<CCol>
+						<CFormInput name='tutorial' />
 					</CCol>
 				</CRow>
 
