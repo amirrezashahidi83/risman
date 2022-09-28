@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mosh;
-use App\Stu;
+use App\Models\Counselor;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class FirebaseController extends Controller
@@ -17,7 +17,7 @@ class FirebaseController extends Controller
     {
         $stu_id = explode(';', $request->token)[1];
 
-        $stu = Stu::where('id', $stu_id)->first();
+        $stu = Student::where('id', $stu_id)->first();
 
         $FirebaseToken = $request->FirebaseToken;
 
@@ -31,7 +31,7 @@ class FirebaseController extends Controller
     public function SetTokenFirebaseMosh(Request $request)
     {
         $mosh_id = explode(';', $request->token)[1];
-        $mosh = Mosh::where('code', $mosh_id)->first();
+        $mosh = Counselor::where('code', $mosh_id)->first();
         // $FirebaseToken = $stu->FirebaseToken;
         $FirebaseToken = $request->FirebaseToken;
         $mosh->FirebaseToken = $FirebaseToken;
