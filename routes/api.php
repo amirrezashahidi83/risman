@@ -6,6 +6,7 @@ use App\Http\Controllers\DailyController;
 use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\Chat\MessageController;
 use App\Http\Controllers\Counselor\RequestController;
+use App\Http\Controllers\Counselor\CommentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -93,6 +94,8 @@ Route::middleware('auth:api')->group(function(){
         Route::post('/compareperiods',"StudyController@comparePeriods");
 
 
+        Route::get("/{counselor_id}/comments",[CommentController::class,'getAll']);
+        Route::post("/comments/add",[CommentController::class,'store']);
     });
 
 });

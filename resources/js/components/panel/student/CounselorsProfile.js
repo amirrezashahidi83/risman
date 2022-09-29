@@ -17,11 +17,23 @@ const CounselorProfile = () => {
 		});
 	},[]);
 
-	const handleOnClick = () => {
+	const handleOnRequest = () => {
 		axios.post("/api/student/"+userDetails.special.id
 			+"/request/"+counselor_id+"?token="+token)
 			.then(function(response){
 				
+			});
+	}
+	const addComment = (e) => {
+		
+		let text = e.target[0].value;
+		let type = e.target[1].value;
+
+		let formData = {text: text,type : type,counselor_id: counselor_id,token: token,student_id: userDetails.special.id};
+		
+		axios.post("/api/comments/add",formData)
+			.then(function(response){
+
 			});
 	}
 
