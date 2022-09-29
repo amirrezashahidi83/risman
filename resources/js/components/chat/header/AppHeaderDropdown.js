@@ -32,12 +32,12 @@ const AppHeaderDropdown = () => {
         <CDropdownHeader className="bg-light fw-semibold py-2">تنظیمات</CDropdownHeader>
         <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />
-          تنظیمات
+          ویرایش
         </CDropdownItem>
         <CDropdownDivider />
         <CDropdownItem href="#">
           <CIcon icon={cilLockLocked} className="me-2" />
-          خروج
+          حذف گروه
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

@@ -38,7 +38,10 @@ const Personal = () => {
 		let city = e.target[4].value;
 		let password = e.target[5].value;
 
-		axios.post('/user/'+userDetails.id+'/settings/update?token='+token)
+		let formData = {name: name,phoneNumber: phoneNumber, nationalCode: nationalCode,
+			state: state, city: city ,password : password}
+		axios.post('/user/'+userDetails.id+'/settings/update?token='+token
+			,formData)
 		.then(function(response){
 
 		});

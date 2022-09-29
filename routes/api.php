@@ -54,6 +54,9 @@ Route::middleware('auth:api')->group(function(){
         Route::get('/{id}','StudentController@index');
         Route::get('/getAll/{page}','StudentController@getAll');
 
+        Route::get("/{student_id}/checkpaid","TransactionController@checkPaid"});
+        Route::post("/{student_id}/requestaccept","");
+        
         Route::post("/{student_id}/request/{counselor_id}",[RequestController::class,"store"]);
         Route::get("/{student_id}/analysises","ExamController@getAnalysises");
         Route::post('/analysises/add',"ExamController@addAnalysis");

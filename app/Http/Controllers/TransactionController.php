@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Transaction;
+use App\Models\Student;
 
 class TransactionController extends Controller
 {
@@ -24,5 +25,11 @@ class TransactionController extends Controller
 
     public function buyWallet(Request $request){
         
+    }
+
+    public function checkPaid($student_id){
+        return (
+            Student::where("id",$student_id)->first()->status == 1
+            ,200);
     }
 }

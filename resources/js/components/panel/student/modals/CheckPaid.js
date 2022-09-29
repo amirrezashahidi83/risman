@@ -1,12 +1,13 @@
 import {useState,useEffect} from 'react';
 import {Modal,Image,Button} from 'react-bootstrap';
 
-const CheckPaid = ()=>{
+const CheckPaid = ({user}) => {
 
 	const [show,setShow] = useState(false);
+	let student_id = user.userDetails.special.id;
 
 	useEffect(()=>{
-		axios.get('/api/student/checkpaid'+student_id,
+		axios.get('/api/student/'+student_id+'checkpaid?token='+user.token,
 			function(response){
 				if(response.data == 0)
 					setShow(true);
@@ -14,7 +15,7 @@ const CheckPaid = ()=>{
 	},[]);
 
 	const requestAccept = ()=>{
-		axios.post('/api/student/requestAccept',{student_id},
+		axios.post('/api/student/'+student_id+'requestAccept?token='+user.token,
 			function(response){
 
 			});
