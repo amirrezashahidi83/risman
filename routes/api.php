@@ -27,6 +27,18 @@ Route::get('/checkphone/{phoneNumber}','ValidationController@phoneExists');
 Route::get('/checknational/{nationalCode}','ValidationController@nationalExists');
 Route::get('/checkcode/{counselorCode}','ValidationController@counselorExists');
 
+
+Route::group(['prefix' => 'admin'],function(){
+    Route::get("/students","StudentController@getAll");
+    Route::get("/counselors","StudentController@getAll");
+    Route::get("/dailies/{counselor_id}","DailyController@getAll");
+
+    Route::get("/lessons/{grade}/{major}","LessonController@getAll");
+    Route::get("/lessons/{lesson_id}/delete","LessonController@destroy");
+    Route::post("/lessons/update","LessonController@update");
+    Route::post("/lessons/new","LessonController@store");
+});
+
 Route::middleware('auth:api')->group(function(){
     Route::post('/register','AuthController@register');
 
@@ -55,8 +67,8 @@ Route::middleware('auth:api')->group(function(){
         Route::get('/{id}','StudentController@index');
         Route::get('/getAll/{page}','StudentController@getAll');
 
-        Route::get("/{student_id}/checkpaid","TransactionController@checkPaid"});
-        Route::post("/{student_id}/requestaccept","");
+        Route::get("/{student_id}/checkpaid","TransactionController@checkPaid");
+        Route::post("/{student_id}/requestaccept","TransactionController@checkPaid");
         
         Route::post("/{student_id}/request/{counselor_id}",[RequestController::class,"store"]);
         Route::get("/{student_id}/analysises","ExamController@getAnalysises");

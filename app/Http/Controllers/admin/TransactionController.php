@@ -4,17 +4,17 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Transaction;
+use App\Models\Transaction;
 use Verta;
 
 class TransactionController extends Controller
 {
-    public function transactions(){
+    public function getAll(){
 
         $TrAc = Transaction::
-        leftJoin('stu', 'transaction.stu_id', '=', 'stu.id')
-        ->orderBy('transaction.date_time','desc')
-        ->select('transaction.*','stu.name')
+        leftJoin('users', 'transaction.user_id', '=', 'user.id')
+        ->orderBy('transaction.created_at','desc')
+        ->select('transaction.*','user.name')
         ->paginate(15);
 
 

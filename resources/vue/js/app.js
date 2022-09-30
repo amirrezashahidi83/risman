@@ -120,24 +120,28 @@ const app = new Vue({
                 });
         },
         getuser() {
-            if (window.location.pathname == 'transactions' || window.location.pathname.split('/')[2] == 'test') {
+            if (window.location.pathname == 'admin/transactions' || window.location.pathname.split('/')[2] == 'test') {
                 this.logined = 1;
                 return;
             }
             if (window.location.pathname != '/admin') {
                 axios.get('/admin/getuser').then(response => {
                     if (response.data.username != undefined) {
-                        if (window.location.pathname == '/slider') {
-                            this.get_imag_slide();
+                        if(window.location.pathname == '/admin/lesson')
+                        {
+
+                        }
+                        if (window.location.pathname == '/admin/slider') {
+                            this.get_dailies();
                             this.get_message();
                         }
-                        if (window.location.pathname == '/stu') {
-                            this.get_last_stu();
+                        if (window.location.pathname == '/admin/stu') {
+                            this.get_all_students();
                         }
-                        if (window.location.pathname == '/mosh') {
-                            this.get_last_mosh();
+                        if (window.location.pathname == '/admin/mosh') {
+                            this.get_all_counselors();
                         }
-                        if (window.location.pathname == '/plan') {
+                        if (window.location.pathname == '/admin/plan') {
                             this.get_plan();
                         }
                         this.logined = 1;
@@ -161,6 +165,27 @@ const app = new Vue({
                 }, response => {
                     Swal.fire('', ' شما خارج شدید', 'success');
                 });
+        },
+        add_daily_message(){
+            axios.post("/api/counselor/dailies/newMessage")
+            .then(function(response){
+
+            });
+        },
+        add_daily_picture(){
+            axios.post("/api/counselor/dailies/newPicture")
+            .then(function(response){
+
+            });
+
+        },
+        get_dailies(){
+            this.isLoading = true;
+            axios.get("/api/counselor/dailies/"+this.counselor_id)
+            .then(response => {
+                this.isLoading = false;
+                this.message = response.data;
+            });
         },
         // option
         funcaddrimg(val) {
@@ -204,7 +229,10 @@ const app = new Vue({
         },
         // stu
         edit_student(){
+            axios.post("/api/student/update")
+            .then(function(response){
 
+            });
         },
         get_last_stu(ar = 0, mosh_id = 0) {
             if (ar) {
@@ -223,16 +251,20 @@ const app = new Vue({
                 })
 
         },
+
         get_all_counselors() {
-            axios.get('/students/getAll')
-            .then(function(response){
-                this.all_stu = response.data;
+            this.loading = true;
+            axios.get('/api/admin/counselors')
+            .then(response => {
+                this.all_mosh = response.data;
             });
         },
 
         get_all_students() {
-            axios.get('/students/getAll')
-            .then(function(response){
+            this.isLoading = true;
+            axios.get('/api/admin/students')
+            .then(response => {
+                this.isLoading = false;
                 this.all_stu = response.data;
             });
         },
@@ -271,26 +303,55 @@ const app = new Vue({
                 })
         },
         get_lesson(a = 0) {
-            if (a == 1) {
-                this.isLoading = true
-                axios.post('/admin/get_lesson', {
-                    p_id: this.paye_id,
-                    r_id: this.reshte_id,
-                }).then(response => {
-                    this.isLoading = false
+                this.isLoading = true;
+                if(this.reshte_id == undefined)
+                    this.reshte_id = 0;
+                axios.get('/api/admin/lessons/'+this.paye_id+"/"+this.reshte_id)
+                .then(response => {
+                    this.isLoading = false;
                     this.all_lesson = response.data;
                 })
-            } else {
-                axios.post('/admin/get_lesson', {
-                    p_id: this.paye_id,
-                    r_id: this.reshte_id,
-                }).then(response => {
-                    this.all_lesson = response.data;
-                })
-            }
+        },
+        edit_lesson(){
+            let lesson = this.lesson;
+            this.isLoading = true;
+            axios.post('/api/admin/lessons/update',
+                {lesson_id:lesson.id,topics:lesson.topics,title:lesson.title})
+            .then(response => {
+                this.isLoading = false;
+                this.all_lesson = response.data;
+            });
         },
         remove_lesson(){
+            let lesson_id = this.lesson.id;
+            axios.get("/admin/lessons/delete/"+lesson_id)
+            .then(response => {
+                this.get_lesson();
+            });
+        },
+        add_topic(){
+            axios.post("/admin/lessons/"+this.lesson+"/addtopic/")
+            .then(function(response){
 
+            });
+        },
+        remove_topic(){
+            axios.post("/admin/")
+            .then(function(response){
+
+            });
+        },
+
+        edit_counselor(){
+
+        },
+        delete_counslor(){
+            this.isLoading = true;
+            axios.post("/admin/counselors/"+this.counselor_id+"/delete/")
+            .then(response => {
+                this.isLoading = false;
+                this.all_mosh = this.all_mosh.filter( (counselor) => counselor.id != this.counselor_id); 
+            });
         },
         get_last_mosh() {
             axios.get('/admin/get_mosh')
@@ -333,19 +394,34 @@ const app = new Vue({
             this.img_addr = val;
         },
         add_exam_plan() {
+            axios.post("/")
+            .then(function(response){
 
+            });
         },
         get_exam_plans(){
+            axios.get("/")
+            .then(function(response){
 
+            });
         },
         get_analysises_exam(){
+            axios.get("/")
+            .then(function(response){
 
+            });
         },
         add_link(){
+            axios.post("/admin/links/add",{link: this.link})
+            .then(function(response){
 
+            });
         },
         get_links(){
-
+            axios.get("/admin/links")
+            .then(function(response){
+                this.links = response.data;
+            });
         },
         add_plan() {
             if (this.plan_title) {

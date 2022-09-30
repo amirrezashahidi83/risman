@@ -25,12 +25,16 @@ class LessonController extends Controller
     	return response()->json($lesson->save(),200);
     }
 
-    public function update(){
+    public function update(Request $request){
+        Lesson::where("id",$request->lesson_id)->first()->
+        update(['topics' => $request->topics,
+                'title' => $request->title]);
 
+        return view('admin.lesson');
     }
 
-    public function destroy(){
-
+    public function destroy($lesson_id){
+        Lesson::where("id",$lesson_id)->first()->forceDelete();
     }
     
     public function getAll($grade,$major){

@@ -17,6 +17,8 @@
             </li>
             <li id="menu-home"><a href="/admin/plan"><i class="fa fa-calculator"></i><span>برنامه ها</span></a>
             </li>
+            <li id="menu-home"><a href="/admin/slider"><i class="fa fa-calculator"></i><span>اسلایدر</span></a>
+            </li>
             <li id="menu-home"><a href="/admin/transactions"><i class="fa fa-credit-card"></i><span>مالی</span></a>
             </li>
             <li id="menu-home"><a href="/admin/slider"><i class="fa fa-cog"></i><span>تنظیمات</span></a></li>

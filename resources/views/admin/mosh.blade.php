@@ -23,6 +23,7 @@
 				<th>پیام</th>
 				<th>دانش آموزان</th>
 				<th>وضعیت</th>
+				<th>عملیات</th>
 			</thead>
 			<tbody>
 				<tr v-for="mosh in all_mosh">
@@ -38,6 +39,7 @@
 					<td class="td_delete" @click="get_last_stu(1,mosh.code)"><i class="fa fa-users"></i></td>
 					<td title="برای غیر فعال کردن کلیک کنید" v-if="mosh.active" class="td_delete" @click="unactive_mosh(mosh.id,0)"><i class="fa fa-check text-success"></i></td>
 					<td title="برای فعال کردن کلیک کنید" v-if="!mosh.active" class="td_delete" @click="unactive_mosh(mosh.id,1)"><i class="fa fa-close text-danger"></i></td>
+					<td><i class="btn" @click="edit_counselor()">a</i><i class="btn" @click="delete_counselor()">k</i></td>
 				</tr>
 			</tbody>
 

@@ -18,12 +18,16 @@ function App(){
 						{routes.map((route) =>
 							<Route key={route.path} path={route.path} element={route.element} />
 						)}
-						<ChatProvider>
-							<Route path="/chatroom" element={<Chatroom />} />
-						</ChatProvider>
 					</Routes>
 				</BrowserRouter>
 				</Provider>
+				<ChatProvider>
+					<BrowserRouter>
+					<Routes>
+						<Route path="/chatroom" element={<Chatroom />} />
+					</Routes>
+					</BrowserRouter>
+				</ChatProvider>
 			</AuthProvider>
 		</div>
 		);

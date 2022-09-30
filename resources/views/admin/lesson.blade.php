@@ -19,7 +19,7 @@
                     <div class="col-md-4 right" style="padding-top: 10px;">
                         <div class="form-group">
                             <label class="label cat_lable">پایه</label>
-                            <select class="form-control" v-model="paye_id" @change="()=>{reshte_id=''}">
+                            <select class="form-control" v-model="paye_id" @change="(e)=>{reshte_id=e.target.value}">
                                 <option value="4">هفتم</option>
                                 <option value="5">هشتم</option>
                                 <option value="0">نهم</option>
@@ -60,32 +60,33 @@
                         <div class="col-md-4 right" style="padding-top: 10px;">
                             <div class="form-group">
                                 <label class="label cat_lable">پایه</label>
-                                <select class="form-control" v-model="paye_id" @change="()=>{reshte_id=''}">
-                                    <option value="4">هفتم</option>
-                                    <option value="5">هشتم</option>
-                                    <option value="0">نهم</option>
-                                    <option value="1">دهم</option>
-                                    <option value="2">یازدهم</option>
-                                    <option value="3">دوازدهم</option>
+                                <select class="form-control" v-model="paye_id" @change="(e)=>{paye_id=e.target.value}">
+                                    <option value="1">هفتم</option>
+                                    <option value="2">هشتم</option>
+                                    <option value="3">نهم</option>
+                                    <option value="4">دهم</option>
+                                    <option value="5">یازدهم</option>
+                                    <option value="6">دوازدهم</option>
                                 </select>
                             </div>
                         </div>
-                        <div v-if="paye_id != 0 && paye_id != 4 && paye_id != 5" class="col-md-4 right" style="padding-top: 10px;">
+                        <div v-if="paye_id != 1 && paye_id != 2 && paye_id != 3" class="col-md-4 right" style="padding-top: 10px;">
                             <div class="form-group">
                                 <label class="label cat_lable">رشته</label>
                                 <select class="form-control" v-model="reshte_id">
-                                    <option value="0">ریاضی فیزیک</option>
-                                    <option value="1">تجربی</option>
-                                    <option value="2">انسانی</option>
+                                    <option value="1">ریاضی فیزیک</option>
+                                    <option value="2">تجربی</option>
+                                    <option value="3">انسانی</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4 right list_button_insert">
-                            <button style="margin-top: 42px;" type="button" class="btn btn-success" @click="get_lesson(1)">ایجاد درس</button>
+                            <button style="margin-top: 42px;" type="button" class="btn btn-success" @click="get_lesson(1)">دریافت</button>
                         </div>
                         <thead>
                             <th>ردیف</th>
                             <th>درس</th>
+                            <th>مباحث</th>
                             <th>ویرایش</th>
                             <th>حذف</th>
                         </thead>
@@ -93,6 +94,7 @@
                             <tr v-for="lesson in all_lesson">
                                 <td>@{{lesson.id}}</td>
                                 <td>@{{lesson.title}}</td>
+                                <td>@{{lesson.topics}}</td>
                                 <td class="td_edit" @click="lesson_edit(lesson)"><i class="fa fa-edit"></i></td>
                                 <td class="td_delete" @click="delete_lesson(lesson.id)"><i class="fa fa-trash"></i></td>
                             </tr>

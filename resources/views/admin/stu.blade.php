@@ -1,7 +1,7 @@
 @extends('admin.admin')
 
 @section('content')
-<div class="inner-block">
+<div class="inner-block" >
 	<div class="search-box">
 		<!-- <form> -->
 		<input type="text" v-model="search_item" placeholder="جستجو..." required="">
