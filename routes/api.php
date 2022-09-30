@@ -37,6 +37,8 @@ Route::group(['prefix' => 'admin'],function(){
     Route::get("/lessons/{lesson_id}/delete","LessonController@destroy");
     Route::post("/lessons/update","LessonController@update");
     Route::post("/lessons/new","LessonController@store");
+
+    Route::get("/plans","Exam\PlanController@getAll");
 });
 
 Route::middleware('auth:api')->group(function(){

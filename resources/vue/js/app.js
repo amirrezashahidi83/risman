@@ -456,7 +456,7 @@ const app = new Vue({
         },
         get_plan() {
             this.isLoading = true
-            axios.get('/admin/get_plan')
+            axios.get('/admin/plans')
                 .then(response => {
                     this.all_plan = response.data;
                     this.isLoading = false
