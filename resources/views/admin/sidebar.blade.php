@@ -22,7 +22,6 @@
             <li id="menu-home"><a href="/admin/transactions"><i class="fa fa-credit-card"></i><span>مالی</span></a>
             </li>
             <li id="menu-home"><a href="/admin/slider"><i class="fa fa-cog"></i><span>تنظیمات</span></a></li>
-            <li id="menu-home"><a href="/admin/weeks"><i class="fa fa-calendar"></i><span>هفته ها</span></a></li>
             <li id="menu-home"><a href="/admin/analysis_exam"><i class="fa fa-calendar"></i><span>تحلیل آزمون</span></a></li>
             <li id="menu-home"><a href="/admin/psycho_tests"><i class="fa fa-calendar"></i><span>آزمون های روانشناسی</span></a></li>
 

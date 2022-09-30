@@ -167,15 +167,17 @@ const app = new Vue({
                 });
         },
         add_daily_message(){
+            this.isLoading = true;
             axios.post("/api/counselor/dailies/newMessage")
             .then(function(response){
-
+                this.isLoading = false;
             });
         },
         add_daily_picture(){
+            this.isLoading = true;
             axios.post("/api/counselor/dailies/newPicture")
             .then(function(response){
-
+                this.isLoading = false;
             });
 
         },
@@ -335,12 +337,6 @@ const app = new Vue({
 
             });
         },
-        remove_topic(){
-            axios.post("/admin/")
-            .then(function(response){
-
-            });
-        },
 
         edit_counselor(){
 
@@ -393,33 +389,23 @@ const app = new Vue({
             console.log(val)
             this.img_addr = val;
         },
-        add_exam_plan() {
-            axios.post("/")
-            .then(function(response){
-
-            });
-        },
-        get_exam_plans(){
-            axios.get("/")
-            .then(function(response){
-
-            });
-        },
         get_analysises_exam(){
-            axios.get("/")
-            .then(function(response){
-
+            this.isLoading = true;
+            axios.get("/admin/student/"+student_id+"/analysises/"+exam_id)
+            .then(response => {
+                this.isLoading = false;
+                this.all_analysis = response.data;
             });
         },
         add_link(){
             axios.post("/admin/links/add",{link: this.link})
-            .then(function(response){
+            .then(response => {
 
             });
         },
         get_links(){
             axios.get("/admin/links")
-            .then(function(response){
+            .then(response => {
                 this.links = response.data;
             });
         },
@@ -437,7 +423,7 @@ const app = new Vue({
                     var plan_isend = 0;
                 }
                 axios
-                    .post('/admin/add_plan', {
+                    .post('/admin/plans/new', {
                         title: this.plan_title,
                         parent: this.plan_mother,
                         is_ready: this.plan_status,
@@ -529,7 +515,7 @@ const app = new Vue({
             if (this.num_week && this.starttime && this.endtime) {
                 this.isLoading = true;
                 axios
-                    .post('/admin/add_week', {
+                    .post('/admin/weeks/add', {
                         num_week: this.num_week,
                         starttime: this.starttime,
                         endtime: this.endtime,
@@ -669,7 +655,7 @@ const app = new Vue({
             this.isLoading = true,
 
             axios
-                .post('/admin/add_stu', {
+                .post('/admin/students/new', {
                     name: this.stu_name,
                     mobile: this.mobile,
                     paye_id: this.paye_id,
