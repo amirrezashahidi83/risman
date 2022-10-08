@@ -35,9 +35,9 @@ class ExamController extends Controller
 		return response()->json($Analysis->save(),200);
 	}
 
-	public function getAnalysises($student_id){
+	public function getAnalysises($student_id,$exam_id){
 
-		$analysises = Analysis::where('student_id',$student_id)->get();
+		$analysises = Analysis::where('student_id',$student_id)->where("exam_id")->get();
 
 		return response()->json($analysises,200);
 	}

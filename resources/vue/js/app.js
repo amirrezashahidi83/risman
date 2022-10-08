@@ -9,7 +9,7 @@ require('./bootstrap');
 import Swal from 'sweetalert2'
 import axios from 'axios';
 
-import Vue from 'vue/dist/vue.js';
+import Vue from 'vue';
 window.Vue = Vue;
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -35,20 +35,11 @@ import { VueEditor, Quill } from 'vue2-editor'
 // pdf
 import html2pdf from 'html2pdf.js'
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('dropzone-component', require('./components/DropzoneComponent.vue').default);
-Vue.component('fileexam-component', require('./components/FileExamComponent.vue').default);
-// pdf chart 
-Vue.component('chart-bar', require('./components/ChartBar.vue').default);
-Vue.component('chart-radar', require('./components/ChartRadar.vue').default);
-Vue.component('chart-radarmbti', require('./components/ChartRadarMbti.vue').default);
-Vue.component('chart-scatter', require('./components/Scatter.vue').default);
-
 const app = new Vue({
     el: '#app',
     data: {
         isLoading: false, username: '', pass: '', logined: '', name: '', img_addr: '', message: '',
-        all_stu: [], search_item: '', stu_id: '', weekly: [],
+        all_stu: [], search_item: '', stu_id: '', all_exams: [],
         paye_id: '', reshte_id: '', lesson_name: '', lesson_id: '', all_lesson: [], lesson_status: 0, lesson_important: 0,
         all_mosh: [], mosh_id: '',
         plan_title: '', plan_mother: 0, plan_status: '', plan_price: '', plan_isend: 0, plan_isexam: 0, all_plan: [], plan_id: '', file_addr: '',
@@ -144,6 +135,10 @@ const app = new Vue({
                         if (window.location.pathname == '/admin/plan') {
                             this.get_plan();
                         }
+                        if (window.location.pathname == '/admin/analysises'){
+                            this.get_exams();
+                        }
+
                         this.logined = 1;
                         this.username = response.data.username
                         this.name = response.data.name
@@ -166,27 +161,39 @@ const app = new Vue({
                     Swal.fire('', ' شما خارج شدید', 'success');
                 });
         },
-        add_daily_message(){
+        add_daily_message(value){
             this.isLoading = true;
-            axios.post("/api/counselor/dailies/newMessage")
+            axios.post("/api/admin/dailies/newMessage",
+            {
+                message: value,
+                counselor_id: 1
+            })
             .then(function(response){
                 this.isLoading = false;
+                get_dailies();
             });
         },
-        add_daily_picture(){
+        add_daily_picture(value){
             this.isLoading = true;
-            axios.post("/api/counselor/dailies/newPicture")
+            axios.post("/api/admin/dailies/newPicture",
+            { 
+                file: value,
+                counselor_id: 1
+            })
             .then(function(response){
                 this.isLoading = false;
+                get_dailies();
             });
 
         },
         get_dailies(){
-            this.isLoading = true;
-            axios.get("/api/counselor/dailies/"+this.counselor_id)
+            this.isLoading = true;  
+            const urlParams = new URLSearchParams(window.location.search);
+            let counselor_id = urlParams.get('counselor');
+            axios.get("/api/admin/dailies/"+counselor_id)
             .then(response => {
                 this.isLoading = false;
-                this.message = response.data;
+                this.all_img_slider = response.data;
             });
         },
         // option
@@ -195,9 +202,11 @@ const app = new Vue({
             this.get_imag_slide();
         },
         get_imag_slide() {
-            this.isLoading = true
+            this.isLoading = true;
+            const urlParams = new URLSearchParams(window.location.search);
+            let counselor_id = urlParams.get('counselor');
             axios
-                .get('/admin/get_imag_slide')
+                .get('/api/admin/dailies/'+counselor_id)
                 .then(response => {
                     this.isLoading = false;
                     this.all_img_slider = response.data;
@@ -423,16 +432,14 @@ const app = new Vue({
                     var plan_isend = 0;
                 }
                 axios
-                    .post('/admin/plans/new', {
+                    .post('/api/admin/plans/new', {
                         title: this.plan_title,
                         parent: this.plan_mother,
-                        is_ready: this.plan_status,
+                        available: this.plan_status,
                         price: this.plan_price,
-                        img: this.img_addr,
-                        is_end: plan_isend,
-                        plan_isexam: plan_isexam,
-                        file_addr: this.file_addr,
-                        id: this.plan_id,
+                        image: this.img_addr,
+                        file: this.file_addr,
+                        exam_id: 1
                     }).then(response => {
                         this.isLoading = false;
                         this.get_plan();
@@ -442,10 +449,10 @@ const app = new Vue({
         },
         get_plan() {
             this.isLoading = true
-            axios.get('/admin/plans')
+            axios.get('/api/admin/plans')
                 .then(response => {
                     this.all_plan = response.data;
-                    this.isLoading = false
+                    this.isLoading = false;
                 })
         },
         delete_plan(id) {
@@ -466,6 +473,47 @@ const app = new Vue({
             this.img_addr = plan.img;
             this.plan_isend = plan.is_end;
             this.plan_isexam = plan.is_exam;
+        },
+        get_exams() {
+            this.isLoading = true;
+            axios.get("/admin/exams/"+grade+"/"+major)
+            .then(response => {
+                this.isLoading = false;
+                this.exams = response.data;
+            });
+        },
+        add_exam(){
+            this.isLoading = true;
+            axios.post("/admin/exams/new",
+            {
+                title: title,
+                major: major,
+                grade: grade
+            })
+            .then(response => {
+                this.isLoading = false;
+                this.get_exams();
+            });
+        },
+
+        get_options(){
+            this.isLoading = true;
+            axios.get("/admin/options")
+            .then(response => {
+                this.isLoading = false;
+                this.options = response.data;
+            });
+        },
+        save_options(){
+            this.isLoading = true;
+            axios.post("/admin/options/save/",
+            {
+                options: options
+            })
+            .then(response => {
+                this.isLoading = false;
+                this.get_options();
+            });
         },
         funcgetfile(val) {
             this.file_addr = val;

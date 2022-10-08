@@ -7,6 +7,7 @@ use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\Chat\MessageController;
 use App\Http\Controllers\Counselor\RequestController;
 use App\Http\Controllers\Counselor\CommentController;
+use App\Http\Controllers\Exam\PlanController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,14 +32,20 @@ Route::get('/checkcode/{counselorCode}','ValidationController@counselorExists');
 Route::group(['prefix' => 'admin'],function(){
     Route::get("/students","StudentController@getAll");
     Route::get("/counselors","StudentController@getAll");
-    Route::get("/dailies/{counselor_id}","DailyController@getAll");
 
     Route::get("/lessons/{grade}/{major}","LessonController@getAll");
     Route::get("/lessons/{lesson_id}/delete","LessonController@destroy");
     Route::post("/lessons/update","LessonController@update");
     Route::post("/lessons/new","LessonController@store");
 
-    Route::get("/plans","Exam\PlanController@getAll");
+    Route::get("/dailies/{counselor_id}","DailyController@getAll");
+
+    Route::post("/dailies/newPicture","DailyController@addPicture");
+    Route::post("/dailies/newMessage","DailyController@addMessage");
+
+    Route::get("/student/{student_id}/analysises/{exam_id}","Exam\ExamController@getAnalysises");
+    Route::get("/plans",[PlanController::class,'getAll']);
+    Route::post("/plans/new",[PlanController::class,'store']);
 });
 
 Route::middleware('auth:api')->group(function(){

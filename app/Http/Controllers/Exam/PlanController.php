@@ -1,19 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Exam;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ExamPlan;
 
 class PlanController extends Controller
 {
+    public function getAll(){
+        return response()->json(
+            ExamPlan::get()
+        ,200);
+    }
+
     public function store(Request $request){
     	
     	$plan = new ExamPlan();
-    	$path = $request->file("file")->store("exam_plans");
-    	$plan->title = $request->title;
+        if($request->hasFile('file') ){
+    	   $path = $request->file("file")->store("exam_plans/files");
+    	   $plan->file = $path;
+        }
+        else{
+            $plan->file = "";
+        }
+
+
+        if($request->hasFile('image')){
+            $image = $request->file("image")->store("exam_plans/images");
+            $plan->image = $image;
+        }else{
+            $plan->image = "";
+        }
+
+        $plan->title = $request->title;
     	$plan->exam_id = $request->exam_id;
-    	$plan->file = $path;
+        $plan->price = $request->price;
+        $plan->available = $request->available;
     	$plan->save();
     }
 

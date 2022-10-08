@@ -35,7 +35,10 @@
                         </div>
                     </div>
                     <div class="col-md-4 right" style="padding-top: 10px;">
-                        <dropzone-component style="width: 100%;" @addrfilm="funcgetaddr"></dropzone-component>
+                        <div>
+                            <label>عکس:</label>
+                            <input type='file' style="width: 100%;" @addrfilm="funcgetaddr" />
+                        </div>
                     </div>
                     <div class="col-md-4 right" style="padding-top: 10px;">
                         <div class="form-group">
@@ -56,7 +59,7 @@
                         </div>
                     </div>
                     <div v-if="plan_isexam" class="col-md-4 right" style="padding-top: 10px;">
-                        <fileexam-component style="width: 100%;" @addrfilm="funcgetfile"></fileexam-component>
+                        <input type='file' style="width: 100%;" @addrfilm="funcgetfile" />
                     </div>
                     <div class="col-md-4 right list_button_insert">
                         <button style="margin-top: 42px;" type="button" class="btn btn-success hvr-buzz-out" @click="add_plan()">ایجاد برنامه</button>
@@ -69,7 +72,7 @@
                                 <label class="label cat_lable">وضعیت</label>
                                 <select class="form-control" v-model="plan_status">
                                     <option value="0">مشاور</option>
-                                    <option value="1">آماده</option>
+                                    <option value="1" selected>آماده</option>
                                 </select>
                             </div>
                         </div>
@@ -88,7 +91,7 @@
                             <th>حذف</th>
                         </thead>
                         <tbody>
-                            <tr v-for="plan in all_plan" v-if="plan.parent == plan_mother && plan.is_ready == plan_status">
+                            <tr v-for="plan in all_plan" v-if="plan.available == plan_status">
                                 <td>@{{plan.id}}</td>
                                 <td v-if="!plan.is_end" @click="()=>{plan_mother = plan.id}">@{{plan.title}}</td>
                                 <td v-if="plan.is_end">@{{plan.title}}</td>
@@ -132,7 +135,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 right" style="padding-top: 10px;">
-                            <dropzone-component style="width: 100%;" @addrfilm="funcgetaddr"></dropzone-component>
+                            <input style="width: 100%;" @addrfilm="funcgetaddr" />
                             <a :href="'/images/'+img_addr">نمایش عکس</a>
                         </div>
                         <div class="col-md-4 right" style="padding-top: 10px;">

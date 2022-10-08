@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Options;
 use App\Lesson;
 use App\Mosh;
 use App\Options;
@@ -16,6 +17,20 @@ use Session;
 
 class AdminController extends Controller
 {
+
+    public function getOptions(){
+        return response()->json(
+            Options::get()
+            ,200);
+    }
+
+    public function saveOptions($options){
+        foreach ($options as $option) {
+            Options::where("id",$option->id)->update(['value' => $option->value]);
+        }
+        return response()->json([],200);
+    }
+
     public function login_admin(Request $request)
     {
         $username = $request->username;

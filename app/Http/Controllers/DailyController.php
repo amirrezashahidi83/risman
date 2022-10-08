@@ -43,12 +43,12 @@ class DailyController extends Controller
 
 	public function getByTime($counselor_id,$time){
 
-		$dailies = Daily::where('counselor_id',$counselor_id)->where("start_time","<=",$time)
+		$dailies = Daily::where('counselor_id',$counselor_id)->orWhere('counselor_id',1)->where("start_time","<=",$time)
 		->where("end_time",">=",$time)->get();
-		return response()->json({
+		return response()->json([
 			'texts' => $dailies->where('type',1),
 			'images' => $dailies->where('type',2)
-			}
+			]
 			,200);
 	}
 }

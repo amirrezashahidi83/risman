@@ -18,13 +18,14 @@ use App\Http\Middleware\Admin;
 Route::group(['prefix' => 'admin'], function () {
 
 	Route::view('/', 'login');
-	Route::view('/dashbord', 'admin.dashbord');
+	Route::view('/dashboard', 'admin.dashbord');
 	Route::view('/stu', 'admin.stu');
 	Route::view('/create-stu', 'admin.create_stu');
 	Route::view('/mosh', 'admin.mosh');
 	Route::view('/lesson', 'admin.lesson');
 	Route::view('/plan', 'admin.plan');
 	Route::view('/slider', 'admin.slider');
+	Route::view('/transactions','admin.transactions');
 
 	Route::post('/login', 'AdminController@login_admin');
 	Route::get('/getuser', 'AdminController@getuser');

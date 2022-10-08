@@ -11,6 +11,8 @@
 	</div>
 	<div class="chit-chat-layer1">
 		<table class="table table-striped table-bordered table-hover table-condensed col-md-12 saeid_block">
+			<caption>
+			</caption>
 			<thead>
 
 			</thead>
