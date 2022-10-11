@@ -1,7 +1,7 @@
 import {CCard,CCardBody,CForm,CFormInput,CFormLabel,CRow,
 CCol,CFormTextarea,CButton} from '@coreui/react';
 import Select from 'react-select';
-import useAnalysisTable from './tables/AnalysisTable';
+import useAnalysisTable from './tables/useAnalysisTable';
 import {useAuthState} from '../../../Context/auth';
 
 const AnalysisExam = () => {

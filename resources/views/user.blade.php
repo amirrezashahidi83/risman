@@ -14,7 +14,7 @@
 
 </head>
 <body class='bg-light'>
-	<div id="index" class='w-100 h-100'></div>
+	<div id="index" class='w-100 h-100 bg-info'></div>
 
 <script src="{{ asset('/sw.js') }}"></script>
 <script>

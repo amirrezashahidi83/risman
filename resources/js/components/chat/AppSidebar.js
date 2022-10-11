@@ -10,12 +10,17 @@ import SearchBox from 'react-search-box';
 import {useAuthState} from '../../Context/auth';
 import {useChatState,useChatDispatch,setChat,enterGhost} from '../../Context/chat';
 import useHoldEvent from './HoldEvent';
+import useNewGroup from './modals/useNewGroup';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+
 
 const AppSidebar = () => {
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
   const [onHoldHandler,onHoldLeaveHandler] = useHoldEvent('chatlist');
+  const [renderModal,setShow] = useNewGroup();
   const [member,setMember] = useState({});
   const [items,setItems] = useState([]);
   const [userDetails,token] = useAuthState();
@@ -86,6 +91,9 @@ const AppSidebar = () => {
             />
           )}
         </ChatList>
+        <Fab onClick={() => setShow(true)} >
+          <AddIcon />
+        </Fab>
       </CSidebarNav>
     </CSidebar>
   )

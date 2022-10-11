@@ -53,7 +53,6 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/add_week', 'AdminController@add_week');
 
 });
-
 Route::view("/{path?}/{path2?}/{path3?}",'user');
 
 Route::middleware([Admin::class])->group(function(){

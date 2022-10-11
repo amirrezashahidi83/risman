@@ -44,7 +44,7 @@ const app = new Vue({
         all_mosh: [], mosh_id: '',
         plan_title: '', plan_mother: 0, plan_status: '', plan_price: '', plan_isend: 0, plan_isexam: 0, all_plan: [], plan_id: '', file_addr: '',
         num_week: '', starttime: '', endtime: '',
-        mobile: '',stu_name:'',
+        mobile: '',stu_name:'',psyco_tests: [],
         content: '<h1>Initial Content</h1>',
         editorSettings: {
             modules: {
@@ -558,25 +558,6 @@ const app = new Vue({
                 }
               })
         },
-        // week
-        add_week() {
-            if (this.num_week && this.starttime && this.endtime) {
-                this.isLoading = true;
-                axios
-                    .post('/admin/weeks/add', {
-                        num_week: this.num_week,
-                        starttime: this.starttime,
-                        endtime: this.endtime,
-                    })
-                    .then(response => {
-                        this.isLoading = false;
-                        Swal.fire('', 'هفته جدید ایجاد شد', 'success')
-                    })
-            } else {
-                Swal.fire('', 'لطفا تمام فیلد ها را تکمیل کنید!!!', 'warning')
-            }
-        },
-
         // pdf and chart 
         exportToPDFDashboard() {
 
@@ -607,92 +588,6 @@ const app = new Vue({
 
 
         },
-        get_charts() {
-            var testName = window.location.pathname.split('/')[3];
-
-            axios.get("/api/test_api/" + testName).then(response => {
-
-
-                var data = response.data;
-                var chartLabel = [];
-                var chartData = [];
-
-                for (var i = 0; i < data.length; i++) {
-
-                    chartLabel.push(data[i]['title']);
-                    chartData.push(data[i]['score']);
-                }
-
-                this.$refs.chart_rader.setOption(chartLabel, chartData)
-                this.$refs.chart.setOption(chartLabel, chartData)
-
-
-            });
-        },
-        get_charts_mbti() {
-            var testName = window.location.pathname.split('/')[3];
-
-
-            axios.get("/api/test_api/" + testName).then(response => {
-
-
-                var data = response.data;
-
-
-                var chartLabel = [];
-                var chartData = [];
-
-
-                chartData.push(data['E']);
-                chartLabel.push('برون گرا');
-
-                chartData.push(data['I']);
-                chartLabel.push('درون گرا');
-
-                chartData.push(data['S']);
-                chartLabel.push('حسی');
-
-                chartData.push(data['N']);
-                chartLabel.push('شهودی');
-
-                chartData.push(data['T']);
-                chartLabel.push('منطقی');
-
-                chartData.push(data['F']);
-                chartLabel.push('احساسی');
-
-                chartData.push(data['J']);
-                chartLabel.push('قضاوتی');
-
-                chartData.push(data['P']);
-                chartLabel.push('ادراکی');
-
-                this.$refs.chart_radermbti.setOption(chartLabel, chartData)
-
-
-            });
-        },
-        get_charts_scatter() {
-            var testName = window.location.pathname.split('/')[3];
-            console.log(testName);
-            axios.get("/api/test_api/" + testName).then(response => {
-
-
-                var data = response.data;
-
-                console.log('data', data);
-
-                var x = data['x'];
-                var y = data['y'];
-
-
-
-                this.$refs.chart_scatter.setOption(x, y)
-
-
-            });
-        },
-
         add_stu() {
             if (!this.stu_name || !this.mobile)
                 return Swal.fire('', 'لطفا تمام فیلد ها را تکمیل کنید!!!', 'warning')
@@ -717,5 +612,24 @@ const app = new Vue({
                     Swal.fire('', 'دانش آموز جدید ایجاد شد', 'success')
                 })
         }
+    },
+    get_tests(){
+        this.isLoading = true;
+        axios.get("/admin/psyco_tests")
+        .then(response => {
+            this.isLoading = false;
+            this.psyco_tests = response.data;
+        });
+    },
+    save_test(){
+        this.isLoading = true;
+        axios.post("/admin/psyco_tests/save",
+        {
+            
+        })
+        .then(response => {
+            this.isLoading = false;
+            get_tests();
+        });
     }
 });

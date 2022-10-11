@@ -32,9 +32,9 @@ const useConfirmModal = (phone)=>{
 		}	
 	}
 	const ConfimModal = 
-		<Modal show={show} >
+		<Modal show={show} onHide={() => setShow(false) } >
 			<Form>
-			    <Modal.Header closeButton>
+			    <Modal.Header closeButton >
 			    <div></div>
 	        	</Modal.Header>
 		        <Modal.Body>

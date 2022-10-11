@@ -42,9 +42,9 @@ const useValidation = () => {
 
 	}
 	
-	return {
+	return [
 		errors,
 		handleChange
-	}
+	]
 }
 export default useValidation;

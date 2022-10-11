@@ -3,15 +3,19 @@ import {useNavigate} from 'react-router-dom';
 import {Card,Form,Row,Col,Container,Button,InputGroup} from 'react-bootstrap';
 import useValidation from '../components/auth/validation';
 import useConfirmModal from '../components/auth/signup/ConfirmModal';
+import useForgetPassword from '../components/auth/useForgetPassword';
+
 import KeyIcon from '@mui/icons-material/Key';
 import {login as loginAction,useAuthDispatch} from '../Context/auth';
  
-const Login = () =>{
+const Login = () => {
 
-	let [errors,handleChange] = useValidation();
+	const [errors,handleChange] = useValidation();
 	const [phone,setPhone] = useState('');
 	const [password,setPassword] = useState('');
-	const [show,sendCode,ConfirmModal] = useConfirmModal(phone);
+	const [showConfirm,sendCode,ConfirmModal] = useConfirmModal(phone);
+	const [ForgetModal,showForget,setShowForget] = useForgetPassword();
+
 	const dispatch = useAuthDispatch();
 
 	let navigate = useNavigate();
@@ -29,33 +33,34 @@ const Login = () =>{
 		<Container dir='ltr'>
 			<Row className='d-flex justify-content-center pt-5'>
 				<Col className='col-md-4 col-8'>
-				{show ? ConfirmModal   : <div></div>}
+				{showConfirm ? ConfirmModal   : <div></div>}
+				{showForget ? <ForgetModal /> : <div></div>}
 				<Form onSubmit={checkForm}>
 					<Card>
-						<Card.Header className='text-center'>
-							<Card.Title>ورود به ریسمان</Card.Title>
+						<Card.Header className='text-center bg-white'>
+							<Card.Title className='h4'>ورود به ریسمان</Card.Title>
 						</Card.Header>
 
 						<Card.Body>
 
-							<InputGroup className='mt-3'>
-								<InputGroup.Text>+98</InputGroup.Text>
-								<Form.Control type='tel' onChange={(e) => setPhone(e.target.value)} />
+							<InputGroup className='mt-3 group-border-ltr'>
+								<InputGroup.Text className='rounded-left'>+98</InputGroup.Text>
+								<Form.Control className='rounded-right' type='tel' onChange={(e) => setPhone(e.target.value)} />
 							</InputGroup>
-							<InputGroup className='mt-3'>
+							<InputGroup className='mt-3 group-border-ltr'>
 								<InputGroup.Text> <KeyIcon /> </InputGroup.Text>
 								<Form.Control type='password' onChange={(e) =>setPassword(e.target.value)} />
 							</InputGroup>
 							<div className='mt-4 text-end'>
-								<Card.Link href="#">رمز عبور خود را فراموش کرده اید؟</Card.Link>
+								<Card.Link href="#" onClick={() => setShowForget(true)}>رمز عبور خود را فراموش کرده اید؟</Card.Link>
 								<Form.Check className='mt-3' reverse>
 									<Form.Check.Label>من را به خاطر بسپار</Form.Check.Label>
 									<Form.Check.Input />
 								</Form.Check>
 							</div>
 							
-							<Button className='w-100 mt-4' size="lg" type='submit'>ورود</Button>
-							<Button className='w-100 mt-2' size="lg" onClick={sendCode}>ثبت نام</Button>
+							<Button className='w-100 mt-4' variant='primary' size="lg" type='submit'>ورود</Button>
+							<Button className='w-100 mt-2' variant='primary' size="lg" onClick={sendCode}>ثبت نام</Button>
 						</Card.Body>
 					</Card>
 				</Form>

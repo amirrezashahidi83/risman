@@ -11,13 +11,13 @@ import {useAuthState} from '../Context/auth';
 
 const Register = () => {
 	
+	const [errors,handleChange] = useValidation();
 	const navigate = useNavigate();
-	let [userDetails,token] = useAuthState();
-	let [errors,handleChange] = useValidation();
+	//let [userDetails,token] = useAuthState();
 
 	useEffect(() => {
-		if(user == null)
-			navigate('/login');
+		//if(user != null)
+		//	navigate('/login');
 	});
 	
 	const [isStudent,setIsStudent] = useState(false);
@@ -52,32 +52,29 @@ const Register = () => {
 	}
 
 	return(
-		<Container dir=''>
+		<Container >
 			<Row className='d-flex justify-content-center pt-5'>
 				<Col className='col-md-4 col-8'>
 					<Card>
-						<Card.Header>
-							<Card.Title>ثبت نام در ریسمان</Card.Title>
-						</Card.Header>
 							<Card.Body>
 								<Form>
-									<InputGroup className='mt-4'>
+									<InputGroup className='mt-4 group-border-rtl'>
 										<InputGroup.Text><PersonIcon /></InputGroup.Text>
 										<Form.Control name='name' placeholder='نام و نام  خانوادگی'/>
 									</InputGroup>
 
-									<InputGroup className='mt-3'>
+									<InputGroup className='mt-3 group-border-rtl'>
 										<InputGroup.Text><NationalCodeIcon /></InputGroup.Text>
 										<Form.Control name='nationalCode' placeholder='کد ملی'/>
 									</InputGroup>
 
-									<Form.Group className='mt-3'>
+									<Form.Group className='mt-3 group-border-rtl'>
 										<InputGroup>
 											<InputGroup.Text><KeyIcon /></InputGroup.Text>
 											<Form.Control name='password' placeholder='رمز عبور' type='password' />
 										</InputGroup>
 										
-										<InputGroup className='mt-1'>
+										<InputGroup className='mt-1 group-border-rtl'>
 											<InputGroup.Text><KeyIcon /></InputGroup.Text>
 											<Form.Control name='againPassword' placeholder='تکرار رمز عبور' type='password' />
 										</InputGroup>
@@ -107,29 +104,33 @@ const Register = () => {
 									{
 										isStudent?
 										<Form.Group className='mt-2'>
-									
-											<CFormSelect name='grade'>
-												<option value='1'>هفتم</option>
-												<option value='2'>هشتم</option>
-												<option value='3'>نهم</option>
-												<option value='4'>دهم</option>
-												<option value='5'>یازدهم</option>
-												<option value='6'>دوازدهم</option>
-											</CFormSelect>
-									
-											<CFormSelect name='major'>
-												<option value='1'>ریاضی</option>
-												<option value='2'>تجربی</option>
-												<option value='3'>انسانی</option>
-												<option value='4'>ندارم</option>
-											</CFormSelect>
-
-											<Form.Control name='school' placeholder='نام مدرسه' />
+											<Row>
+												<Col>
+													<CFormSelect name='grade'>
+														<option value='1'>هفتم</option>
+														<option value='2'>هشتم</option>
+														<option value='3'>نهم</option>
+														<option value='4'>دهم</option>
+														<option value='5'>یازدهم</option>
+														<option value='6'>دوازدهم</option>
+													</CFormSelect>
+												</Col>
+												<Col>
+													<CFormSelect name='major'>
+														<option value='1'>ریاضی</option>
+														<option value='2'>تجربی</option>
+														<option value='3'>انسانی</option>
+														<option value='4'>ندارم</option>
+													</CFormSelect>
+												</Col>
+											</Row>
+											<Form.Control className='mt-2' name='school' placeholder='نام مدرسه' />
 											<CFormCheck
+											 className='mt-3'
 											 label='کد مشاوره دارم'
 											 onChange={()=>setHaveCode(!haveCode)}/>
 											{haveCode ? 
-												<Form.Control name='code' placeholder='کد مشاوره' />
+												<Form.Control className='mt-1' name='code' placeholder='کد مشاوره' />
 												:
 												<div></div>
 											}
@@ -139,7 +140,7 @@ const Register = () => {
 										<div></div>
 									}	
 
-									<Button className='w-100 mt-3' onClick={(e) => sendData(e.target.parentNode)} >
+									<Button className='w-100 mt-3' size='lg' onClick={(e) => sendData(e.target.parentNode)} >
 										تکمیل اطلاعات
 									</Button>
 								</Form>

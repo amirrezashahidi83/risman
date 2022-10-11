@@ -1,2 +1,21 @@
 // Here you can add other styles
 
+.group-border-ltr > .input-group-text{
+	border-bottom-left-radius: 5px !important;
+	border-top-left-radius: 5px !important;
+}
+
+.group-border-ltr > .form-control{
+	border-bottom-right-radius: 5px !important;
+	border-top-right-radius: 5px !important;	
+}
+
+.group-border-rtl > .input-group-text{
+	border-bottom-right-radius: 5px !important;
+	border-top-right-radius: 5px !important;
+}
+
+.group-border-rtl > .form-control{
+	border-bottom-left-radius: 5px !important;
+	border-top-left-radius: 5px !important;	
+}
