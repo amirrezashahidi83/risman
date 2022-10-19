@@ -1,5 +1,10 @@
 // Here you can add other styles
 
+@font-face{
+	font-family: Shabnam;
+	src: url('/fonts/Shabnam.woff');
+}
+
 .group-border-ltr > .input-group-text{
 	border-bottom-left-radius: 5px !important;
 	border-top-left-radius: 5px !important;
@@ -18,4 +23,12 @@
 .group-border-rtl > .form-control{
 	border-bottom-left-radius: 5px !important;
 	border-top-left-radius: 5px !important;	
+}
+
+.MuiTimePickerToolbar-hourMinuteLabel{
+	direction: ltr !important;
+}
+
+body{
+	font-family: "Shabnam" !important;	
 }

@@ -14186,6 +14186,10 @@ html:not([dir=rtl]) .wrapper {
   }
 }
 
+@font-face {
+  font-family: Shabnam;
+  src: url("/fonts/Shabnam.woff");
+}
 .group-border-ltr > .input-group-text {
   border-bottom-left-radius: 5px !important;
   border-top-left-radius: 5px !important;
@@ -14204,4 +14208,12 @@ html:not([dir=rtl]) .wrapper {
 .group-border-rtl > .form-control {
   border-bottom-left-radius: 5px !important;
   border-top-left-radius: 5px !important;
+}
+
+.MuiTimePickerToolbar-hourMinuteLabel {
+  direction: ltr !important;
+}
+
+body {
+  font-family: "Shabnam" !important;
 }

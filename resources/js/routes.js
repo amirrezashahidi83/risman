@@ -1,7 +1,7 @@
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Panel from './pages/Panel';
-
+import Chatroom from './pages/Chatroom';
 export const routes = [
 
 	{
@@ -23,5 +23,10 @@ export const routes = [
 	{
 		path: '/counselor/*',
 		element: <Panel />
+	},
+
+	{
+		path: '/chatroom',
+		element: <Chatroom /> 
 	}
 ]

@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {CContainer,CRow,CCol} from '@coreui/react';
 import StudentTable from './tables/StudentTable';
-import SendPlan from './SendPlan';
+import PlanRequests from './PlanRequests'; 
 import {useAuthState} from '../../../Context/auth';
 
 const Dashboard = ()=>{
@@ -13,8 +13,11 @@ const Dashboard = ()=>{
         <CCol>
           <StudentTable user={user} />
         </CCol>
+
         <CCol>
+          <PlanRequests />
         </CCol>
+      
       </CRow>
     </>
   )

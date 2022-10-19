@@ -4,18 +4,18 @@ import {CCard,CCardBody,CCardHeader,CCardFooter,CForm,CInputGroup
 import Select from 'react-select';
 import StudyTable from './tables/StudyTable';
 import {useAuthState} from '../../../Context/auth';
+import TimePicker from './TimePicker';
 
 const ReportStudy = () => {
 
-	const user = useAuthState().userDetails;
-	const token = useAuthState().token;
+	const {userDetails,token} = useAuthState();
 	const [lessons,setLessons] = useState([]);
 	const [topics,setTopics] = useState([]);
 	const [data,setData] = useState({});
 	
 	useEffect(() => {
 		axios
-		.get("/api/lessons/"+user.special.grade+"/"+user.special.major
+		.get("/api/lessons/"+userDetails.special.grade+"/"+userDetails.special.major
 			+"?token="+token)
 		.then(function(response){
 			setLessons(response.data);
@@ -36,13 +36,14 @@ const ReportStudy = () => {
 			)
 		}
 		axios.post('/api/student/report',
-		{data: data,student_id: user.userDetails.id,token: user.token})
+		{data: data,student_id: userDetails.userDetails.id,token: userDetails.token})
 		.then(function(response){
 
 		});*/
 	}
 
 	return(
+
 		<CRow>
 			<CCol>
 				<CCard className='p-2'>
@@ -74,17 +75,7 @@ const ReportStudy = () => {
 									<CFormLabel>ساعت مطالعه</CFormLabel>
 								</CCol>
 								<CCol>
-									<CInputGroup>
-										<CRow>
-										<CCol>
-											<CFormInput type='number' />
-										</CCol>
-										:
-										<CCol>
-											<CFormInput type='number' />
-										</CCol>
-										</CRow>
-									</CInputGroup>
+									<TimePicker />
 								</CCol>
 							</CRow>
 							<CRow className='mt-3'>
@@ -92,17 +83,7 @@ const ReportStudy = () => {
 									<CFormLabel>ساعت تست</CFormLabel>
 								</CCol>
 								<CCol>
-									<CInputGroup>
-										<CRow>
-										<CCol>
-											<CFormInput type='number' />
-										</CCol>
-										:
-										<CCol>
-											<CFormInput type='number' />
-										</CCol>
-										</CRow>
-									</CInputGroup>
+									<TimePicker />
 								</CCol>
 							</CRow>
 							<CRow className='mt-3'>
@@ -122,7 +103,7 @@ const ReportStudy = () => {
 				<CCard>
 					<CCardBody>
 						<CForm onSubmit={handleSubmit} >
-							<StudyTable user={user} lessons={lessons} />
+							<StudyTable user={userDetails} lessons={lessons} />
 							<CButton type='submit' >
 								ثبت برنامه
 							</CButton>

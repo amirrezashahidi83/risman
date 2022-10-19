@@ -2,12 +2,13 @@ import {useEffect,useState} from 'react';
 import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 	CTableCaption,CFormInput} from '@coreui/react';
 import Select from 'react-select';
+import {useAuthState} from '../../../Context/auth';
 
-const ScheduleTable = ()=>{
+const ScheduleTable = () => {
 	
 	const [lessons,setLessons] = useState([]);
-
-	useEffect(() =>{
+	const [token,user] = use 
+	useEffect(() => {
 		axios.get("/api/lessons/")
 			.then(function(response){
 				setLessons(response.data);

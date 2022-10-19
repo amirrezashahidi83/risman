@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate,useParams} from 'react-router-dom';
 import {CCard,CCardBody,CForm,CFormInput,CRow,CCol,CButton} from "@coreui/react";
 import Select from 'react-select';
 import SearchBox from 'react-search-box';
@@ -11,7 +11,7 @@ const CounselorsList = ({user}) => {
 
 	const handleOnChange = (e) => {
 
-		let value = e.target[0].value;
+		let value = e.target.parentNode[0].value;
 		axios.get("/api/counselor/search/"+value+"?token="+user.token)
 		.then(function(response){
 			setCounselors(response.data);
@@ -25,22 +25,24 @@ const CounselorsList = ({user}) => {
 
 	return (
 		<>
-			<CCard>
-				<CCardBody>
-					<SearchBox data={counselors} />
-				</CCardBody>
-			</CCard>
-			<CCard>
-				<CCardBody>
-					{counselors.map((counselor) => 
-						<CCard key={counselor.id} value={counselor.id} >
-							<CCardBody>
-								{counselor.name}
-							</CCardBody>
-						</CCard>
-					)}
-				</CCardBody>
-			</CCard>
+			<CForm>
+				<CCard>
+					<CCardBody>
+						<SearchBox data={counselors} callback={handleOnChange} />
+					</CCardBody>
+				</CCard>
+				<CCard>
+					<CCardBody>
+						{counselors.map((counselor) => 
+							<CCard key={counselor.id} value={counselor.id} >
+								<CCardBody>
+									{counselor.name}
+								</CCardBody>
+							</CCard>
+						)}
+					</CCardBody>
+				</CCard>
+			</CForm>
 		</>
 	)
 }

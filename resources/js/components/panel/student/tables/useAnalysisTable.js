@@ -8,7 +8,7 @@ const useAnalysisTable = ({user}) => {
 
 	useEffect(() => {
 		if(user != undefined)
-			axios.get("/api/student/"+user.userDetails.special.id+"?token="+user.token)
+			axios.get("/api/student/"+user.user.special.id+"?token="+user.token)
 			.then(function(response){
 
 			});
@@ -34,7 +34,7 @@ const useAnalysisTable = ({user}) => {
 
 	const handleOnChange = (e) => {
 		let exam = e.target.value;
-		axios.get("/api/student/"+user.userDetails+"/analysises/"+exam+"?token="+user.token)
+		axios.get("/api/student/"+user.user+"/analysises/"+exam+"?token="+user.token)
 			.then(function(response){
 				let questions = response.data.questions;
 

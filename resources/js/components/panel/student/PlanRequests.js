@@ -28,21 +28,23 @@ const PlanRequests = () => {
 	}
 	
 	return(
-		<CRow>
-			<CButton></CButton>
-			<CButton></CButton>
-		</CRow>
-		<CCard>
-			<CCardBody>
-				{requests.map((request,id) => 
-					<CCard key={id}>
-						<CCardBody>
+		<>
+			<CRow>
+				<CButton></CButton>
+				<CButton></CButton>
+			</CRow>
+			<CCard>
+				<CCardBody>
+					{requests.map((request,id) => 
+						<CCard key={id}>
+							<CCardBody>
 
-						</CCardBody>
-					</CCard>
-				)}
-			</CCardBody>
-		</CCard>
+							</CCardBody>
+						</CCard>
+					)}
+				</CCardBody>
+			</CCard>
+		</>
 	)
 }
 

@@ -7,7 +7,7 @@ import useImageCropper from './modals/useImageCropper';
 
 const Personal = () => {
 
-	const [token,userDetails] = userAuthState();
+	const [token,user] = useAuthState();
 	const [states,setStates] = useState([]);
 	const [cities,setCities] = useState([]);
 	const [ModalComponent,setSource] = useImageCropper();
@@ -40,7 +40,7 @@ const Personal = () => {
 
 		let formData = {name: name,phoneNumber: phoneNumber, nationalCode: nationalCode,
 			state: state, city: city ,password : password}
-		axios.post('/user/'+userDetails.id+'/settings/update?token='+token
+		axios.post('/user/'+user.id+'/settings/update?token='+token
 			,formData)
 		.then(function(response){
 
@@ -52,18 +52,18 @@ const Personal = () => {
 			<ModalComponent />
 			<CRow>
 				<CCol>
-					<Avatar round={true} src={userDetails.profilePic} onClick/>
+					<Avatar round={true} src={user.profilePic} onClick/>
 				</CCol>
 
 				<CCol>
 					<CRow>
 						<CCol>
-							<CFormInput name='name' value={userDetails.name} />
+							<CFormInput name='name' value={user.name} />
 						</CCol>
 					</CRow>
 					<CRow>
 						<CCol>
-							<CFormInput name='phoneNumber' value={userDetails.phoneNumber} />
+							<CFormInput name='phoneNumber' value={user.phoneNumber} />
 						</CCol>
 					</CRow>
 				</CCol>
@@ -71,7 +71,7 @@ const Personal = () => {
 			
 			<CRow>
 				<CCol>
-					<CFormInput name='nationalCode' value={userDetails.nationalCode} />
+					<CFormInput name='nationalCode' value={user.nationalCode} />
 				</CCol>
 
 				<CCol>

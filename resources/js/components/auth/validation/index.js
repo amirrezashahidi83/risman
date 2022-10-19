@@ -7,8 +7,8 @@ const useValidation = () => {
 	const [errors,setErrors] = useState([]);
 
 	const validate = async (event,name,value) => {
-
-		if(name == 'phoneNumber'){
+		console.log(name);
+		if(name == 'phone'){
 			if( await phoneExists(value)){
 				setErrors({...errors,phoneNumber:'این شماره تلفن در سیستم ثبت شده است.'});
 			}
@@ -34,7 +34,7 @@ const useValidation = () => {
 
 	
 	
-	const handleChange = (event)=>{
+	const handleChange = (event) => {
 		
 		let name = event.target.name;
 		let value = event.target.value;

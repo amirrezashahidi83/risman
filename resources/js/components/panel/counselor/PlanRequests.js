@@ -1,41 +1,73 @@
 import {useState,useEffect} from 'react';
-import {CCard,CCardBody,CRow,CButton} from '@coreui/react';
+import {CCard,CCardBody,CRow,CButton,CModal,CModalBody,CModalHeader} from '@coreui/react';
 import {useAuthState} from '../../../Context/auth';
 
 const PlanRequests = () => {
 	const [requests,setRequests] = useState([]);
-	const user = useAuthState();
+	const {userDetails,token} = useAuthState();
+	const [visible,setVisible] = useState(false);
+	const [selectedPlan,setSelectedPlan] = useState({});
 
 	useEffect( () => {
-		axios.get("/api/counselor/requests/"+user.id)
+		axios.get("/api/counselor/requests/"+userDetails.id)
 		.then(function(response){
 			setRequests(response.data);
 		});
 	},[]);
 
 	const sendPlan = (e) => {
-		axios.post("/api/counselor/"+user.id+"/requests/accept/"+)
+		axios.post("/api/counselor/"+userDetails.id+"/requests/accept/")
 		.then(function(response){
 
 		});
 	}
+
+	const showDetails = (plan) => {
+		setSelectedPlan(plan);
+		setVisible(true);
+
+	}
 	
 	return(
-		<CRow>
-			<CButton></CButton>
-			<CButton></CButton>
-		</CRow>
-		<CCard>
-			<CCardBody>
-				{requests.map((request,id) => 
-					<CCard key={id}>
-						<CCardBody>
+		<>
+			<CModal show={visible} >
 
-						</CCardBody>
-					</CCard>
-				)}
-			</CCardBody>
-		</CCard>
+				<CModalHeader onClose={ () => setVisible(false) } >
+				</CModalHeader>
+			
+				<CModalBody>
+				{selectedPlan.id}
+				</CModalBody>
+			</CModal>
+
+			<CRow>
+				<CButton onClick={sendPlan} ></CButton>
+			</CRow>
+			<CCard>
+				<CCardBody>
+					{requests.map((request,id) => 
+						<CCard key={id}>
+							<CCardBody>
+								<CRow>
+									<CCol>
+
+									</CCol>
+
+									<CCol>
+										<CButton onClick={showDetails}> </CButton>
+									</CCol>
+									
+									<CCol>
+										<CButton onClick={sendPlan} ></CButton>
+									</CCol>
+								</CRow>
+
+							</CCardBody>
+						</CCard>
+					)}
+				</CCardBody>
+			</CCard>
+		</>
 	)
 }
 

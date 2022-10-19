@@ -21,16 +21,15 @@ const AppHeader = () => {
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
-  const user = useAuthState();
+  const { userDetails,token } = useAuthState();
 
   return (
     <CHeader position="sticky" className="mb-4">
       <CContainer fluid>
         <CHeaderToggler
           className="ps-1"
-          onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })
-        }
-                  >
+          onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
+        >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
         <CHeaderBrand className="mx-auto d-md-none" to="/">
@@ -40,15 +39,18 @@ const AppHeader = () => {
         </CHeaderNav>
         <CHeaderNav >
           <CNavItem>
-            <CNavLink href="#" className='bg-warning rounded p-2'>
-              <small>{user.score}</small>
+            <CNavLink href="#" className='border border-warning rounded p-2' >
+              <small>{userDetails.score}</small>
               <span></span>
               <PaidTwoToneIcon fontSize='medium'/> 
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
+        <CHeaderNav>
+          {userDetails.name} خوش آمدید, 
+        </CHeaderNav>
         <CHeaderNav className="ms-3">
-          <AppHeaderDropdown user={user}/>
+          <AppHeaderDropdown user={userDetails}/>
         </CHeaderNav>
       </CContainer>
     </CHeader>
