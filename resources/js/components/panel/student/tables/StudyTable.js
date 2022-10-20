@@ -2,6 +2,7 @@ import {useEffect,useState} from 'react';
 import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 	CTableCaption,CFormInput,CFormSelect} from '@coreui/react';
 import Select from 'react-select';
+import TimePicker from '../TimePicker';
 
 const StudyTable = ({user,lessons}) => {
 	
@@ -43,9 +44,9 @@ const StudyTable = ({user,lessons}) => {
 						</CFormSelect>
 					</CTableDataCell>
 					<CTableDataCell name='grade'>{lesson.grade}</CTableDataCell>
-					<CTableDataCell><CFormInput name='study_time' /></CTableDataCell>
-					<CTableDataCell><CFormInput name='test_time' /></CTableDataCell>
-					<CTableDataCell><CFormInput name='test_count' /></CTableDataCell>
+					<CTableDataCell><TimePicker name='study_time' /></CTableDataCell>
+					<CTableDataCell><TimePicker name='test_time' /></CTableDataCell>
+					<CTableDataCell><TimePicker name='test_count' /></CTableDataCell>
 				</CTableRow>
 				)}
 			</CTableBody>

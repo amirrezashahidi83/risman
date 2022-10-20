@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('exam_analysises', function (Blueprint $table) {
             $table->id();
+            $table->integer("balance");
             $table->json("data");
             $table->foreignId('exam_id')->references('id')->on('exams');
             $table->foreignId("student_id")->references("id")->on("students");

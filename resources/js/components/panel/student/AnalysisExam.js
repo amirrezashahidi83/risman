@@ -6,28 +6,22 @@ import {useAuthState} from '../../../Context/auth';
 
 const AnalysisExam = () => {
 
-	const [userDetails,token] = useAuthState();
-	const [AnalysisTable,addItems] = useAnalysisTable(user);
+	const {userDetails,token} = useAuthState();
+	const [AnalysisTable,addItems] = useAnalysisTable(userDetails);
 
 	return(
 		<>
-			<CCard>
-				<CCardBody>
-					<CRow>
-						<CCol>
-
-						</CCol>
-
-						<CCol>
-							<CFormInput />
-						</CCol>
-					</CRow>
-				</CCardBody>
-			</CCard>
-
+			<CRow>
+				<CCol>
+					<CFormInput type='number' />
+				</CCol>
+				<CCol>
+					<CButton onClick={() => addItems(10)}>اضافه کردن </CButton>
+				</CCol>
+			</CRow>
 			<CCard className='mt-4'>
 				<CCardBody>
-					<AnalysisTable />
+					{AnalysisTable}
 					<CRow>
 						<CButton>ارسال جدول</CButton>
 					</CRow>
