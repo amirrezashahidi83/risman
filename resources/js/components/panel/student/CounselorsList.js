@@ -3,6 +3,7 @@ import {useNavigate,useParams} from 'react-router-dom';
 import {CCard,CCardBody,CForm,CFormInput,CRow,CCol,CButton} from "@coreui/react";
 import Select from 'react-select';
 import SearchBox from 'react-search-box';
+import CounselorHeader from './CounselorHeader';
 
 const CounselorsList = ({user}) => {
 
@@ -26,19 +27,11 @@ const CounselorsList = ({user}) => {
 	return (
 		<>
 			<CForm>
-				<CCard>
-					<CCardBody>
-						<SearchBox data={counselors} callback={handleOnChange} />
-					</CCardBody>
-				</CCard>
+				<SearchBox data={counselors} callback={handleOnChange} />
 				<CCard>
 					<CCardBody>
 						{counselors.map((counselor) => 
-							<CCard key={counselor.id} value={counselor.id} >
-								<CCardBody>
-									{counselor.name}
-								</CCardBody>
-							</CCard>
+							<CounselorsHeader data={counselor} />
 						)}
 					</CCardBody>
 				</CCard>

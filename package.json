@@ -45,6 +45,7 @@
         "react-router-dom": "^6.3.0",
         "react-search-box": "^2.3.0",
         "react-select": "^5.4.0",
+        "react-stars": "^2.2.5",
         "react-voice-recorder": "^2.1.2",
         "recharts": "^2.1.13",
         "redux": "^4.2.0",

@@ -7,7 +7,7 @@ import {useAuthState} from '../../../Context/auth';
 const CounselorProfile = () => {
 	
 	let { counselor_id } = useParams();
-	const [token,userDetails] = useAuthState();
+	const {token,userDetails} = useAuthState();
 	const [counselor,setCounselor] = useState({});
 
 	useEffect( () =>{
@@ -17,13 +17,7 @@ const CounselorProfile = () => {
 		});
 	},[]);
 
-	const handleOnRequest = () => {
-		axios.post("/api/student/"+userDetails.special.id
-			+"/request/"+counselor_id+"?token="+token)
-			.then(function(response){
-				
-			});
-	}
+
 	const addComment = (e) => {
 		
 		let text = e.target[0].value;
@@ -40,29 +34,7 @@ const CounselorProfile = () => {
 	return(
 		<>
 			<CRow>
-				<CCol className='col-md-4'>
-					<CCard>
-						<CCardBody>
-							<div className=' mb-3 d-flex justify-content-center'>
-							<Avatar size="150"  round={true} />
-							</div>
-							<p>a</p>
-							<p>b</p>
-							<CButton className='w-100' size=''>درخواست مشاوره</CButton><br></br>
-
-						</CCardBody>
-					</CCard>
-				</CCol>
-
-				<CCol className='h-100'>
-					<CCard className='h-100'>
-					<CCardHeader className='bg-white'>
-						<CCardTitle>رزومه کاری</CCardTitle>
-					</CCardHeader>
-					<CCardBody className='h-100'>
-					</CCardBody>
-					</CCard>
-				</CCol>
+				<CounselorHeader counselor={counselor} />
 			</CRow>
 			<CCard className='mt-3'>
 				<CCardHeader className='bg-white'>
