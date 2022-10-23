@@ -4,6 +4,8 @@ import CounselorsList from './student/CounselorsList';
 import CounselorsProfile from './student/CounselorsProfile';
 import ReportStudent from './student/ReportStudy';
 import AnalysisExam from './student/AnalysisExam';
+import StudentRequests from './student/PlanRequests';
+import PlanSchedule from './student/PlanSchedule';
 import NewTest from './student/NewTest';
 import CounselorDashboard from './counselor/Dashboard';
 import Wallet from './student/Wallet';
@@ -34,6 +36,15 @@ export const student_routes = [
 		path: '/analysis_exam',
 		element: <AnalysisExam />
 	},
+	{
+		path: '/plan/requests',
+		element: <StudentRequests />
+	},
+	{
+		path: '/plan/schedule',
+		element: <PlanSchedule />
+	},
+
 	{
 		path: '/test',
 		element: <NewTest />
