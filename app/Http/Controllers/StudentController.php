@@ -10,6 +10,11 @@ use App\Models\Option;
 
 class StudentController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('checkUser');
+    }
+
     public function index($id){
     	return Student::where('id',$id)->first();
     }

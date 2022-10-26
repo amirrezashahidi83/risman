@@ -8,6 +8,10 @@ use App\Models\Daily;
 
 class DailyController extends Controller
 {
+	public function __construct(){
+		$this->middleware('checkUser');
+	}
+
 	public function addPicture(Request $request){
 		
 		$counselor_id = $request->counselor_id;

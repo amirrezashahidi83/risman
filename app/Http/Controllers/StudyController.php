@@ -9,6 +9,10 @@ use App\Models\Student;
 
 class StudyController extends Controller
 {
+    public __construct(){
+        $this->middleware('checkUser');
+    }
+
     public function store(Request $request){
     	
         $data = $request->data;

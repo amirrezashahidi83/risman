@@ -8,6 +8,10 @@ use App\Models\ExamPlan;
 
 class PlanController extends Controller
 {
+    public function __construct(){
+        $this->middleware('checkUser');
+    }
+
     public function getAll(){
         return response()->json(
             ExamPlan::get()

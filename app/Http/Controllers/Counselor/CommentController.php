@@ -7,6 +7,10 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
+    public function __construct(){
+        $this->middleware('checkUser');
+    }
+ 
     public function getAll($counselor_id){
     	return response()->json(
     		Comment::where('counselor_id',$counselor_id)->get()

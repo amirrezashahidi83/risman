@@ -7,6 +7,10 @@ use App\Models\Chat;
 
 class ChatController extends Controller
 {
+    public function __construct(){
+        $this->middleware('checkUser');
+    }
+
     public function index($chat_id){
     	return response()->json(
     		Chat::where('id',$chat_id)->first(),

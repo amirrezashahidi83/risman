@@ -2,8 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\helper\Tools;
+use App\Models\User;
+use App\Models\Student;
+use App\Models\Counselor;
 
+use JWTAuth;
 use Closure;
 
 class CheckUser
@@ -16,25 +19,24 @@ class CheckUser
      * @return mixed
      */
 
-    function __construct()
-    {
-
-        $this->loginError = 'عدم سطح دسترسی';
-
-        $this->loginErrorArr = ['success' => false, 'errorMsg' => $this->loginError];
-    }
 
 
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $token = $request->token;
-
-        $checkLogin = Tools::checkTokenStudent($token);
-
-        if (!$checkLogin['success'])  // check Login user 
-            return response()->json($this->loginErrorArr);
-
-        $request->user = $checkLogin['user'];
+        $user = [];
+        if($request->has("student_id")){
+            $user = Student::where('user_id',$request->student_id)->first();
+        }
+        else if($request->has("counselor_id")){
+            $user = Counselor::where('user_id',$request->counselor_id)->first();
+        }
+        else if($request->has("user_id")){
+            $user = User::where('id',$request->user_id)->first();
+        }
+        
+        if ($user->id != JWTAuth::toUser($token)->id)
+            return redirect('login');
 
         return $next($request);
 

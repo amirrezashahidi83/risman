@@ -8,6 +8,10 @@ use App\Models\Analysis;
 
 class ExamController extends Controller
 {
+	public function __construct(){
+		$this->middleware('checkUser','only' => ['addAnalysis','getAnalysises']);
+	}
+
 	public function index($exam_id){
 
 	}

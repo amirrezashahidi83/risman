@@ -8,6 +8,10 @@ use App\Models\Student;
 
 class TransactionController extends Controller
 {
+    public function __construct(){
+        $this->middleware('checkUser');
+    }
+
     public function getAll($user_id){
     	
     	return response()->json(

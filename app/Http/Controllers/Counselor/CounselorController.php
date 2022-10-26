@@ -8,6 +8,10 @@ use App\Models\User;
 
 class CounselorController extends Controller
 {
+    public function __construct(){
+        $this->middleware('checkUser','except' => ['getAll']);
+    }
+
     public function update(Request $request){
 
     }
