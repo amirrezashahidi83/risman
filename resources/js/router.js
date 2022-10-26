@@ -5,7 +5,7 @@ import {routes} from './routes.js';
 import { Provider } from 'react-redux'
 import store from './store'
 import { AuthProvider } from "./Context/auth";
-import { ChatProvider } from "./Context/chat";
+import {ChatProvider } from "./Context/chat";
 import Chatroom from './pages/Chatroom';
 
 function App(){
@@ -13,21 +13,21 @@ function App(){
 		<div>
 			<AuthProvider>
 				<Provider store={store}>
-				<BrowserRouter>
-					<Routes>
-						{routes.map((route) =>
-							<Route key={route.path} path={route.path} element={route.element} />
-						)}
-					</Routes>
-				</BrowserRouter>
-				</Provider>
-				<ChatProvider>
 					<BrowserRouter>
-					<Routes>
-						<Route path="/chatroom" element={<Chatroom />} />
-					</Routes>
+						<Routes>
+							{routes.map((route) =>
+								<Route key={route.path} path={route.path} element={route.element} />
+							)}
+						</Routes>
 					</BrowserRouter>
-				</ChatProvider>
+					<ChatProvider>
+						<BrowserRouter>
+							<Routes>
+								<Route path="/chatroom" element={<Chatroom />} />
+							</Routes>
+						</BrowserRouter>
+					</ChatProvider>
+				</Provider>
 			</AuthProvider>
 		</div>
 		);

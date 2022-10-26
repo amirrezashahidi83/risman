@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -23,7 +23,7 @@ const AppSidebar = () => {
   const [renderModal,setShow] = useNewGroup();
   const [member,setMember] = useState({});
   const [items,setItems] = useState([]);
-  const [userDetails,token] = useAuthState();
+  const {userDetails,token} = useAuthState();
 
   useEffect(() => {
     axios.get("/api/member/"+userDetails.id+"&token="+token)
@@ -53,13 +53,17 @@ const AppSidebar = () => {
       });
   }
 
-  onHoldHandler(() => {
-    enterGhost(useChatDispatch());
-  });
+  const onHold = () => {
+    onHoldHandler(() => {
+      enterGhost(useChatDispatch());
+    });
+  }
 
-  onHoldLeaveHandler(() => {
-    exitGhost(useChatDispatch());
-  });
+  const onHoldLeave = () => {
+    onHoldLeaveHandler(() => {
+      exitGhost(useChatDispatch());
+    });
+  }
 
   return (
     <CSidebar
@@ -78,9 +82,7 @@ const AppSidebar = () => {
         />
       </CSidebarBrand>
       <CSidebarNav>
-        <ChatList
-          id='chatlist'
-          >
+        <div id='chatlist' className='h-100'>
           {items.map((item) => 
             <ChatItem
               id={item.id}
@@ -90,7 +92,7 @@ const AppSidebar = () => {
               unread={item.members[user.id]}
             />
           )}
-        </ChatList>
+        </div>
         <Fab onClick={() => setShow(true)} >
           <AddIcon />
         </Fab>

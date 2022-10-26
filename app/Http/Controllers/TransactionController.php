@@ -15,21 +15,19 @@ class TransactionController extends Controller
     		,200);
     }
 
-    public function store(Request $request){
-    	
-    }
-
     public function verifyPayment(Request $request){
-
-    }
-
-    public function buyWallet(Request $request){
+        $Authority = $request->Authority;
+        $Status = $request->Status;
         
+        if($Status == "NOK"){
+            $transaction = Transaction::where('Authority',$Authority)->first()->softDelete();
+        }
+        
+        return view('user');
     }
 
     public function checkPaid($student_id){
-        return (
-            Student::where("id",$student_id)->first()->status == 1
-            ,200);
+        $result = Student::where("id",$student_id)->first()->status == 1 ? 1 : 0;
+        return response()->json($result,200);
     }
 }

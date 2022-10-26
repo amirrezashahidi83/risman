@@ -1,8 +1,9 @@
 import {useState} from 'react';
+import {Row,Col,Form} from 'react-bootstrap';
+import {Input,Button} from 'react-chat-elements';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import SendIcon from '@mui/icons-material/Send';
-import { Input,Button } from "react-chat-elements";
 import VoiceRecorder from './VoiceRecorder';
 import { useAuthState } from '../../Context/auth';
 
@@ -18,7 +19,7 @@ const InputMessage = ({chat}) => {
 		let message = e.target.message;
 
 		axios.post("/api/message/new",
-			{message:message,token:token})
+			{message: message,chat_id: chat_id,token: token})
 		.then(function(response){
 
 		});
@@ -45,22 +46,14 @@ const InputMessage = ({chat}) => {
 	}
 
 	return(
-		<>
-			<Input 
-				onChange={(e) => setText(e.target.value)}
-				multiline={true}
-			/>
-			<Button 
-
-			/>
-			
-			<VoiceRecorder
-				record={true}
-			/>
-
-			<Button
-			/>
-		</>
+		<Row className='w-100'>
+			<Col md={11} >
+				<Input />
+			</Col>
+			<Col>
+				<Button className='w-100' text={"ارسال"} onClick={sendMessage} />
+			</Col>
+		</Row>
 	)
 }
 

@@ -1,13 +1,23 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
+import {CDropdownMenu,CDropdownItem} from '@coreui/react';
 import {MessageBox,MessageList,Navbar} from 'react-chat-elements';
+import "react-chat-elements/dist/main.css";
 import {useAuthState} from '../../Context/auth';
 const ChatBox = ({chat}) => {
 
 	const [selectedMessage,SetSelectedMessage] = useState(0);
 	const [showMenu,setShowMenu] = useState(false);
+	const [messages,setMessages] = useState([]);
 	const user = useAuthState().userDetails;
 	const token = useAuthState().token;
 
+	useEffect( () => {
+		if(chat != undefined)
+			axios.get("/api/chat/messages")
+			.then(function(response){
+				setMessages(response.data);
+			});
+	},[]);
 	const readMessage = (messages) => {
 		axios.post("/api/message/read",
 		{token:token,messages:messages,chat_id:chat.id})
@@ -58,44 +68,25 @@ const ChatBox = ({chat}) => {
 	}
 
 	return(
-		<MessageList
-	      className='message-list'
-	      lockable={true}
-	      toBottomHeight={'100%'}
-	      onScroll={onScrollHandle} >
-	      	<CDropdownMenu visible={showMenu} >
-	            <CDropdownItem onClick={Reply} >Reply</CDropdownItem>
-	            <CDropdownItem onClick={Forward} >Forward</CDropdownItem>
-	            {message.sender_id == user_id ?
-	            	<CDropdownItem onClick={Delete} >Delete</CDropdownItem>
-	            	:
-	                <div></div>
-	            }
-	        </CDropdownMenu>
+		<MessageList 
+    	 className='message-list'
+    	 lockable={true}
+    	 dataSource={
+    	 	messages.map( (message) => {
+    	 		let sender = message.sender_id;
 
-	        {messages.map( (message) => {
-	        	return(
-	        	<>
-		        	{
-		        		message.id == chat.members[user.id]
-		        		? 
-		        		<Navbar 
-		        		center=<span>You have {chat.members[user.id]}</span>
-		        		/> 
-		        	:
-		        		<div></div>
-		        	}
-		        	<MessageBox
-		             key={message.id}
-		             position={message.sender_id == user_id ? 'right' : 'left'}
-		             title={message.title}
-		             type={message.type}>
-	          		</MessageBox>
-          		</>
-          		)
-        	})}
+    	 		return {
+    	 			title: sender,
+    	 			position: (message.sender_id == user_id ? 'right' : 'left'),
+    	 			text: message.title,
+    	 			type: message.type
+    	 		}
+    	 	})
+    	 }
+    	 toBottomHeight={'100%'}
+		 onScroll={onScrollHandle} >
     	</MessageList>
 
 	)
 }
-export default MessageBox;
+export default ChatBox;

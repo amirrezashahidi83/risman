@@ -14,6 +14,7 @@ use App\Http\Middleware\CheckUser;
 use App\Http\Middleware\Admin;
 
 
+Route::get('verifyPayment','TransactionController@verifyPayment');
 
 Route::group(['prefix' => 'admin'], function () {
 

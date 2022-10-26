@@ -1,14 +1,10 @@
 import React from 'react'
 import { CFooter } from '@coreui/react'
-import { Input } from 'react-chat-elements'
-
+import InputMessage from './InputMessage'
 const AppFooter = () => {
   return (
     <CFooter>
-      <Input
-        placeholder="Type here..."
-        multiline={true}
-      />
+      <InputMessage />
     </CFooter>
   )
 }

@@ -1,15 +1,17 @@
 import {useState,useEffect} from 'react';
 import {Modal,Card,Form,Button} from 'react-bootstrap';
 import ProfileHeader from '../ProfileHeader';
+import {useAuthState} from '../../../Context/auth';
 
-const useNewGroup = ({user}) => {
+const useNewGroup = () => {
 
+	const {userDetails,token} = useAuthState();
 	const [students,setStudents] = useState([]);
 	const [selected,setSelected] = useState([]);
 	const [show,setShow] = useState(true);
 
 	useEffect(() => {
-		axios.get("/api/counselor/"+user.userDetails.id+"/students?token="+user.token)
+		axios.get("/api/counselor/"+userDetails.id+"/students?token="+token)
 		.then(function(response){
 			setStudents(response.data);
 		});

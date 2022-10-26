@@ -2,12 +2,17 @@
 const useHoldEvent = (element_id) => {
   
   var mouseTimer;
+  var element;
 
-  const HoldHanlder = (callback) => {
+  const onHoldHandler = (callback) => {
+    element = document.getElementById(element_id);
+    element.addEventListener("mousedown",onMouseDown);
+    document.body.addEventListener("mouseup",onMouseUp);
+
     callback();
   }
 
-  const HoldLeaveHandler = (callback) => {
+  const onHoldLeaveHandler = (callback) => {
     callback();
   }
 
@@ -22,14 +27,11 @@ const useHoldEvent = (element_id) => {
     mouseTimer = window.setTimeout(HoldHanlder,2000);
   }
 
-  var element = document.getElementById(element_id);
-  element.addEventListener("mousedown",onMouseDown);
-  document.body.addEventListener("mouseup",onMouseUp);
 
-  return{
-    HoldHanlder,
-    HoldLeaveHanlder
-  }
+  return[
+    onHoldHandler,
+    onHoldLeaveHandler
+  ]
 }
 
 export default useHoldEvent;

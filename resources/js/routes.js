@@ -23,10 +23,5 @@ export const routes = [
 	{
 		path: '/counselor/*',
 		element: <Panel />
-	},
-
-	{
-		path: '/chatroom',
-		element: <Chatroom /> 
 	}
 ]

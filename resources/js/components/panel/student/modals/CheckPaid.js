@@ -1,33 +1,39 @@
 import {useState,useEffect} from 'react';
 import {Modal,Image,Button} from 'react-bootstrap';
-
-const CheckPaid = ({user}) => {
+import {useAuthState} from '../../../../Context/auth';
+const CheckPaid = () => {
 
 	const [show,setShow] = useState(false);
-	let student_id = user.userDetails.special.id;
+	const {userDetails,token} = useAuthState();
+	let student_id = userDetails.special.id;
 
 	useEffect(()=>{
-		axios.get('/api/student/'+student_id+'checkpaid?token='+user.token,
-			function(response){
-				if(response.data == 0)
-					setShow(true);
+		axios.get('/api/student/'+student_id+'/checkpaid?token='+token)
+		.then(function(response){
+			if(response.data == 0)
+				setShow(true);
 		});
+
 	},[]);
 
 	const requestAccept = ()=>{
-		axios.post('/api/student/'+student_id+'requestAccept?token='+user.token,
-			function(response){
-
-			});
+		axios.get('/api/student/'+student_id+'/requestAccept?token='+token)
+		.then(function(response){
+			if(response.data != '' && response.data != true)
+				window.location.href = "https://www.zarinpal.com/pg/StartPay/" +response.data;		
+		});
 	}
 
 	return(
 		<Modal show={show} >
 			<Modal.Body>
-				<Button onClick={requestPaid}>
-				btn
-				</Button>
+				شما نرم افزار را خریداری نکرده اید.
 			</Modal.Body>
+			<Modal.Footer>
+				<Button onClick={requestAccept}>
+					خرید نرم افزار
+				</Button>
+			</Modal.Footer>
 		</Modal>
 	)
 }

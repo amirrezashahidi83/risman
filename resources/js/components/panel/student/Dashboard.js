@@ -1,6 +1,7 @@
 import React from 'react';
 import {CContainer,CRow,CCol} from '@coreui/react';
 import Daily from './modals/Daily';
+import CheckPaid from './modals/CheckPaid';
 import {useAuthState} from '../../../Context/auth';
 import PlanRequests from './PlanRequests';
 import ReportStudy from './ReportStudy';
@@ -10,7 +11,6 @@ const Dashboard = () => {
 
   return(
     <>
-      
       <CRow>
         <CCol>
         </CCol>
