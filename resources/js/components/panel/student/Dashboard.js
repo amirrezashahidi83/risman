@@ -11,6 +11,7 @@ const Dashboard = () => {
 
   return(
     <>
+      <Daily token={token} userDetails={userDetails} />
       <CRow>
         <CCol>
         </CCol>

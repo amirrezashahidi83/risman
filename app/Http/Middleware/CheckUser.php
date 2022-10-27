@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Counselor;
-
+use Illuminate\Http\Request as MiddlewareRequest;
 use JWTAuth;
 use Closure;
 
@@ -21,10 +21,10 @@ class CheckUser
 
 
 
-    public function handle(Request $request, Closure $next)
+    public function handle(MiddlewareRequest $request, Closure $next)
     {
         $token = $request->token;
-        $user = [];
+        $user = null;
         if($request->has("student_id")){
             $user = Student::where('user_id',$request->student_id)->first();
         }
@@ -35,6 +35,7 @@ class CheckUser
             $user = User::where('id',$request->user_id)->first();
         }
         
+        if($user != null)
         if ($user->id != JWTAuth::toUser($token)->id)
             return redirect('login');
 

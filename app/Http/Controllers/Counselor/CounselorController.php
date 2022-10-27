@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Counselor;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Counselor;
 use App\Models\User;
@@ -9,7 +10,7 @@ use App\Models\User;
 class CounselorController extends Controller
 {
     public function __construct(){
-        $this->middleware('checkUser','except' => ['getAll']);
+        $this->middleware('checkUser',['except' => ['getAll']]);
     }
 
     public function update(Request $request){
@@ -42,7 +43,7 @@ class CounselorController extends Controller
         foreach($users as $user){
             $Counselor = Counselor::where('user_id',$user->id)->first();
             $specialities = json_decode($Counselor->speciality);
-            if(in_array($search,$specialities))
+
 
         }
 

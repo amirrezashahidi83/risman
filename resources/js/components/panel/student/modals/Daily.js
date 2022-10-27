@@ -1,14 +1,19 @@
 import {useState,useEffect} from 'react';
 import {Modal,Image,Button,Carousel} from 'react-bootstrap';
 
-const Daily = ({token,counselor_id})=>{
+const Daily = ({token,userDetails})=>{
 
 	const [show,setShow] = useState(true);
 	const [isAutomatic,setIsAutomatic] = useState(false);
 	const [images,setImages] = useState([]);
 	const [texts,setTexts] = useState([]);
 
+	let counselor_id = userDetails.special.id;
+
 	useEffect(() => {
+		if(token == undefined)
+			return;
+
 		let hours = (new Date()).getHours;
 
 		axios.get("/api/counselor/"+counselor_id+"?token="+token)
@@ -32,21 +37,20 @@ const Daily = ({token,counselor_id})=>{
 		<>
 		<Modal show={show}>
 			<Modal.Body>
-				<Carousel>
+				<Carousel controls={false} indicators={false}>
 					{texts.map((text,idx) => 
 						<Carousel.Item key={idx}>
-							<Carousel.Caption>
-								{text.text}
-							</Carousel.Caption>
+							<p className='text-center'>{text.text}</p>
 						</Carousel.Item>
 					)}
 				</Carousel>
-				<Carousel>
+				<Carousel controls={false} indicators={false} >
 					{images.map((image,idx) => 
 						<Carousel.Item key={idx}>
 							<Image
-								src={image.src}
-							/>
+								src={image.picture}
+							
+							fluid />
 						</Carousel.Item>
 					)}
 				</Carousel>

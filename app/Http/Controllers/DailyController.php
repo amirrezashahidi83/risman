@@ -40,8 +40,15 @@ class DailyController extends Controller
 	}
 
 	public function getAll($counselor_id){
+		
+		$texts = Daily::where('counselor_id',$counselor_id)->where('type',1)->get();
+		$images = Daily::where('counselor_id',$counselor_id)->where('type',2)->get();
+
 		return response()->json(
-			Daily::where('counselor_id',$counselor_id)->get()
+			[
+				'texts' => $texts,
+				'images' => $images
+			]	
 			,200);
 	}
 
