@@ -1,7 +1,7 @@
 
 import StudentDashboard from './student/Dashboard';
 import CounselorsList from './student/CounselorsList';
-import CounselorsProfile from './student/CounselorsProfile';
+import CounselorsProfile from './student/CounselorsList/CounselorsProfile';
 import ReportStudent from './student/ReportStudy';
 import AnalysisExam from './student/AnalysisExam';
 import StudentRequests from './student/PlanRequests';
