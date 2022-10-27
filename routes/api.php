@@ -99,7 +99,7 @@ Route::middleware('auth:api')->group(function(){
 
     Route::group(['prefix' => 'counselor'],function() {
 
-        Route::get('/search/{limit}/{?keyword}/{?state}/{?city}',"Counselor\CounselorController@search");
+        Route::post('/search',"Counselor\CounselorController@search");
         Route::get('/{counselor_id}',"Counselor\CounselorController@index");
         Route::get('/{counselor_id}/students',"StudentController@getByCounselor");
         Route::post('/counselor/{counselor_id}/accept',"Counselor\CounselorController@accept");

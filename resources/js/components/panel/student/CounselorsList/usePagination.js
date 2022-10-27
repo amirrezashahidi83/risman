@@ -7,41 +7,56 @@ const usePagination = () => {
 	const [pages,setPages] = useState([]);
 	const [currentPage,setCurrentPage] = useState(1);
 
-	const createPagination = (length,pageSize) => {
-		setLastPage(Math.ceil(length / pageSize));
+	const arrangePages = (number) => {
+		let newPages = [1,number,number-1,number+1,lastPage];
+
+		newPages = newPages.filter( (item,index) => 
+			newPages.indexOf(item) == index && 
+			item <= lastPage &&
+			item >= 1
+			).sort( (a,b) => (a - b) );
+		console.log(newPages);
+		setPages(newPages);
 	}
 
 	const changePage = (number) => {
+		arrangePages(number);
 		setCurrentPage(number);
-		let newPages = [1,currentPage,currentPage-1,currentPage+1,lastPage];
+	}
 
-		newPages = newPages.filter( (item,index) => {
-			return newPages.indexOf(item) === index ||
-				item > lastPage || 
-				item < 1 ;
-				  
-		});
-
+	const createPagination = (length,pageSize) => {
+		setLastPage(Math.ceil(length / pageSize));
+		arrangePages(1);
 	}
 
 	const PaginationComponent = () => {
 		return (
 			<CPagination>
-				{pages.map( (idx) => {
-					idx += 1;
-					return(
+				{pages.map( (idx) => 
 						<>
-							{idx == lastPage ? '...' : ''}
+							{idx == lastPage && (lastPage - currentPage) > 2 ? 
+								<CPaginationItem>
+									...
+								</CPaginationItem> 
+								: 
+								<div></div>
+							}
 							<CPaginationItem 
 							 active={idx == currentPage}
-							 onClick={changePage(idx)} 
+							 onClick={() => changePage(idx)} 
 							>
 							{idx}
 							</CPaginationItem>
-							{idx == 1 ? '...' : ''}
+							{idx == 1 && currentPage > 3 ? 
+								<CPaginationItem>
+									...
+								</CPaginationItem> 
+								: 
+								<div></div>
+							}
 						</>
-					)
-				})}
+					
+				)}
 			</CPagination>
 		)
  

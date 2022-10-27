@@ -23,7 +23,6 @@ class CheckUser
 
     public function handle(MiddlewareRequest $request, Closure $next)
     {
-        $token = $request->token;
         $user = null;
         if($request->has("student_id")){
             $user = Student::where('user_id',$request->student_id)->first();
@@ -36,7 +35,7 @@ class CheckUser
         }
         
         if($user != null)
-        if ($user->id != JWTAuth::toUser($token)->id)
+        if ($user->id != JWTAuth::user()->id)
             return redirect('login');
 
         return $next($request);

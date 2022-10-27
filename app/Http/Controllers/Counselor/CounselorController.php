@@ -11,7 +11,7 @@ use JWTAuth;
 class CounselorController extends Controller
 {
     public function __construct(){
-        $this->middleware('checkUser',['except' => ['getAll']]);
+        $this->middleware('checkUser',['except' => ['search']]);
     }
 
     public function update(Request $request){
@@ -31,16 +31,32 @@ class CounselorController extends Controller
     }
 
     public function search(Request $request){
-        $limit = $request->limit;
-        $user = JWTAuth::toUser($request->token);
+       
+        $page = $request->page;
+        $user = JWTAuth::user();
         
-        $keyword = $request->has('search') ? $request->keyword : '*';
+        $keyword = $request->has('keyword') ? $request->keyword : '%';
 
-        $state = $request->has('state') ? $user->state : "*" ;
-        $city = $request->has('city') ? $user->city : "*";
+        $state = $request->state ? $user->state : "%" ;
+        $city = $request->city ? $user->city : "%";
 
-        return Counselor::where('name',$keyword)::where('state',$state)::where('city',$city)
-        ->limit($limit)->get();
+        $totalCount = User::where('role',1)->count();
+
+        $result = User::where('role',1)->where('name','like',$keyword)->where('state','like',$state)->where('city','like',$city)
+        ->skip(($page-1) * 20)->take(20)->get();
+
+        $counselors = array();
+        foreach($result as $user){
+            $counselor = Counselor::where('id',$user->id)->first();
+            $user['special'] = $counselor;
+        }
+
+        return response()->json(
+            [
+                'counselors' => $result,
+                'totalCount' => $totalCount
+            ]
+            ,200);
 
     }    
 }
