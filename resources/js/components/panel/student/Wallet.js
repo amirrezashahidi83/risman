@@ -2,15 +2,18 @@ import {CCard,CCardBody,CButton,CFormSelect,CRow,CCol} from '@coreui/react';
 import TransactionsTable from './tables/TransactionsTable';
 import {useAuthState} from '../../../Context/auth';
 
-const Wallet = ()=>{
-	const user = useAuthState();
+const Wallet = () => {
+	const {userDetails,token} = useAuthState();
 
 	let amounts = [10000,30000];
 
 	const handleSubmit = () => {
 		axios.post('/api/wallet/buy')
 		.then(function(response){
-
+			if(response.data != ''){
+				$authority = response.data;
+				window.location.href = "https://www.zarinpal.com/pg/StartPay/" +response.data;		
+			}
 		});
 	}
 
@@ -31,7 +34,7 @@ const Wallet = ()=>{
 			<CCol>
 				<CCard>
 					<CCardBody>
-					<TransactionsTable />
+					<TransactionsTable user_id={userDetails.id} />
 					</CCardBody>
 				</CCard>
 			</CCol>

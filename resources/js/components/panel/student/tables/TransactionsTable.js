@@ -1,16 +1,17 @@
 import {useEffect,useState} from 'react';
 import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell} from '@coreui/react';
 
-const TransactionsTable = ()=>{
+const TransactionsTable = ({user_id}) => {
 	
 	const [rows,setRows] = useState([]);
 	useEffect(() =>{
-		
-		axios.get("/api/transactions/"+user_id,function(response){
-			setRows(response.data);
-		});
+		if(user_id != null)
+			axios.get("/api/transactions/"+user_id,function(response){
+				setRows(response.data);
+			});
 
-	});
+	},[]);
+
 	return(
 		<CTable>
 			<CTableHead>

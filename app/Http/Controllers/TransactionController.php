@@ -30,6 +30,17 @@ class TransactionController extends Controller
         return view('user');
     }
 
+    public function chargeWallet(Request $request){
+        $user_id = $request->user_id;
+        $amount = $request->amount;
+
+        $result = Wallet::charge($amount,$user_id);
+
+        return response()->json(
+            $result
+            ,200);
+    }
+
     public function checkPaid($student_id){
         $result = Student::where("id",$student_id)->first()->status == 1 ? 1 : 0;
         return response()->json($result,200);

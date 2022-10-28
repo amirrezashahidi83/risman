@@ -49,9 +49,10 @@ Route::group(['prefix' => 'admin'],function(){
 });
 
 Route::middleware('auth:api')->group(function(){
+
     Route::post('/register','AuthController@register');
 
-
+    Route::post("/wallet/buy",'TransactionController@chargeWallet');
     Route::get("/exams/{grade}/{major}","Exam\ExamController@getAll");
     Route::get('/lessons/{grade}/{major}','LessonController@getAll');
     Route::get('/topics/{lesson_id}','LessonController@getTopics');
