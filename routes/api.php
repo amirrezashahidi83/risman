@@ -52,6 +52,7 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/register','AuthController@register');
 
 
+    Route::get("/exams/{grade}/{major}","Exam\ExamController@getAll");
     Route::get('/lessons/{grade}/{major}','LessonController@getAll');
     Route::get('/topics/{lesson_id}','LessonController@getTopics');
 
@@ -83,7 +84,8 @@ Route::middleware('auth:api')->group(function(){
         Route::get("/{student_id}/analysises","ExamController@getAnalysises");
         Route::post('/analysises/add',"ExamController@addAnalysis");
 
-        Route::get("/{student_id}/exams","ExamController@getAll");
+        Route::get("/{student_id}/exams","Exam\ExamController@getAll");
+        Route::get("/exams/plan/{grade}/{major}","Exam\PlanController@index");
         
         Route::get('/daily/{counselor_id}/getAll','DailyController@getAll');
         Route::get('/daily/{counselor_id}/time/{time}','DailyController@getByTime');
@@ -92,9 +94,9 @@ Route::middleware('auth:api')->group(function(){
         Route::post('/studyplans/new','StudyController@store');
 
         Route::get('/schedule/{student_id}','ScheduleController@index');
-        Route::post('/schedule/new','ScheduleController@store');
+        Route::post('/schedule','ScheduleController@update');
 
-        Route::get('/plan/requests','Plan\RequestController@getByStudent');
+        Route::get('/{student_id}/plan/requests','Plan\RequestController@getByStudent');
     });
 
     Route::group(['prefix' => 'counselor'],function() {

@@ -12,11 +12,20 @@ class ScheduleController extends Controller
 	}
 
     public function index($student_id){
-    	return Schedule::where('student_id',$student_id)->get();
+    	return response()->json(
+    		Schedule::where('student_id',$student_id)->first()
+    	,200);
     }
 
-    public function store(Request $request){
+    public function update(Request $request){
+        $student_id = $request->student_id;
+        $plan = $request->plan;
 
+        $result = Schedule::where('student_id',$student_id)->update(['plan' => $plan]);
+        
+        return response()->json(
+            $result
+        ,200);
     }
 
 }

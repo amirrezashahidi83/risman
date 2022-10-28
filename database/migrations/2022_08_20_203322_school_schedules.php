@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('school_schedules', function (Blueprint $table) {
             $table->id();
-            $table->integer("day");
-            $table->integer("part");
-            $table->foreignId("lesson_id")->references("id")->on("lessons");
+            $table->json('plan');
+            $table->foreignId("student_id")->references("id")->on("students");
             $table->timestamp('created_at')->useCurrent();
         });
     }

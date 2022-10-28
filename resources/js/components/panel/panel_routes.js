@@ -41,7 +41,7 @@ export const student_routes = [
 		element: <StudentRequests />
 	},
 	{
-		path: '/plan/schedule',
+		path: '/schedule',
 		element: <PlanSchedule />
 	},
 

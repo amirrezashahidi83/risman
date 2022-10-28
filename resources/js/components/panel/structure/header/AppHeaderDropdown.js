@@ -30,6 +30,10 @@ const AppHeaderDropdown = ({user}) => {
       </CDropdownToggle>
       <CDropdownMenu className="pt-0 text-start" placement="bottom-center">
         <CDropdownHeader className="bg-light fw-semibold py-2">تنظیمات</CDropdownHeader>
+        <CDropdownItem href="/student/schedule">
+          <CIcon icon={cilFile} className="me-2" />
+          برنامه هفتگی
+        </CDropdownItem>
         <CDropdownItem href="/user/settings">
           <CIcon icon={cilSettings} className="me-2" />
           تنظیمات

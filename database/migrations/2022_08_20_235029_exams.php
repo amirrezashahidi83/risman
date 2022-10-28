@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string("title");
             $table->datetime("is_ready");
             $table->integer("price");
+            $table->integer("grade");
+            $table->integer("major");
             $table->string("profilePic");
             $table->timestamp('created_at')->useCurrent();
         });

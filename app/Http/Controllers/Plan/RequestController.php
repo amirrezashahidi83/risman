@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Plan;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PlanRequest;
 use App\Models\Student;
@@ -39,6 +40,6 @@ class RequestController extends Controller
 	}
 
 	public function reject($request_id){
-		$result = PlanRequest::where('id',$request_id)->update(['status' => -1])
+		$result = PlanRequest::where('id',$request_id)->update(['status' => -1]);
 	}
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Exam;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Exam;
 use App\Models\Analysis;
@@ -9,7 +10,7 @@ use App\Models\Analysis;
 class ExamController extends Controller
 {
 	public function __construct(){
-		$this->middleware('checkUser','only' => ['addAnalysis','getAnalysises']);
+		$this->middleware('checkUser',['only' => ['addAnalysis','getAnalysises']]);
 	}
 
 	public function index($exam_id){

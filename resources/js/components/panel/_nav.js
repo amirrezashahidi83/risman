@@ -45,8 +45,9 @@ export const student_nav = [
       {
         component: CNavItem,
         name: 'درخواست برنامه ',
-        to: '/student/plan/request'
-      },
+        to: '/student/plan/requests'
+
+      }
     ]
   },
   

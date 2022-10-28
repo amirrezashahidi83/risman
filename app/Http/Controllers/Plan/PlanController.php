@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Plan;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CounselorPlan;
 use App\Models\StudyPlan;

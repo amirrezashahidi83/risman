@@ -12,6 +12,13 @@ class PlanController extends Controller
         $this->middleware('checkUser');
     }
 
+    public function index($grade,$major){
+        return response()->json(
+            ExamPlan::where("grade",$grade)->where('major',$major)->first()
+        ,200);
+
+    }
+
     public function getAll(){
         return response()->json(
             ExamPlan::get()
