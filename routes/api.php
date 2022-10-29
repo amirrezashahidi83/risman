@@ -82,7 +82,7 @@ Route::middleware('auth:api')->group(function(){
         Route::get("/{student_id}/requestAccept","StudentController@requestAccept");
         
         Route::post("/{student_id}/request/{counselor_id}",[RequestController::class,"store"]);
-        Route::get("/{student_id}/analysises","ExamController@getAnalysises");
+        Route::get("/{student_id}/analysis/{exam_id}","Exam\ExamController@getAnalysis");
         Route::post('/analysises/add',"ExamController@addAnalysis");
 
         Route::get("/{student_id}/exams","Exam\ExamController@getAll");

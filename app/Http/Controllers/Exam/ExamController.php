@@ -40,11 +40,11 @@ class ExamController extends Controller
 		return response()->json($Analysis->save(),200);
 	}
 
-	public function getAnalysises($student_id,$exam_id){
+	public function getAnalysis($student_id,$exam_id){
 
-		$analysises = Analysis::where('student_id',$student_id)->where("exam_id")->get();
+		$analysis = Analysis::where('student_id',$student_id)->where("exam_id")->first();
 
-		return response()->json($analysises,200);
+		return response()->json($analysis,200);
 	}
 
 }

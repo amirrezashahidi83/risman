@@ -1,29 +1,43 @@
 import {useEffect,useState} from 'react';
 import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
-	CTableCaption} from '@coreui/react';
-import Select from 'react-select';
+	CTableCaption,CFormSelect} from '@coreui/react';
+import {useAuthState} from '../../../../Context/auth';
 
-const AnalysisTable = ()=>{
+const AnalysisTable = ({student}) => {
 	
+	const {userDetails,token} = useAuthState();
 	const [exams,setExams] = useState([]);
-	const [selected,setSelected] = useState(1);
-	useEffect(() =>{
-		
-		axios.get("/api/counselor/analysises/"+user_id)
-		.then(function(response){
-			setExams(response.data);
-		});
+	const [analysis,setAnalysis] = useState([]);
+	
+	useEffect(() => {
+		if(student.id != undefined){
+			axios.get("/api/exams/"+student.grade+"/"+student.major+"?token="+token)
+			.then(function(response){
+				setExams(response.data);
+			});
+		}
 
-	});
+	},[]);
 
 	const onSelectChange = (event) => {
-		setSelected(event.target.id);
+		let exam_id = event.target.value;
+		setAnalysis(event.target.value);
+		axios.get("/api/student/"+student.id+"/analysis/"+exam_id+"?token="+token)
+		.then(function(response){
+			setAnalysis(response.data);
+		});
+	
 	}
 
 	return(
-		<CTable>
+		<CTable caption='top'>
 			<CTableCaption>
-				<Select options={exams} onChange={onSelectChange} />
+				<CFormSelect onChange={onSelectChange} >
+					<option default>انتخاب آزمون</option>
+					{exams.map( (exam,idx) => 
+						<option key={exam.id} value={exam.id}>{exam.title}</option>
+					)}
+				</CFormSelect>
 			</CTableCaption>
 			<CTableHead>
 				<CTableRow>
@@ -37,18 +51,23 @@ const AnalysisTable = ()=>{
     			</CTableRow>
 			</CTableHead>
 			<CTableBody>
-				{exams[selected].map((row) =>
-					<CTableRow key={row.id + 1}>
-						<CTableHeaderCell scope='row'>{row.id + 1}</CTableHeaderCell>
-						<CTableDataCell>{row.qnumber}</CTableDataCell>
-						<CTableDataCell>{row.status}</CTableDataCell>
-						<CTableDataCell>{row.lesson}</CTableDataCell>
-						<CTableDataCell>{row.topic}</CTableDataCell>
-						<CTableDataCell>{row.cause}</CTableDataCell>
-						<CTableDataCell>{row.desicion}</CTableDataCell>
-						<CTableDataCell>{row.description}</CTableDataCell>
-					</CTableRow>
-				)}
+				{analysis.data != undefined ?
+						JSON.parse(analysis.data).map((row) =>
+							<CTableRow key={row.id + 1}>
+								<CTableHeaderCell scope='row'>{row.id + 1}</CTableHeaderCell>
+								<CTableDataCell>{row.qnumber}</CTableDataCell>
+								<CTableDataCell>{row.status}</CTableDataCell>
+								<CTableDataCell>{row.lesson}</CTableDataCell>
+								<CTableDataCell>{row.topic}</CTableDataCell>
+								<CTableDataCell>{row.cause}</CTableDataCell>
+								<CTableDataCell>{row.desicion}</CTableDataCell>
+								<CTableDataCell>{row.description}</CTableDataCell>
+							</CTableRow>
+						)
+					:
+					<></>
+				}
+				
 			</CTableBody>
 		</CTable>
 	)

@@ -3,7 +3,8 @@ import StudentDashboard from './student/Dashboard';
 import CounselorsList from './student/CounselorsList';
 import CounselorsProfile from './student/CounselorsList/CounselorsProfile';
 import ReportStudent from './student/ReportStudy';
-import AnalysisExam from './student/AnalysisExam';
+import StudentAnalysisExam from './student/AnalysisExam';
+import CounselorAnalysisExam from './counselor/AnalysisExam';
 import StudentRequests from './student/PlanRequests';
 import PlanSchedule from './student/PlanSchedule';
 import NewTest from './student/NewTest';
@@ -34,7 +35,7 @@ export const student_routes = [
 	},
 	{
 		path: '/analysis_exam',
-		element: <AnalysisExam />
+		element: <StudentAnalysisExam />
 	},
 	{
 		path: '/plan/requests',
@@ -64,6 +65,10 @@ export const counselor_routes = [
 	{
 		path: '/dashboard',
 		element: <CounselorDashboard />
+	},
+	{
+		path: '/analysis_exam',
+		element: <CounselorAnalysisExam />
 	},
 	{
 		path: '/wallet',
