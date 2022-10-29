@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin'],function(){
 Route::middleware('auth:api')->group(function(){
 
     Route::post('/register','AuthController@register');
-
+    Route::get("/logout",'AuthController@logout');
     Route::post("/wallet/buy",'TransactionController@chargeWallet');
     Route::get("/exams/{grade}/{major}","Exam\ExamController@getAll");
     Route::get('/lessons/{grade}/{major}','LessonController@getAll');
@@ -91,7 +91,7 @@ Route::middleware('auth:api')->group(function(){
         Route::get('/daily/{counselor_id}/getAll','DailyController@getAll');
         Route::get('/daily/{counselor_id}/time/{time}','DailyController@getByTime');
         
-        Route::get('/studyplans/{student_id}/{start_week}','StudyController@index');
+        Route::get('/{student_id}/studyplans/{start_week}','StudyController@index');
         Route::post('/studyplans/new','StudyController@store');
 
         Route::get('/schedule/{student_id}','ScheduleController@index');
@@ -103,10 +103,13 @@ Route::middleware('auth:api')->group(function(){
     Route::group(['prefix' => 'counselor'],function() {
 
         Route::post('/search',"Counselor\CounselorController@search");
+
+        Route::get('/{counselor_id}/requests','Plan\RequestController@getByCounselor');
         Route::get('/{counselor_id}',"Counselor\CounselorController@index");
         Route::get('/{counselor_id}/students',"StudentController@getByCounselor");
         Route::post('/counselor/{counselor_id}/accept',"Counselor\CounselorController@accept");
         
+        Route::get('/{counselor_id}/studyplans/status','StudyController@getStatusByCounselor');
         Route::get('/{counselor_id}/students',"StudentController@getByCounselor");
         Route::get('{counselor_id}/dailies/',"DailyController@getAll");
         Route::post('/dailies/newMessage',"DailyController@addMessage");

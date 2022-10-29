@@ -21,8 +21,20 @@ import {
   cilUser,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import {useAuthDispatch,logout} from '../../../../Context/auth';
 
 const AppHeaderDropdown = ({user}) => {
+
+  const {dispatch} = useAuthDispatch();
+  
+  const handleOnLogout = () => {
+    axios.get("/api/logout")
+    .then(function(response){
+      if(response.data == 1)
+        logout();
+    });
+  }
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
@@ -39,7 +51,7 @@ const AppHeaderDropdown = ({user}) => {
           تنظیمات
         </CDropdownItem>
         <CDropdownDivider />
-        <CDropdownItem href="#">
+        <CDropdownItem href="#" onClick={handleOnLogout} >
           <CIcon icon={cilLockLocked} className="me-2" />
           خروج
         </CDropdownItem>

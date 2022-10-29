@@ -1,17 +1,26 @@
 import {useEffect,useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {CCard,CCardBody,CRow,CCol,CBadge,CAvatar} from '@coreui/react';
-import Select from 'react-select';
+import {CCard,CCardBody,CCardHeader,CRow,CCol,CBadge,CAvatar,CFormSelect} from '@coreui/react';
 
 const StudentTable = ({user}) => {
 	
 	const [students,setStudents] = useState([]);
+	const [sentStatus,setSentStatus] = useState([]);
+	const [studies,setStudies] = useState([]);
 	const navigate = useNavigate();
-	useEffect(() =>{
+
+	useEffect(() => {
 
 		axios.get("/api/counselor/"+user.userDetails.special.id+"/students?token="+user.token)
 		.then(function(response){
 			setStudents(response.data);
+		});
+
+		axios.get('/api/counselor/'+user.userDetails.special.id+'/studyplans/status?token='
+			+user.token)
+		.then(function(response){
+			setStudies(response.data.studies);
+			setSentStatus(response.data.statuses);
 		});
 
 	},[]);
@@ -21,23 +30,65 @@ const StudentTable = ({user}) => {
 		navigate('/counselor/reports/'+student_id);
 	}
 
+	const onOrderChange = (e) => {
+		let selectedValue = e.target.value;
+		let newOrder = [];
+		if(value == 1)
+			newOrder = students.sort();
+		else if(value == 2)
+			newOrder = students.sort(function(a){ return a.school});
+		else if(value == 3)
+			newOrder = students.sort(function(a){return a});
+		else if(value == 4)
+			newOrder = students.sort(function(a,b){ return a.major - b.major});
+
+		setStudents(newOrder);
+	}
+
 	return(
 		<CCard>
+			<CCardHeader>
+				<CRow>
+					<CCol>
+						<span>مرتب بر اساس</span>
+					</CCol>
+
+					<CCol>
+						<CFormSelect onChange={onOrderChange} >
+							<option value='1'></option>
+							<option value='2'></option>
+							<option value='3'></option>
+							<option value='4'></option>
+
+						</CFormSelect>
+					</CCol>
+					
+				</CRow>
+			</CCardHeader>
 			<CCardBody>
-				{ students.map( (student) => 
+				{ students.map( (student,idx) => 
 					<CCard key={student.id} className='btn' onClick={() => handleClick(student.id)} > 
 						<CCardBody>
 							<CRow>
 								<CCol>
-									<CAvatar color='secondary' size='lg'/>
+									<CAvatar color='secondary' src={student.profilePic} size='lg'/>
 								</CCol>
 								<CCol>
 									{student.name}
 								</CCol>
 								<CCol>
-									<CBadge color='danger'>
-									1000
-									</CBadge>
+									{studies[idx]}
+								</CCol>
+								<CCol>
+									{ sentStatus[idx] ? 
+										<CBadge color='success'>
+											ارسال کرده
+										</CBadge>
+									 : 
+										<CBadge color='danger'>
+											ارسال نکرده
+										</CBadge>
+									}
 								</CCol>
 							</CRow>
 

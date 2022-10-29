@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react';
-import {CCard,CCardBody,CRow,CButton,CModal,CModalBody,CModalHeader} from '@coreui/react';
+import {CCard,CCardBody,CRow,CCol,CButton,CModal,CModalBody,CModalHeader} from '@coreui/react';
 import {useAuthState} from '../../../Context/auth';
 
 const PlanRequests = () => {
@@ -9,7 +9,7 @@ const PlanRequests = () => {
 	const [selectedPlan,setSelectedPlan] = useState({});
 
 	useEffect( () => {
-		axios.get("/api/counselor/requests/"+userDetails.id)
+		axios.get("/api/counselor/"+userDetails.id+"/requests?token="+token)
 		.then(function(response){
 			setRequests(response.data);
 		});
@@ -39,10 +39,6 @@ const PlanRequests = () => {
 				{selectedPlan.id}
 				</CModalBody>
 			</CModal>
-
-			<CRow>
-				<CButton onClick={sendPlan} ></CButton>
-			</CRow>
 			<CCard>
 				<CCardBody>
 					{requests.map((request,id) => 
@@ -54,11 +50,11 @@ const PlanRequests = () => {
 									</CCol>
 
 									<CCol>
-										<CButton onClick={showDetails}> </CButton>
+										<CButton onClick={showDetails}>مشاهده جزئیات</CButton>
 									</CCol>
 									
 									<CCol>
-										<CButton onClick={sendPlan} ></CButton>
+										<CButton onClick={sendPlan} >ارسال برنامه</CButton>
 									</CCol>
 								</CRow>
 
