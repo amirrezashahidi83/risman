@@ -2,35 +2,32 @@ import {useEffect,useState} from 'react';
 import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 	CTableCaption,CFormSelect,CRow,CCol} from '@coreui/react';
 import Select from 'react-select';
+import {useAuthState} from '../../../../Context/auth';
 
-const SumStudyTable = ({user,student})=>{
+const SumStudyTable = ({student,lessons})=>{
 	
-	let counselor_id = user.userDetails.special.id;
+	const {userDetails,token} = useAuthState();
 	const [compares,setCompares] = useState([]);
-	const [lessons,setLessons] = useState([]);
-	
-	useEffect(() =>{
-		
-		axios.get("/api/counselor/"+student.id+"/compareplan?token="+user.token)
-		.then(function(response){
-			setCompares(response.data);
-		});
+	let counselor_id = userDetails.special.id;
 
-		axios.get("/api/lessons/"+student.grade+"/"+student.major)
-		.then(function(response){
-			setLessons(lessons);
-		});
-
+	useEffect(() => {
+		if(student.length != 0){
+			console.log(student);
+			axios.get("/api/counselor/compare/plan/"+student.id+"?token="+token)
+			.then(function(response){
+				setCompares(response.data);
+			});
+		}
 	},[]);
 
 	return(
-		<CTable>
+		<CTable caption='top'>
 			<CTableCaption>
 				<CRow>
 					<CCol>
 						<CFormSelect>
 							{lessons.map((lesson) => 
-								<option key={lesson.id} value={lesson.id} >{lesson.name}</option>
+								<option key={lesson.id} value={lesson.id} >{lesson.title}</option>
 							)}
 						</CFormSelect>
 					</CCol>

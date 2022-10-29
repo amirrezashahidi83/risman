@@ -78,7 +78,7 @@ export const counselor_routes = [
 		element: <Daily />
 	},
 	{
-		path: '/reports/:id',
+		path: '/reports/:student_id',
 		element: <ReportCounselor />
 	},
 	{

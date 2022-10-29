@@ -91,7 +91,7 @@ Route::middleware('auth:api')->group(function(){
         Route::get('/daily/{counselor_id}/getAll','DailyController@getAll');
         Route::get('/daily/{counselor_id}/time/{time}','DailyController@getByTime');
         
-        Route::get('/{student_id}/studyplans/{start_week}','StudyController@index');
+        Route::get('/{student_id}/studyplans','StudyController@index');
         Route::post('/studyplans/new','StudyController@store');
 
         Route::get('/schedule/{student_id}','ScheduleController@index');
@@ -117,8 +117,9 @@ Route::middleware('auth:api')->group(function(){
 
         Route::get('/analysises/{student_id}',"StudyController@getAnalysises");
 
-        Route::get('/compare2weeks/{counselor_id}',"StudyController@compareweeks");
-        Route::post('/compareperiods',"StudyController@comparePeriods");
+        Route::get('/compare/plan/{student_id}',"CompareController@compareWithPlan");
+        Route::get('/compare/2weeks/{counselor_id}',"StudyController@compareweeks");
+        Route::post('/compare/periods',"StudyController@comparePeriods");
 
 
         Route::get("/{counselor_id}/comments",[CommentController::class,'getAll']);

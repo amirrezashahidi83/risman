@@ -27,12 +27,24 @@ class StudyController extends Controller
     	return response()->json($study_plan->save(),200);
     }
 
-    public function index($start_week,$student_id){
+    public function index($student_id){
+
+        $start_week = strtotime('last Satuarday');
         $end_week = strtotime('friday',$start_week);
 
-        $study_plan = StudyPlan::where('student_id',$student_id)->where('created_at','>=',$start_week)->where('created_at','<',$end_week)->get();
+        $currentWeek = StudyPlan::where('student_id',$student_id)->where('created_at','>=',$start_week)->where('created_at','<',$end_week)->get();
 
-        return response()->json($study_plan,200);
+        $start_week = strtotime('-1 week',$start_week);
+        $end_week = strtotime('friday',$start_week);
+
+        $previousWeek = StudyPlan::where('student_id',$student_id)->where('created_at','>=',$start_week)->where('created_at','<',$end_week)->get();
+
+        return response()->json(
+            [
+                'currentWeek' => $currentWeek,
+                'previousWeek' => $previousWeek
+            ]
+        ,200);
     }
 
     public function getStatusByCounselor($counselor_id){

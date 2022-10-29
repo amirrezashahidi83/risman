@@ -9,7 +9,8 @@ use App\Models\StudyPlan;
 
 class CompareController extends Controller
 {
-    public function compareWithPlan($student_id,$start_week){
+    public function compareWithPlan($student_id){
+        $start_week = strtotime('last Satuarday');
         $end_week = strtotime('friday',$start_week);
 
         $student = Student::where('id',$student_id)->first();
@@ -118,7 +119,7 @@ class CompareController extends Controller
                 }
 
             }
-            array_push($allSum,array($student,$sum_study,$sum_test_count,$sum_test_time))
+            array_push($allSum,array($student,$sum_study,$sum_test_count,$sum_test_time));
         }
 
         return response()->json([],200);

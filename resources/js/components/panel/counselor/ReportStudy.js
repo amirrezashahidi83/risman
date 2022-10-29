@@ -7,26 +7,22 @@ import SumStudyTable from './tables/SumStudyTable';
 
 const ReportStudy = () => {
 	
-	let {id} = useParams();
-	let token = useAuthState().token;
-	const [studentData,setStudentData] = useState({});
-	const [studyData,setStudyData] = useState([]);
+	let {student_id} = useParams();
+	let {userDetails,token} = useAuthState();
+	const [student,setStudent] = useState([]);
+	const [previousWeek,setPreviousWeek] = useState([]);
+	const [currentWeek,setCurrentWeek] = useState([]);
 	const [lessons,setLessons] = useState([]);
 
 	useEffect( async () => {
 		
-		const getStudent = async () =>{
-			return await axios.get('/api/student/'+id+'?token='+token);
-		}
-		let data = (await getStudent()).data;
-		
-		setStudentData(data);
+		const {data} = await axios.get('/api/student/'+student_id+'?token='+token);
 
-		axios.get('/api/student/studyplans/'+id+'/1'+'?token='+token)
+		axios.get('/api/student/'+student_id+'/studyplans?token='+token)
 		.then(function(response){
-			setStudyData(response.data);
+			setCurrentWeek(response.data.currentWeek);
+			setPreviousWeek(response.data.previousWeek);
 		})
-
 		axios.get('/api/lessons/'+data.grade+'/'+data.major+'?token='+token)
 		.then(function(response){
 			setLessons(response.data);
@@ -35,52 +31,19 @@ const ReportStudy = () => {
 
 	return(
 		<>
-			{studentData.name}
+			{student.name}
 			<CRow>
 				<CCol>
-					<CCard>
-						<CCardHeader>
-							<CFormSelect>
-								<option value='1'>عمومی و اختصاصی </option>
-								<option value='2'>همه دروس اختصاصی</option>
-								<option value='3'>همه دروس عمومی</option>
-								<option value='4'>ساعت تست و مطالعه دروس تخصصی</option>
-								<option value='5'>ساعت تست و مطالعه دروس عمومی</option>
-							</CFormSelect>
-						</CCardHeader>
-
-						<CCardBody>
-							<LessonsChart user_id={studentData.id} />
-						</CCardBody>
-					</CCard>
+					<LessonsChart data={currentWeek} />
 				</CCol>
 
 				<CCol>
-					<CCard>
-						<CCardHeader>
-							<CFormSelect>
-								{lessons.map((lesson) => 
-									<option key={lesson.id} >{lesson.name}</option>
-								)}
-							</CFormSelect>
-						</CCardHeader>
-
-						<CCardBody>
-							<SingleLessonChart user_id={studentData.id} />
-						</CCardBody>
-					</CCard>
+					<SingleLessonChart data={currentWeek} lessons={lessons} />
 				</CCol>
 			</CRow>
 			<CRow>
 				<CCol>
-					<CCard>
-						<CCardHeader>
-						</CCardHeader>
-
-						<CCardBody>
-							<ProgressChart user_id={studentData.id} />
-						</CCardBody>
-					</CCard>
+					<ProgressChart currentWeek={currentWeek} previousWeek={previousWeek} />
 				</CCol>
 
 				<CCol>
@@ -89,7 +52,7 @@ const ReportStudy = () => {
 						</CCardHeader>
 						
 						<CCardBody>
-							<SumStudyTable user={studentData} />
+							<SumStudyTable student={student} lessons={lessons} />
 						</CCardBody>
 					</CCard>
 				</CCol>

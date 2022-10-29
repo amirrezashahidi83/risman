@@ -62,46 +62,60 @@ export const compareSum = (data,type) => {
 	];
 }
 
-export const compareDetails = (lesson) => {
+export const compareDetails = (data,lesson_id) => {
+	let sum_lesson = {};
+	data.forEach( (day) => 
+	{
+		day.filter((lesson) => lesson.id == lesson_id)
+		.forEach( (lesson) => {
+			sum_lesson['pre_study'] = lesson.sum_study;
+			sum_lesson['deep_study'] = lesson.deep_study;
+			sum_lesson['practice'] = lesson.practice;
+			sum_lesson['summary'] = lesson.summary;
+			sum_lesson['review'] = lesson.review;
+			sum_lesson['learning_test'] = lesson.learning_test;
+			sum_lesson['tutorial'] = lesson.tutorial;
+		});
+	});
 	return [
 		{
-			y: lesson.pre_study,
+			y: sum_lesson["pre_study"],
 			label: 'مطالعه سطحی یا پیش مطالعه'
 		},
 		{
-			y: lesson.deep_study,
+			y: sum_lesson["deep_study"],
 			label: 'مطالعه عمیق'
 		},
 		{
-			y: lesson.practice,
+			y: sum_lesson["practice"],
 			label: 'حل تمرین'
 		},
 		{
-			y: lesson.summary,
+			y: sum_lesson["summary"],
 			label: 'خلاصه برداری'
 		},
 		{
-			y: lesson.review,
+			y: sum_lesson["review"],
 			label: 'خلاصه خوانی یا مرور'
 		},
 		{
-			y: lesson.learning_test,
+			y: sum_lesson["learning_test"],
 			label: 'تست آموزشی و سنجشی'
 		},
 		{
-			y: lesson.tutorial,
+			y: sum_lesson["tutorial"],
 			label: 'فیلم آموزشی'
 		}
 	];
 }
 
-export const compareWeeks = (week1,week2) => {
+export const compareWeeks = (previousWeek,currentWeek) => {
 	
-	var weeks = [week1,week2];
+	var weeks = [previousWeek,currentWeek];
 	var sum_study = [0,0];
 	
 	for(let i = 0; i<2; i++)
-		week[i].forEach( (lesson) => {
+		weeks[i].forEach( (lesson) => {
 			sum_study[i] += lesson.sum_study;
 		});
 
