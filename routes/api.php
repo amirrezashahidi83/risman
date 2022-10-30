@@ -29,6 +29,8 @@ Route::get('/checknational/{nationalCode}','ValidationController@nationalExists'
 Route::get('/checkcode/{counselorCode}','ValidationController@counselorExists');
 
 
+Route::get('/links','LinkController@getAll');
+
 Route::group(['prefix' => 'admin'],function(){
     Route::get("/students","StudentController@getAll");
     Route::get("/counselors","StudentController@getAll");

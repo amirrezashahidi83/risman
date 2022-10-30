@@ -13,7 +13,7 @@ const StudyTable = ({user,lessons}) => {
 			<CTableCaption>
 				<CFormSelect>
 					{daysName.map((name,idx) =>
-						<option key={idx} ></option>
+						<option key={idx} >{daysName[idx]}</option>
 					)}
 				</CFormSelect>
 			</CTableCaption>
@@ -46,7 +46,7 @@ const StudyTable = ({user,lessons}) => {
 					<CTableDataCell name='grade'>{lesson.grade}</CTableDataCell>
 					<CTableDataCell><TimePicker name='study_time' /></CTableDataCell>
 					<CTableDataCell><TimePicker name='test_time' /></CTableDataCell>
-					<CTableDataCell><TimePicker name='test_count' /></CTableDataCell>
+					<CTableDataCell><CFormInput type='number' name='test_count' /></CTableDataCell>
 				</CTableRow>
 				)}
 			</CTableBody>

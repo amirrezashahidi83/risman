@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Link;
+
 class LinkController extends Controller
 {
-    public function index(){
-
+    public function getAll(){
+        return response()->json(
+            Link::all()
+            ,200);
     }
 
     public function store(Request $request){
@@ -15,7 +18,7 @@ class LinkController extends Controller
     	$link = new Link();
     	$link->value = $value;
     	return response()->json(
-    		$link->save();
+    		$link->save()
     		,200);
     }
 

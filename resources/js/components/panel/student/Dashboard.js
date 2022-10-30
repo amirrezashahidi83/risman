@@ -1,9 +1,9 @@
 import React from 'react';
-import {CContainer,CRow,CCol} from '@coreui/react';
+import {CContainer,CRow,CCol,CCard,CCardBody} from '@coreui/react';
 import Daily from './modals/Daily';
 import CheckPaid from './modals/CheckPaid';
 import {useAuthState} from '../../../Context/auth';
-import PlanRequests from './PlanRequests';
+import CounselorPlan from './CounselorPlan';
 import ReportStudy from './ReportStudy';
 
 const Dashboard = () => {
@@ -14,6 +14,11 @@ const Dashboard = () => {
       <Daily token={token} userDetails={userDetails} />
       <CRow>
         <CCol>
+          <CCard>
+            <CCardBody>
+              <CounselorPlan />
+            </CCardBody>
+          </CCard>
         </CCol>
       </CRow>
       <CRow>

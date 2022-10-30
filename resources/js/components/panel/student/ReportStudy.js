@@ -23,82 +23,28 @@ const ReportStudy = () => {
 	},[]);
 
 	const handleSubmit = (e) => {
-		
-		for(let i =0;i<e.target.length;i++)
-			alert(e.target[i].name);
-		/*for(let i = 0;i<5;i++){
-			setData(...data,
-				lesson= {
-					'study_time': StudyTime,
-					'test_time': TestTime,
-					'test_count': TestCount
-				}
-			)
-		}
-		axios.post('/api/student/report',
-		{data: data,student_id: userDetails.userDetails.id,token: userDetails.token})
-		.then(function(response){
+		e.preventDefault();
+		let result = {};
+		for(let i = 0;i < e.target.length;i++){
+			let name = e.target[i].name;
+			let value = e.target[i].value;
 
-		});*/
+			if(name == 'lesson_id'){
+				result[value] = {};
+				result[value]['study_time'] = e.target[i+1].value; 
+				result[value]['test_time'] = e.target[i+2].value; 
+				result[value]['test_count'] = e.target[i+3].value; 
+
+			}
+
+		}
+		console.log(e.target);
+
 	}
 
 	return(
 
 		<CRow>
-			<CCol>
-				<CCard className='p-2'>
-					<CCardBody>
-						<CForm>
-							<CRow>
-								<CCol>
-									<CFormLabel>درس</CFormLabel>
-								</CCol>
-
-								<CCol>
-									<CFormSelect>
-										{lessons.map((lesson,id)=>
-											<option key={id}>{lesson.title}</option>
-										)}
-									</CFormSelect>
-								</CCol>
-							</CRow>
-							<CRow className='mt-3'>
-								<CCol>
-									<CFormLabel>مبحث</CFormLabel>
-								</CCol>
-								<CCol>
-									<Select options={topics} />
-								</CCol>
-							</CRow>
-							<CRow className='mt-3'>
-								<CCol>
-									<CFormLabel>ساعت مطالعه</CFormLabel>
-								</CCol>
-								<CCol>
-									<TimePicker />
-								</CCol>
-							</CRow>
-							<CRow className='mt-3'>
-								<CCol>
-									<CFormLabel>ساعت تست</CFormLabel>
-								</CCol>
-								<CCol>
-									<TimePicker />
-								</CCol>
-							</CRow>
-							<CRow className='mt-3'>
-								<CCol>
-									<CFormLabel>تعداد تست</CFormLabel>
-								</CCol>
-								<CCol>
-									<CFormInput type='number' />
-								</CCol>
-							</CRow>
-						</CForm>
-						<CButton className='w-100'>ثبت</CButton>
-					</CCardBody>
-				</CCard>
-			</CCol>
 			<CCol>
 				<CCard>
 					<CCardBody>
