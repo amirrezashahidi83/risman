@@ -1,31 +1,72 @@
 import {useEffect,useState} from 'react';
 import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 	CTableCaption,CFormSelect,CRow,CCol} from '@coreui/react';
-import Select from 'react-select';
+import { DateRangePicker } from "react-advance-jalaali-datepicker";
+import {useAuthState} from '../../../../Context/auth';
 
-const PeriodCompareTable = ({counselor_id})=>{
+const PeriodCompareTable = () => {
 	
+	const {token,userDetails} = useAuthState();
+	const counselor_id = userDetails.special.id;
 	const [compares,setCompares] = useState([]);
 	const [lessons,setLessons] = useState([]);
-	
-	useEffect(() =>{
+	const [fromDate,setFromDate] = useState(0);
+	const [toDate,setToDate] = useState(0);
+
+	const getCompares = () => {
 		
-		axios.get("/api/counselor/compareperiod/"+counselor_id)
+		let formData = {
+			token: token,
+			counselor_id: counselor_id,
+			from_date: fromDate,
+			to_date: toDate
+		}
+
+		axios.post("/api/counselor/compare/period",formData)
 		.then(function(response){
 			setCompares(response.data);
 		});
+	}
 
-		axios.get("/api/lessons/")
+	const changeStartDate = (e) => {
+		setFromDate(e.target.value);
+	}
+	
+	const changeEndDate = () => {
+		setToDate(e.target.value);
+	}
+
+	useEffect(() => {
+		
+
+		axios.get("/api/lessons/"+userDetails.special.grade+"/"+
+			userDetails.special.major+"?token="+token)
 		.then(function(response){
 			setLessons(lessons);
 		});
 
 	},[]);
 
+	useEffect( () => {
+		getCompares();
+	},[fromDate,toDate]);
+
 	return(
-		<CTable>
+		<CTable caption='top'>
 			<CTableCaption>
 				<CRow>
+					<CCol>
+					    <DateRangePicker
+				          placeholderStart="تاریخ شروع"
+				          placeholderEnd="تاریخ پایان"
+				          format="jYYYY/jMM/jDD"
+				          onChangeStart={changeStartDate}
+          				  onChangeEnd={changeEndDate}
+				          idStart="rangePickerStart"
+				          idEnd="rangePickerEnd"
+        				/>
+					</CCol>
+
 					<CCol>
 						<CFormSelect>
 							{lessons.map((lesson) => 

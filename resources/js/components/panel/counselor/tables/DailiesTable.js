@@ -1,20 +1,19 @@
 import {useEffect,useState} from 'react';
 import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
-	CTableCaption,CButton} from '@coreui/react';
-import Select from 'react-select';
+	CTableCaption,CButton,CFormSelect} from '@coreui/react';
+import {useAuthState} from '../../../../Context/auth';
 
-const DailiesTable = ({user,dailies})=>{
+const DailiesTable = ({dailies})=>{
 	
-	console.log(dailies);
+	const {userDetails,token} = useAuthState();
+
 	const onSelectChange = (event) => {
 		setSelected(event.target.id);
 	}
 
 	return(
 		<CTable>
-			<CTableCaption>
-				<Select options={dailies} onChange={onSelectChange} />
-			</CTableCaption>
+
 			<CTableHead>
 				<CTableRow>
       				<CTableHeaderCell scope="col">شماره</CTableHeaderCell>

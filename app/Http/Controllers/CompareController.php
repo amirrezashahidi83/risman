@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\CounselorPlan;
 use App\Models\StudyPlan;
+use App\Models\User;
 
 class CompareController extends Controller
 {
@@ -57,19 +58,21 @@ class CompareController extends Controller
         return $result;
     }
 
-    public function compareWeeks($counselor_id){
-        
-        $start_week1 = $request->start_week1;
-        $start_week2 = $request->start_week2;
+    public function compareWeeks(Request $request){
+      
+        $counselor_id = $request->counselor_id;
+        $from_week = $request->from_week;
+        $to_week = $request->to_week;
 
-        $start_weeks = array($start_week1,$start_week2);
+        $start_weeks = array($from_week,$to_week);
         $students = Student::where('counselor_id',$counselor_id)->get();
 
         $allSum = array();
         foreach($students as $student){
-            $week_sum = array($student,0,0,0);
+            $name = User::where('id',$student->user_id)->first()->name;
+            $week_sum = array($name,0,0,0);
 
-            for($i = 1;$i<3;$i++){
+            for($i = 0;$i<2;$i++){
                 $start_week = $start_weeks[$i];
                 $end_week = strtotime('friday',$start_week);
 
@@ -93,15 +96,15 @@ class CompareController extends Controller
     }
 
     public function comaprePeriods(Request $request){
-        $period1 = $request->period1;
-        $period2 = $request->period2;
+        $from_date = $request->from_date;
+        $to_date = $request->to_date;
         $counselor_id = $request->counselor_id;
 
         $students = Student::where('counselor_id',$counselor_id)->get();
         $allSum = array();
 
         foreach($students as $student){
-            $study_plans = StudyPlan::where('created_at','>=',$period1)->where('created_at','<',$period2)->where('student_id',$student->id)->get();
+            $study_plans = StudyPlan::where('created_at','>=',$from_date)->where('created_at','<',$to_date)->where('student_id',$student->id)->get();
 
             $sum_study = 0;
             $sum_test_count = 0;

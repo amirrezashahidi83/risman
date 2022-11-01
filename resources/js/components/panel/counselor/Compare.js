@@ -56,7 +56,7 @@ const Compare = () => {
 				}
 			</CCardBody>
 			<CCardFooter>
-				<CButton></CButton>
+				<CButton onClick={convertExcel} >تبدیل به اکسل</CButton>
 			</CCardFooter>
 		</CCard>
 	)

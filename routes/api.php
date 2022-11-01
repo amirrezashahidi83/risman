@@ -120,8 +120,8 @@ Route::middleware('auth:api')->group(function(){
         Route::get('/analysises/{student_id}',"StudyController@getAnalysises");
 
         Route::get('/compare/plan/{student_id}',"CompareController@compareWithPlan");
-        Route::get('/compare/2weeks/{counselor_id}',"StudyController@compareweeks");
-        Route::post('/compare/periods',"StudyController@comparePeriods");
+        Route::post('/compare/2weeks',"CompareController@compareweeks");
+        Route::post('/compare/periods',"CompareController@comparePeriods");
 
 
         Route::get("/{counselor_id}/comments",[CommentController::class,'getAll']);
