@@ -164,6 +164,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Shetabit\Payment\Provider\PaymentServiceProvider::class,
+        \Froiden\SqlGenerator\SqlGeneratorServiceProvider::class,
     ],
 
     /*

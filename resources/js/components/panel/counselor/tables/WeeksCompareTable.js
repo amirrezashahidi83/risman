@@ -4,7 +4,7 @@ import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 import jalaali from 'jalaali-js';
 import {useAuthState} from '../../../../Context/auth';
 
-const WeeksCompareTable = () => {
+const WeeksCompareTable = ({setData}) => {
 	
 	const {userDetails,token} = useAuthState();
 	const counselor_id = userDetails.special.id;
@@ -58,7 +58,11 @@ const WeeksCompareTable = () => {
 
 	useEffect( () => {
 		getCompares();
-	},[fromWeek,toWeek])
+	},[fromWeek,toWeek]);
+
+	useEffect( () => {
+		setData(compares);
+	},[compares]);
 	return(
 		<CTable caption='top'>
 			<CTableCaption>

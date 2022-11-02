@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react';
 import {CCard,CCardBody,CCardHeader,CCardFooter,CForm,CInputGroup
-	,CFormLabel,CFormInput,CFormText,CFormSelect,CRow,CCol,CButton} from '@coreui/react';
+	,CFormLabel,CFormInput,CFormText,CFormSelect,CRow,CCol,CButton
+	,CAccordion,CAccordionItem,CAccordionHeader,CAccordionBody} from '@coreui/react';
 import Select from 'react-select';
 import StudyTable from './tables/StudyTable';
 import {useAuthState} from '../../../Context/auth';
@@ -38,7 +39,6 @@ const ReportStudy = () => {
 			}
 
 		}
-		console.log(e.target);
 
 	}
 
@@ -48,8 +48,23 @@ const ReportStudy = () => {
 			<CCol>
 				<CCard>
 					<CCardBody>
-						<CForm onSubmit={handleSubmit} >
-							<StudyTable user={userDetails} lessons={lessons} />
+						<CAccordion activeItemKey={2}>
+							<CAccordionItem itemKey={1}>
+						    	<CAccordionHeader>دروس ۱ </CAccordionHeader>
+						    	<CAccordionBody>
+						    		<StudyTable lessons={lessons.primary} />
+						    	</CAccordionBody>
+						  	</CAccordionItem>
+
+							<CAccordionItem itemKey={2} className='mt-2'>
+							    <CAccordionHeader>دروس ۲</CAccordionHeader>
+							    <CAccordionBody>
+							    	<StudyTable lessons={lessons.secondary} />
+							    </CAccordionBody>
+						    </CAccordionItem>
+					    </CAccordion>					
+
+						<CForm className='mt-3' onSubmit={handleSubmit} >
 							<CButton type='submit' >
 								ثبت برنامه
 							</CButton>

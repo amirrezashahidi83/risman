@@ -8,10 +8,11 @@ import {useAuthState} from '../../../Context/auth';
 
 const Compare = () => {
 	
-	const user = useAuthState();
-	const counselor_id = user.userDetails.special.id;
+	const {userDetails,token} = useAuthState();
+	const counselor_id = userDetails.special.id;
 	const [isPeriod,setIsPeriod] = useState(false);
 	const [major,setMajor] = useState(1);
+	const [excelData,setExcelData] = useState([]);
 
 	const handleChangeCompare = () => {
 		setIsPeriod(!isPeriod);
@@ -22,9 +23,16 @@ const Compare = () => {
 	}
 
 	const convertExcel = () => {
-		axios.post("/api/user/excel/",{token: user.token})
-		.then(function(response){
+		let name = 'file.xlsx';
+		let formData = {
+			token: token,
+			name: name,
+			data: excelData
+		}
 
+		axios.post("/api/user/excel/",formData)
+		.then(function(response){
+			window.location.replace(response.data);
 		});
 	}
 	
@@ -50,9 +58,9 @@ const Compare = () => {
 
 			<CCardBody>
 				{isPeriod ? 
-					<PeriodCompareTable counselor_id={counselor_id} /> 
+					<PeriodCompareTable setData={setExcelData} /> 
 					: 
-					<WeeksCompareTable counselor_id={counselor_id} /> 
+					<WeeksCompareTable setData={setExcelData} /> 
 				}
 			</CCardBody>
 			<CCardFooter>

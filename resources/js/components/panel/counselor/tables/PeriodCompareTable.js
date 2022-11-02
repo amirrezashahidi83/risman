@@ -4,7 +4,7 @@ import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 import { DateRangePicker } from "react-advance-jalaali-datepicker";
 import {useAuthState} from '../../../../Context/auth';
 
-const PeriodCompareTable = () => {
+const PeriodCompareTable = ({setData}) => {
 	
 	const {token,userDetails} = useAuthState();
 	const counselor_id = userDetails.special.id;
@@ -51,6 +51,10 @@ const PeriodCompareTable = () => {
 		getCompares();
 	},[fromDate,toDate]);
 
+	useEffect( () => {
+		setData(compares);
+	},[compares]);
+	
 	return(
 		<CTable caption='top'>
 			<CTableCaption>

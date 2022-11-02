@@ -38,9 +38,16 @@ class LessonController extends Controller
     }
     
     public function getAll($grade,$major){
-    	$lessons = Lesson::where('grade',"<=",$grade)->where('major',$major)->get();
+        $lessons = Lesson::where('grade',"<=",$grade)->where('major',$major)->get();
+    	$primary_lessons = Lesson::where('grade',"<=",$grade)->where('major',$major)->where('main',1)->get();
+        $secondary_lessons = Lesson::where('grade',"<=",$grade)->where('major',$major)->where('main',0)->get();
 
-    	return response()->json($lessons,200);
+    	return response()->json(
+            [
+                'primary' => $primary_lessons,
+                'secondary' => $secondary_lessons
+            ]
+        ,200);
     }
 
 }

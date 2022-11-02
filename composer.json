@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "econea/nusoap": "^0.9.12",
         "fideloper/proxy": "^4.4",
+        "froiden/sql-generator": "dev-master",
         "hekmatinasser/verta": "^8.1",
         "illuminate/cache": "^9.23",
         "kavenegar/php": "^1.2",

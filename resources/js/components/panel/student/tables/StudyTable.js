@@ -4,12 +4,16 @@ import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 import Select from 'react-select';
 import TimePicker from '../TimePicker';
 
-const StudyTable = ({user,lessons}) => {
+const StudyTable = ({lessons}) => {
 	
 	const daysName = ['شنبه','یکشنبه','دو شنبه','سه شنبه','چهارشنبه','پنجشنبه','جمعه']
-	
+
+	if(lessons === undefined)
+		lessons = [];
+
+
 	return(
-		<CTable>
+		<CTable caption='top'>
 			<CTableCaption>
 				<CFormSelect>
 					{daysName.map((name,idx) =>
