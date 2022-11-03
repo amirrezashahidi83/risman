@@ -18,7 +18,7 @@ const ScheduleTable = () => {
 			axios.get("/api/lessons/"+userDetails.special.grade+"/"+userDetails.special.major
 				+"?token="+token)
 				.then(function(response){
-					setLessons(response.data);
+					setLessons(response.data.primary.concat(response.data.secondary));
 				});
 
 			axios.get("/api/student/schedule/"+userDetails.special.id+"?token="+token)
@@ -29,7 +29,7 @@ const ScheduleTable = () => {
 		
 
 	},[]);
-
+	console.log(lessons);
 	const selectLesson = (e) => {
 		let child_id = e.target.key;
 		let parent_id = e.target.parentNode.key;
@@ -78,11 +78,15 @@ const ScheduleTable = () => {
 								<>
 									{idy == 0 ? <CTableDataCell>{daysName[idx]}</CTableDataCell> : <></>}
 									<CTableDataCell key={idy} >
-										<CFormSelect name={"t"+idx} onChange={selectLesson} selected={day[idy]}>
-											{lessons.map( (lesson) => 
-												<option key={lesson.id} value={lesson.id} >{lesson.title}</option>
-											)}
-										</CFormSelect>
+										{editMode ? 
+											<CFormSelect name={"t"+idx} onChange={selectLesson} selected={day[idy]}>
+												{lessons.map( (lesson) => 
+													<option key={lesson.id} value={lesson.id} >{lesson.title}</option>
+												)}
+											</CFormSelect>
+											:
+											<div>انتخاب نشده</div>
+										}
 									</CTableDataCell>
 								</>
 							)

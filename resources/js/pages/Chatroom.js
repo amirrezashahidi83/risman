@@ -9,7 +9,7 @@ const Chatroom = () => {
       <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
-        <ChatBox className="body flex-grow-1 px-3"/>
+          <iframe src='https://developers.google.com/'></iframe>
         <AppFooter />
       </div>
     </div>

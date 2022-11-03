@@ -26,7 +26,7 @@ const useAnalysisTable = () => {
 			axios.get("/api/lessons/"+userDetails.special.grade+"/"+userDetails.special.major
 				+"?token="+token)
 			.then(function(response){
-				setLessons(response.data);
+				setLessons(response.data.secondary);
 			});
 		
 		

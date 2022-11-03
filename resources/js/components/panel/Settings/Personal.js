@@ -7,7 +7,7 @@ import useImageCropper from './modals/useImageCropper';
 
 const Personal = () => {
 
-	const [token,user] = useAuthState();
+	const {token,userDetails} = useAuthState();
 	const [states,setStates] = useState([]);
 	const [cities,setCities] = useState([]);
 	const [ModalComponent,setSource] = useImageCropper();
@@ -55,6 +55,9 @@ const Personal = () => {
 					<Avatar round={true} src={user.profilePic} onClick/>
 				</CCol>
 
+			</CRow>
+			
+			<CRow>
 				<CCol>
 					<CRow>
 						<CCol>
@@ -68,7 +71,6 @@ const Personal = () => {
 					</CRow>
 				</CCol>
 			</CRow>
-			
 			<CRow>
 				<CCol>
 					<CFormInput name='nationalCode' value={user.nationalCode} />

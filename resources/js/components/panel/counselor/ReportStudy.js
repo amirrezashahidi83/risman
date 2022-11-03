@@ -25,7 +25,7 @@ const ReportStudy = () => {
 		})
 		axios.get('/api/lessons/'+data.grade+'/'+data.major+'?token='+token)
 		.then(function(response){
-			setLessons(response.data);
+			setLessons(response.data.secondary);
 		})
 	},[]);
 

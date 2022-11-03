@@ -2,7 +2,7 @@
 import StudentDashboard from './student/Dashboard';
 import CounselorsList from './student/CounselorsList';
 import CounselorsProfile from './student/CounselorsList/CounselorsProfile';
-import ReportStudent from './student/ReportStudy';
+import ReportStudent from './student/AdvancedStudy';
 import StudentAnalysisExam from './student/AnalysisExam';
 import CounselorAnalysisExam from './counselor/AnalysisExam';
 import StudentRequests from './student/PlanRequests';
@@ -30,7 +30,7 @@ export const student_routes = [
 		element: <CounselorsProfile />
 	},
 	{
-		path: '/mycounselor/reportstudy',
+		path: '/reportstudy',
 		element: <ReportStudent />
 	},
 	{

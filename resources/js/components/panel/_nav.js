@@ -27,7 +27,7 @@ export const student_nav = [
       {
         component: CNavItem,
         name: 'گزارش ساعت مطالعه',
-        to: '/student/my_counselor/reportStudy'
+        to: '/student/reportstudy'
       }
     ]
   },

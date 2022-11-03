@@ -22,7 +22,7 @@ const PeriodCompareTable = ({setData}) => {
 			to_date: toDate
 		}
 
-		axios.post("/api/counselor/compare/period",formData)
+		axios.post("/api/counselor/"+counselor_id+"/compare/period",formData)
 		.then(function(response){
 			setCompares(response.data);
 		});
