@@ -2,12 +2,14 @@ import {useEffect,useState} from 'react';
 import {CTable,CTableHead,CTableBody,CTableRow,CTableHeaderCell,CTableDataCell,
 	CTableCaption,CFormSelect,CRow,CCol} from '@coreui/react';
 import { DateRangePicker } from "react-advance-jalaali-datepicker";
+import useStudentChooser from '../modals/useStudentChooser';
 import {useAuthState} from '../../../../Context/auth';
 
 const PeriodCompareTable = ({setData}) => {
 	
 	const {token,userDetails} = useAuthState();
 	const counselor_id = userDetails.special.id;
+	const {ModalComponent,selectedStudent} = useStudentChooser(counselor_id);
 	const [compares,setCompares] = useState([]);
 	const [lessons,setLessons] = useState([]);
 	const [fromDate,setFromDate] = useState(0);
@@ -22,33 +24,35 @@ const PeriodCompareTable = ({setData}) => {
 			to_date: toDate
 		}
 
-		axios.post("/api/counselor/"+counselor_id+"/compare/period",formData)
+		axios.post("/api/counselor/compare/periods",formData)
 		.then(function(response){
 			setCompares(response.data);
 		});
 	}
 
-	const changeStartDate = (e) => {
-		setFromDate(e.target.value);
+	const changeStartDate = (unix,formatted) => {
+		setFromDate(unix);
 	}
 	
-	const changeEndDate = () => {
-		setToDate(e.target.value);
+	const changeEndDate = (unix,formatted) => {
+		setToDate(unix);
 	}
 
 	useEffect(() => {
-		
+		console.log(selectedStudent);
+		if(selectedStudent.id != undefined){
+			axios.get("/api/lessons/"+selectedStudent.grade+"/"+
+				selectedStudent.major+"?token="+token)
+			.then(function(response){
+				setLessons(response.data.secondary);
+			});
+		}
 
-		axios.get("/api/lessons/"+userDetails.special.grade+"/"+
-			userDetails.special.major+"?token="+token)
-		.then(function(response){
-			setLessons(lessons);
-		});
-
-	},[]);
+	},[selectedStudent]);
 
 	useEffect( () => {
-		getCompares();
+		if(lessons.length > 0)
+			getCompares();
 	},[fromDate,toDate]);
 
 	useEffect( () => {
@@ -56,6 +60,8 @@ const PeriodCompareTable = ({setData}) => {
 	},[compares]);
 	
 	return(
+		<>
+		{ModalComponent}
 		<CTable caption='top'>
 			<CTableCaption>
 				<CRow>
@@ -74,7 +80,7 @@ const PeriodCompareTable = ({setData}) => {
 					<CCol>
 						<CFormSelect>
 							{lessons.map((lesson) => 
-								<option key={lesson.id} value={lesson.id} >{lesson.name}</option>
+								<option key={lesson.id} value={lesson.id} >{lesson.title}</option>
 							)}
 						</CFormSelect>
 					</CCol>
@@ -105,6 +111,7 @@ const PeriodCompareTable = ({setData}) => {
 				)}
 			</CTableBody>
 		</CTable>
+		</>
 	)
 }
 export default PeriodCompareTable;

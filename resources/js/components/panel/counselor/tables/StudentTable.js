@@ -55,10 +55,10 @@ const StudentTable = ({user}) => {
 
 					<CCol>
 						<CFormSelect onChange={onOrderChange} >
-							<option value='1'></option>
-							<option value='2'></option>
-							<option value='3'></option>
-							<option value='4'></option>
+							<option value='1'>نام</option>
+							<option value='2'>ساعت مطالعه</option>
+							<option value='3'>رشته تحصیلی</option>
+							<option value='4'>ارسال گزارش</option>
 
 						</CFormSelect>
 					</CCol>

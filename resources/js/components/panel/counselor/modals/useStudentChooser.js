@@ -8,7 +8,7 @@ const useStudentChooser = (counselor_id) => {
 	const {userDetails,token} = useAuthState();
 	const [students,setStudents] = useState([]);
 	const [show,setShow] = useState(true);
-	const [selected,setSelected] = useState([]);
+	const [selectedStudent,setSelectedStudent] = useState([]);
 
 	useEffect(() => {
 		if(counselor_id != undefined){
@@ -20,7 +20,7 @@ const useStudentChooser = (counselor_id) => {
 	},[]);
 
 	const selectStudent = (student) => {
-		setSelected(student);
+		setSelectedStudent(student);
 	}
 
  	const ModalComponent = 
@@ -35,7 +35,7 @@ const useStudentChooser = (counselor_id) => {
 				)}
 			</Modal.Body>
 			<Modal.Footer>
-				<Button onClick={() => setShow(false)} disabled={selected.id == undefined} >
+				<Button onClick={() => setShow(false)} disabled={selectedStudent.id == undefined} >
 				انتخاب
 				</Button>
 			</Modal.Footer>
@@ -44,7 +44,7 @@ const useStudentChooser = (counselor_id) => {
 	
 	return{
 		ModalComponent,
-		selected
+		selectedStudent
 	}
 }
 export default useStudentChooser;

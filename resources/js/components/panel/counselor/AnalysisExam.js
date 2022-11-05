@@ -7,7 +7,7 @@ import {useAuthState} from '../../../Context/auth';
 const AnalysisExam = () => {
 	
 	const {userDetails,token} = useAuthState();
-	const {ModalComponent,selected} = useStudentChooser(userDetails.special.id);
+	const {ModalComponent,selectedStudent} = useStudentChooser(userDetails.special.id);
 
 	return(
 		<>
@@ -16,7 +16,7 @@ const AnalysisExam = () => {
 				<CCardBody>
 					{selected.id != undefined 
 						? 
-							<AnalysisTable student={selected} />
+							<AnalysisTable student={selectedStudent} />
 						:
 							<></>
 					}

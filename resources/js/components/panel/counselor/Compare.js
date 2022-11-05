@@ -37,8 +37,7 @@ const Compare = () => {
 	}
 	
 	return(
-		<CCard>
-			<CCardHeader>
+		<>
 				<CRow>	
 					<CCol>
 						<CFormSelect onChange={handleChangeCompare} >
@@ -54,19 +53,19 @@ const Compare = () => {
 						</CFormSelect>
 					</CCol>
 				</CRow>
-			</CCardHeader>
-
-			<CCardBody>
-				{isPeriod ? 
-					<PeriodCompareTable setData={setExcelData} /> 
-					: 
-					<WeeksCompareTable setData={setExcelData} /> 
-				}
-			</CCardBody>
-			<CCardFooter>
-				<CButton onClick={convertExcel} >تبدیل به اکسل</CButton>
-			</CCardFooter>
-		</CCard>
+				<CCard className='mt-2'>
+					<CCardBody>
+						{isPeriod ? 
+							<PeriodCompareTable setData={setExcelData} /> 
+							: 
+							<WeeksCompareTable setData={setExcelData} /> 
+						}
+					</CCardBody>
+					<CCardFooter>
+						<CButton onClick={convertExcel} >تبدیل به اکسل</CButton>
+					</CCardFooter>
+				</CCard>
+		</>
 	)
 }
 

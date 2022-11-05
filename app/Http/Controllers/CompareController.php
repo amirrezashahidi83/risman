@@ -95,7 +95,7 @@ class CompareController extends Controller
 
     }
 
-    public function comaprePeriods(Request $request){
+    public function comparePeriods(Request $request){
         $from_date = $request->from_date;
         $to_date = $request->to_date;
         $counselor_id = $request->counselor_id;
@@ -104,6 +104,7 @@ class CompareController extends Controller
         $allSum = array();
 
         foreach($students as $student){
+            $name = User::where('id',$student->user_id)->first()->name;
             $study_plans = StudyPlan::where('created_at','>=',$from_date)->where('created_at','<',$to_date)->where('student_id',$student->id)->get();
 
             $sum_study = 0;
@@ -122,10 +123,10 @@ class CompareController extends Controller
                 }
 
             }
-            array_push($allSum,array($student,$sum_study,$sum_test_count,$sum_test_time));
+            array_push($allSum,array($name,$sum_study,$sum_test_count,$sum_test_time));
         }
 
-        return response()->json([],200);
+        return response()->json($allSum,200);
 
     }
 
