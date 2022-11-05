@@ -2,7 +2,7 @@
 export async function login(dispatch,_phone,_password){
 
 	try {
-	    dispatch({ type: 'REQUEST_AUTH' });
+	    dispatch({ type: 'SHOW_LOADING' ,payload: 'در حال ورود'});
 	    let response = await axios.post('/api/login',{phoneNumber:_phone,password:_password});
 	    let data = response.data;
 	    if (data.user) {
@@ -20,7 +20,7 @@ export async function login(dispatch,_phone,_password){
 export async function register(dispatch,phoneNumber){
 	
 	try{
-		dispatch({type: 'REQUEST_AUTH'});
+		dispatch({type: 'SHOW_LOADING', payload: 'در حال ثبت نام'});
 		let response = await axios.get('/api/acceptCode/'+phoneNumber);
 		let data = response.data;
 		if(data.user){
@@ -41,4 +41,14 @@ export async function logout(dispatch){
 	dispatch({ type: 'LOGOUT' });
   	localStorage.removeItem('currentUser');
   	localStorage.removeItem('token');
+}
+
+export async function showLoading(dispatch,message){
+	dispatch({type: 'SHOW_LOADING', payload: message});
+	return;
+}
+
+export async function hideLoading(dispatch){
+	dispatch({type: 'HIDE_LOADING'});
+	return;
 }

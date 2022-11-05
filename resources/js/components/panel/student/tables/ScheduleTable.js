@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import {useAuthState} from '../../../../Context/auth';
 
-const ScheduleTable = () => {
+const ScheduleTable = ({student}) => {
 	
 	const [lessons,setLessons] = useState([]);
 	const [schedule,setSchedule] = useState([]);
@@ -15,6 +15,7 @@ const ScheduleTable = () => {
 	const daysName = ['شنبه','یکشنبه','دو شنبه','سه شنبه','چهار شنبه','پنج شنبه','جمعه'];
 
 	useEffect(() => {
+		if(student != undefined){
 			axios.get("/api/lessons/"+userDetails.special.grade+"/"+userDetails.special.major
 				+"?token="+token)
 				.then(function(response){
@@ -26,10 +27,10 @@ const ScheduleTable = () => {
 				setSchedule(JSON.parse(response.data.plan));
 
 			});
-		
+		}
 
 	},[]);
-	console.log(lessons);
+
 	const selectLesson = (e) => {
 		let child_id = e.target.key;
 		let parent_id = e.target.parentNode.key;

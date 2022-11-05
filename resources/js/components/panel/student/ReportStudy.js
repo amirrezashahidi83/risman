@@ -44,36 +44,29 @@ const ReportStudy = () => {
 
 	return(
 
-		<CRow>
-			<CCol>
-				<CCard>
-					<CCardBody>
-						<CAccordion activeItemKey={2}>
-							<CAccordionItem itemKey={1}>
-						    	<CAccordionHeader>دروس ۱ </CAccordionHeader>
-						    	<CAccordionBody>
-						    		<StudyTable lessons={lessons.primary} />
-						    	</CAccordionBody>
-						  	</CAccordionItem>
+		<>
+			<CAccordion activeItemKey={2}>
+				<CAccordionItem itemKey={1}>
+			    	<CAccordionHeader>دروس ۱ </CAccordionHeader>
+					<CAccordionBody>
+			    		<StudyTable lessons={lessons.primary} />
+				   	</CAccordionBody>
+			  	</CAccordionItem>
 
-							<CAccordionItem itemKey={2} className='mt-2'>
-							    <CAccordionHeader>دروس ۲</CAccordionHeader>
-							    <CAccordionBody>
-							    	<StudyTable lessons={lessons.secondary} />
-							    </CAccordionBody>
-						    </CAccordionItem>
-					    </CAccordion>					
+				<CAccordionItem itemKey={2} className='mt-2'>
+				    <CAccordionHeader>دروس ۲</CAccordionHeader>
+					<CAccordionBody>
+				    	<StudyTable lessons={lessons.secondary} />
+					</CAccordionBody>
+			    </CAccordionItem>
+			</CAccordion>					
 
-						<CForm className='mt-3' onSubmit={handleSubmit} >
-							<CButton type='submit' >
-								ثبت برنامه
-							</CButton>
-						</CForm>
-
-					</CCardBody>
-				</CCard>
-			</CCol>
-		</CRow>
+			<CForm className='mt-3' onSubmit={handleSubmit} >
+				<CButton type='submit' >
+					ثبت برنامه
+				</CButton>
+			</CForm>
+		</>
 	)
 }
 export default ReportStudy;

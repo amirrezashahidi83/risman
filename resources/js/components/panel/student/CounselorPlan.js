@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {CCard,CCardBody,CButton} from '@coreui/react';
+import {CCard,CCardBody,CButton,CRow,CCol} from '@coreui/react';
 import {useAuthState} from '../../../Context/auth';
 import PlanTable from './tables/PlanTable';
 
@@ -15,20 +15,20 @@ const CounselorPlan = () => {
 	}
 
 	return(
-		<CCard>
-			<CCardBody>
+		<>
 			{plan_id != undefined ?
 				<PlanTable />
 				:
-				<>
-					<span>شما برنامه ای ندارید</span>
-					<CButton onClick={navigateToRequests} >
-					درخواست برنامه جدید
-					</CButton>
-				</>
+				<div className='text-center'>
+					<div>شما برنامه ای ندارید</div>
+					<center>
+						<CButton onClick={navigateToRequests} >
+						درخواست برنامه جدید
+						</CButton>
+					</center>
+				</div>
 			}
-			</CCardBody>
-		</CCard>
+		</>
 	)
 }
 export default CounselorPlan;

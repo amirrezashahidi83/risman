@@ -107,6 +107,7 @@ Route::middleware('auth:api')->group(function(){
         Route::post('/search',"Counselor\CounselorController@search");
 
         Route::get('/{counselor_id}/requests','Plan\RequestController@getByCounselor');
+        Route::post('/requests/accept','Plan\RequestController@accept');
         Route::get('/{counselor_id}',"Counselor\CounselorController@index");
         Route::get('/{counselor_id}/students',"StudentController@getByCounselor");
         Route::post('/counselor/{counselor_id}/accept',"Counselor\CounselorController@accept");

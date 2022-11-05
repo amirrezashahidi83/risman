@@ -31,7 +31,7 @@ const AppHeaderDropdown = ({user}) => {
     axios.get("/api/logout")
     .then(function(response){
       if(response.data == 1)
-        logout();
+        logout(dispatch);
     });
   }
 

@@ -14,6 +14,7 @@ import Settings from './Settings';
 import Daily from './counselor/Daily';
 import ReportCounselor from './counselor/ReportStudy';
 import Compare from './counselor/Compare';
+import SendPlan from './counselor/SendPlan';
 
 export const student_routes = [
 	{
@@ -89,5 +90,9 @@ export const counselor_routes = [
 	{
 		path: '/compare/',
 		element: <Compare />
+	},
+	{
+		path: '/sendplan/:student_id',
+		element: <SendPlan />
 	}
 ]

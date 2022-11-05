@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Card,Form,Row,Col,Container,Button,InputGroup,Alert} from 'react-bootstrap';
 import useValidation from '../components/auth/validation';
@@ -6,13 +6,15 @@ import useConfirmModal from '../components/auth/signup/ConfirmModal';
 import useForgetPassword from '../components/auth/useForgetPassword';
 
 import KeyIcon from '@mui/icons-material/Key';
-import {login as loginAction,useAuthDispatch} from '../Context/auth';
+import {login as loginAction,useAuthDispatch,useAuthState} from '../Context/auth';
  
 const Login = () => {
 
 	const [errors,handleChange] = useValidation();
 	const [showConfirm,sendCode,ConfirmModal] = useConfirmModal();
 	const [ForgetModal,showForget,setShowForget] = useForgetPassword();
+
+	const {userDetails,token} = useAuthState();
 
 	const dispatch = useAuthDispatch();
 

@@ -34,9 +34,14 @@ class RequestController extends Controller
 		return response()->json($request->save(),200);
 	}
 
-	public function accept($request_id){
-		$result = PlanRequest::where('id',$request_id)->update(['status' => 1]);
-		return response()->json($result,200);
+	public function accept(Request $request){
+		
+		$request_id = $request->request_id;
+		$PlanRequest = PlanRequest::where('id',$request_id);
+		$PlanRequest->update(['status' => 1]);
+		$student_id = $PlanRequest->first()->student_id;
+
+		return response()->json($student_id,200);
 	}
 
 	public function reject($request_id){

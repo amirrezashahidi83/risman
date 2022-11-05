@@ -109,7 +109,7 @@ class AuthController extends Controller
 
 	public function logout(){
 		JWTAuth::logout();
-		return response->json(1,200);
+		return response()->json(1,200);
 	}
 		
 		

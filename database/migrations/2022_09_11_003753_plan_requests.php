@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId("counselor_id")->nullable()->references('id')->on("counselors");
             $table->foreignId("student_id")->references("id")->on("students");
             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

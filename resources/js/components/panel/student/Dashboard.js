@@ -1,5 +1,5 @@
 import React from 'react';
-import {CContainer,CRow,CCol,CCard,CCardBody} from '@coreui/react';
+import {CContainer,CRow,CCol,CCard,CCardBody,CCardHeader,CCardTitle} from '@coreui/react';
 import Daily from './modals/Daily';
 import CheckPaid from './modals/CheckPaid';
 import {useAuthState} from '../../../Context/auth';
@@ -15,15 +15,25 @@ const Dashboard = () => {
       <CRow>
         <CCol>
           <CCard>
+            <CCardHeader>
+              <CCardTitle>برنامه مشاور</CCardTitle>
+            </CCardHeader>
             <CCardBody>
               <CounselorPlan />
             </CCardBody>
           </CCard>
         </CCol>
       </CRow>
-      <CRow>
+      <CRow className='mt-3'>
         <CCol>
-          <ReportStudy />
+          <CCard>
+            <CCardHeader>
+              <CCardTitle>دفتر برنامه ریزی</CCardTitle>
+            </CCardHeader>
+            <CCardBody>
+              <ReportStudy />
+            </CCardBody>
+          </CCard>
         </CCol>
       </CRow>
     </>

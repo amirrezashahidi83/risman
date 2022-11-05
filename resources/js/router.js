@@ -7,11 +7,14 @@ import store from './store'
 import { AuthProvider } from "./Context/auth";
 import {ChatProvider } from "./Context/chat";
 import Chatroom from './pages/Chatroom';
+import LoadingComponent from './components/LoadingComponent';
 
 function App(){
+	
 	return(
 		<div>
 			<AuthProvider>
+			    <LoadingComponent />
 				<Provider store={store}>
 					<BrowserRouter>
 						<Routes>

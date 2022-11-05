@@ -10,24 +10,31 @@ let token = localStorage.getItem("currentUser")
 export const initialState = {
   userDetails: "" || user,
   token: "" || token,
-  loading: false,
+  loadingMessage: '',
+  showLoading: false,
   errorMessage: null
 };
 
 export const AuthReducer = (initialState, action) => {
   switch (action.type) {
 
-    case "REQUEST_AUTH":
+    case "SHOW_LOADING":
       return {
         ...initialState,
-        loading: true
+        showLoading: true,
+        loadingMessage: action.payload
+      };
+    case "HIDE_LOADING":
+      return {
+        ...initialState,
+        showLoading: false
       };
     case "AUTH_SUCCESS":
       return {
         ...initialState,
         userDetails: action.payload.user,
         token: action.payload.token,
-        loading: false
+        showLoading: false
       };
     case "LOGOUT":
       return {
@@ -39,7 +46,7 @@ export const AuthReducer = (initialState, action) => {
     case "AUTH_ERROR":
       return {
         ...initialState,
-        loading: false,
+        showLoading: false,
         errorMessage: action.error
       };
 

@@ -1,12 +1,16 @@
 import {useState,useEffect} from 'react';
 import {CCard,CCardBody,CRow,CCol,CButton,CModal,CModalBody,CModalHeader} from '@coreui/react';
 import {useAuthState} from '../../../Context/auth';
+import {useNavigate} from 'react-router-dom';
 
 const PlanRequests = () => {
+	
 	const [requests,setRequests] = useState([]);
 	const {userDetails,token} = useAuthState();
 	const [visible,setVisible] = useState(false);
 	const [selectedPlan,setSelectedPlan] = useState({});
+
+	const navigate = useNavigate();
 
 	useEffect( () => {
 		axios.get("/api/counselor/"+userDetails.id+"/requests?token="+token)
@@ -15,10 +19,17 @@ const PlanRequests = () => {
 		});
 	},[]);
 
-	const sendPlan = (e) => {
-		axios.post("/api/counselor/"+userDetails.id+"/requests/accept/")
-		.then(function(response){
+	const sendPlan = (request_id) => {
 
+		let formData = {
+			request_id: request_id,
+			token: token
+		}
+
+		axios.post("/api/counselor/requests/accept/",formData)
+		.then(function(response){
+			let student_id = response.data;
+			navigate('/counselor/sendplan/'+student_id);
 		});
 	}
 
@@ -46,7 +57,7 @@ const PlanRequests = () => {
 							<CCardBody>
 								<CRow>
 									<CCol>
-
+										{request.id}
 									</CCol>
 
 									<CCol>
@@ -54,7 +65,7 @@ const PlanRequests = () => {
 									</CCol>
 									
 									<CCol>
-										<CButton onClick={sendPlan} >ارسال برنامه</CButton>
+										<CButton onClick={() => sendPlan(request.id)} >ارسال برنامه</CButton>
 									</CCol>
 								</CRow>
 

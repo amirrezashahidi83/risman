@@ -1,18 +1,22 @@
 import {useState} from 'react';
 import {CCard,CCardBody,CForm,CTable,CTableCaption,CTableBody,CTableRow
-	,CTableHeaderCell,CTableDataCell} from '@coreui/react';
+	,CTableHeaderCell,CTableDataCell,CTableHead} from '@coreui/react';
 import useLessonChooser from './modals/useLessonChooser';
+import ScheduleTable from './tables/ScheduleTable';
+import {useParams} from 'react-router-dom';
 
 const SendPlan = () => {
 	
-	const [modalData,setShow,selectedLesson,selectedTopic,description,
-		studyTime,testTime,testCount] = useLessonChooser('');
+	const {student_id} = useParams();
+
+	const {modalData,setShow,selectedData} = useLessonChooser(student_id);
 	
 	const [plan,setPlan] = useState([]);
+	const daysName = ['شنبه','یکشنبه','دو شنبه','سه شنبه','چهار شنبه','پنج شنبه','جمعه'];
 
 	const handleClick = (e) => {
 		setShow(true);
-		setPlan((plan) => [
+		setPlan([
 			...plan,
 			[
 				selectedLesson,
@@ -30,7 +34,7 @@ const SendPlan = () => {
 		<>
 			<CCard>
 				<CCardBody>
-					<ScheduleTable />
+					<ScheduleTable student={student_id} />
 				</CCardBody>
 			</CCard>
 			{modalData}
@@ -54,13 +58,11 @@ const SendPlan = () => {
 							<CTableBody>
 								{[...Array(7)].map((i) => 
 									<CTableRow key={i}>
-										<CTableDataCell></CTableDataCell>
-										<CTableDataCell></CTableDataCell>
-										<CTableDataCell></CTableDataCell>
-										<CTableDataCell></CTableDataCell>
-										<CTableDataCell></CTableDataCell>
-										<CTableDataCell></CTableDataCell>
-										<CTableDataCell></CTableDataCell>
+										<CTableDataCell>daysName[i]</CTableDataCell>
+										{[...Array(6).map( (j) => 
+											<CTableDataCell>
+											</CTableDataCell>
+										)]}
 									</CTableRow>
 								)}
 							</CTableBody>
