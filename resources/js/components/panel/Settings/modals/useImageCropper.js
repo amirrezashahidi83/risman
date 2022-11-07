@@ -3,15 +3,15 @@ import {Modal,Image,Button,Card} from 'react-bootstrap';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
-const useImageCropper = ({src}) => {
+const useImageCropper = () => {
 	const [crop,setCrop] = useState(0);
 	const [source,setSource] = useState("");
 
-	return[
-		(
+	const renderCropper = () => {
+		return(
 		<Modal show={source == ""}>
 			<Modal.Body>
-			    <ReactCrop crop={crop} onChange={c => setCrop(c)}>
+			    <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
       				<Image src={source} />
     			</ReactCrop>
 			</Modal.Body>
@@ -22,10 +22,14 @@ const useImageCropper = ({src}) => {
 				</Button>
 			</Modal.Footer>
 		</Modal>
-	)	
-	,
-	setSource
-	]
+
+		)
+	}
+
+	return{
+		renderCropper,
+		setSource
+	}
 }
 
 export default useImageCropper;

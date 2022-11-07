@@ -58,7 +58,7 @@ const SendPlan = () => {
 							<CTableBody>
 								{[...Array(7)].map((i) => 
 									<CTableRow key={i}>
-										<CTableDataCell>daysName[i]</CTableDataCell>
+										<CTableDataCell>{daysName[i]}</CTableDataCell>
 										{[...Array(6).map( (j) => 
 											<CTableDataCell>
 											</CTableDataCell>

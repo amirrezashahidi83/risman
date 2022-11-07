@@ -45,6 +45,14 @@ const AppHeader = () => {
               <PaidTwoToneIcon fontSize='medium'/> 
             </CNavLink>
           </CNavItem>
+          <CNavItem>
+            <CNavLink href="#" className='border border-success rounded p-2' >
+              <small>{userDetails.balance}</small>
+              <span></span>
+              <PaidTwoToneIcon fontSize='medium'/> 
+            </CNavLink>
+          </CNavItem>
+
         </CHeaderNav>
         <CHeaderNav>
           {userDetails.name} خوش آمدید, 

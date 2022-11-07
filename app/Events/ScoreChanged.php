@@ -9,21 +9,22 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
+use App\Models\StudyPlan;
 
 class ScoreChanged
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    public $study_plan;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(StudyPlan $study_plan)
     {
-        $this->user = $user;
+        $this->student = $student;
+        $this->study_plan = $study_plan;
     }
 
     /**
