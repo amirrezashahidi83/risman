@@ -98,7 +98,7 @@ Route::middleware('auth:api')->group(function(){
         Route::get('/daily/{counselor_id}/time/{time}','DailyController@getByTime');
         
         Route::get('/{student_id}/studyplans','StudyController@index');
-        Route::post('/studyplans/new','StudyController@store');
+        Route::post('/studyplans','StudyController@store');
 
         Route::get('/schedule/{student_id}','ScheduleController@index');
         Route::post('/schedule','ScheduleController@update');

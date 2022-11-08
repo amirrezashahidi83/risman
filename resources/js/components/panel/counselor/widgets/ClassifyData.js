@@ -1,128 +1,169 @@
 import {useState} from 'react';
 
 export const compareType = (data) => {
+	
 	var general_sum = 0;
-	var special_sum = 0;
+	var special_sum = 100;
 
-	data.forEach( (lesson) => {
-		if(lesson.type == 1)
-			general_sum += lesson.study_time;
-		else{
-			special_sum += lesson.study_time;
-		}
+	data.forEach( (day) => {
+		let plan = JSON.parse(day.data);
+		Object.entries(plan).forEach( (lesson) => {
+			if(lesson.type == 1)
+				general_sum += lesson["study_time"];
+			else{
+				special_sum += lesson["study_time"];
+			}
+		});
 	});
 
 	return [
 		{
-			y: general_sum,
-			label: 'دروس عمومی'
+			value: general_sum,
+			name: 'دروس عمومی'
 		},
 		{
-			y: special_sum,
-			label: 'دروس اختصاصی'
+			value: special_sum,
+			name: 'دروس اختصاصی'
 		}
 	];
 
 }
 
 export const compareLessons = (data,type) => {
+	let sum_lessons = {};
 	var points = [];
 
-	data.filter((lesson) => lesson.type == type).
-		forEach( (lesson) => {
-			points.push({
+	data.forEach( (day) => {
 
-				y: lesson.sum_study,
-				label: lesson.title
-			});
+		let plan = JSON.parse(day.data);
+		Object.entries(plan).forEach( (lesson) => {
+			let lesson_name = lesson['title'];
+			if(!Object.keys(sum_lessons).includes(lesson_name))
+				sum_lessons[lesson_name] = {};
+				sum_lessons[lesson_name]['study_time'] += lesson['study_time'];
+		});
 	});
 
+	Object.keys(sum_lessons).forEach( (lesson_name) => {
+		points.push(
+			{
+				name: lesson_name,
+				value: sum_lessons[lesson_name]['study_time']
+			}
+		);
+	});
+	console.log(points);
 	return points;
 }
 
 export const compareSum = (data,type) => {
+
 	var sum_study = 0;
 	var sum_test_time = 0;
+	
+	data.forEach((day) => {
 
-	data.filter( (lesson) => lesson.type == type )
-		.forEach( (lesson) => {
-			sum_study += lesson.sum_study;
-			sum_test_time += lesson.test_time;
+		let plan = JSON.parse(day.data);
+		Object.entries(plan).forEach( (lesson) => {
+
+			sum_study += lesson['study_time'];
+			sum_test_time += lesson['test_time'];
+		});
 	});
-
+	console.log(sum_study);
 	return [
 		{
-			y: sum_study,
-			label: 'مطالعه'
+			value: sum_study,
+			name: 'مطالعه'
 		},
 		{
-			y: sum_test_time,
-			label: 'تست '
+			value: sum_test_time,
+			name: 'تست '
 		}
 	];
 }
 
 export const compareDetails = (data,lesson_id) => {
-	let sum_lesson = {};
+	
+	let sum_lesson = {
+		'pre_study': 0,
+		'deep_study': 0,
+		'practice': 0,
+		'summary': 0,
+		'review': 0,
+		'learning_test': 0,
+		'tutorial': 0
+	};
+	
 	data.forEach( (day) => 
 	{
-		day.filter((lesson) => lesson.id == lesson_id)
-		.forEach( (lesson) => {
-			sum_lesson['pre_study'] = lesson.sum_study;
-			sum_lesson['deep_study'] = lesson.deep_study;
-			sum_lesson['practice'] = lesson.practice;
-			sum_lesson['summary'] = lesson.summary;
-			sum_lesson['review'] = lesson.review;
-			sum_lesson['learning_test'] = lesson.learning_test;
-			sum_lesson['tutorial'] = lesson.tutorial;
-		});
+		let plan = JSON.parse(day.data);
+
+		if(Object.keys(plan).includes(lesson_id)){
+			sum_lesson['pre_study'] += plan[lesson_id].sum_study;
+			sum_lesson['deep_study'] += plan[lesson_id].deep_study;
+			sum_lesson['practice'] += plan[lesson_id].practice;
+			sum_lesson['summary'] += plan[lesson_id].summary;
+			sum_lesson['review'] += plan[lesson_id].review;
+			sum_lesson['learning_test'] += plan[lesson_id].learning_test;
+			sum_lesson['tutorial'] += plan[lesson_id].tutorial;
+		}
 	});
+
 	return [
 		{
-			y: sum_lesson["pre_study"],
-			label: 'مطالعه سطحی یا پیش مطالعه'
+			value: sum_lesson["pre_study"],
+			name: 'مطالعه سطحی یا پیش مطالعه'
 		},
 		{
-			y: sum_lesson["deep_study"],
-			label: 'مطالعه عمیق'
+			value: sum_lesson["deep_study"],
+			name: 'مطالعه عمیق'
 		},
 		{
-			y: sum_lesson["practice"],
-			label: 'حل تمرین'
+			value: sum_lesson["practice"],
+			name: 'حل تمرین'
 		},
 		{
-			y: sum_lesson["summary"],
-			label: 'خلاصه برداری'
+			value: sum_lesson["summary"],
+			name: 'خلاصه برداری'
 		},
 		{
-			y: sum_lesson["review"],
-			label: 'خلاصه خوانی یا مرور'
+			value: sum_lesson["review"],
+			name: 'خلاصه خوانی یا مرور'
 		},
 		{
-			y: sum_lesson["learning_test"],
-			label: 'تست آموزشی و سنجشی'
+			value: sum_lesson["learning_test"],
+			name: 'تست آموزشی و سنجشی'
 		},
 		{
-			y: sum_lesson["tutorial"],
-			label: 'فیلم آموزشی'
+			value: sum_lesson["tutorial"],
+			name: 'فیلم آموزشی'
 		}
 	];
 }
 
-export const compareWeeks = (previousWeek,currentWeek) => {
+export const compareWeeks = (weeks) => {
 	
-	var weeks = [previousWeek,currentWeek];
-	var sum_study = [0,0];
-	
-	for(let i = 0; i<2; i++)
-		weeks[i].forEach( (lesson) => {
-			sum_study[i] += lesson.sum_study;
+	var sum_study = [];
+	let points = [];
+
+	for(let index = 0; index < weeks.length; index++)
+		weeks[index].forEach( (day) => {
+			let plan = JSON.parse(day.data);
+			Object.entries(plan).forEach( (lesson) => {
+				if(sum_study.length < index)
+					sum_study.push(0);
+
+				sum_study[index] += lesson['sum_study'];
+			});
 		});
 
-	return [
-		{y: sum_study[0]},
-		{y:sum_study[1]}
-	];
+	for(let index = 0;index < sum_study.length; index++){
+		points.push({
+			uv: sum_study[index]
+		});
+	}
 
+	return points;
 
 }

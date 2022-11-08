@@ -17,11 +17,11 @@ class StudyController extends Controller
     public function store(Request $request){
     	
         $data = $request->data;
-        $student_id = $request->Student_id;
-
+        $student_id = $request->student_id;
+        $day = $request->day;
     	$study_plan = new StudyPlan();
-
-    	$study_plan->data = $data;
+        $study_plan->day = $day;
+    	$study_plan->data = json_encode($data);
     	$study_plan->student_id = $student_id;
 
     	return response()->json($study_plan->save(),200);
@@ -29,15 +29,15 @@ class StudyController extends Controller
 
     public function index($student_id){
 
-        $start_week = strtotime('last Satuarday');
+        $start_week = strtotime('last saturday');
         $end_week = strtotime('friday',$start_week);
 
-        $currentWeek = StudyPlan::where('student_id',$student_id)->where('created_at','>=',$start_week)->where('created_at','<',$end_week)->get();
+        $currentWeek = StudyPlan::where('student_id',$student_id)->where('created_at','>=',date("Y-m-d H:i:s",$start_week))->where('created_at','<',date("Y-m-d H:i:s",$end_week))->get();
 
         $start_week = strtotime('-1 week',$start_week);
         $end_week = strtotime('friday',$start_week);
 
-        $previousWeek = StudyPlan::where('student_id',$student_id)->where('created_at','>=',$start_week)->where('created_at','<',$end_week)->get();
+        $previousWeek = StudyPlan::where('student_id',$student_id)->where('created_at','>=',date("Y-m-d H:i:s",$start_week))->where('created_at','<',date("Y-m-d H:i:s",$end_week))->get();
 
         return response()->json(
             [

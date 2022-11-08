@@ -44,7 +44,8 @@ const Personal = () => {
 			state: state, 
 			city: city ,
 			password: password,
-			token: token}
+			token: token
+		}
 
 		axios.post('/user/'+userDetails.id+'/settings/update'
 			,formData)

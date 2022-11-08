@@ -26,14 +26,7 @@ const Dashboard = () => {
       </CRow>
       <CRow className='mt-3'>
         <CCol>
-          <CCard>
-            <CCardHeader>
-              <CCardTitle>دفتر برنامه ریزی</CCardTitle>
-            </CCardHeader>
-            <CCardBody>
-              <ReportStudy />
-            </CCardBody>
-          </CCard>
+          <ReportStudy />
         </CCol>
       </CRow>
     </>

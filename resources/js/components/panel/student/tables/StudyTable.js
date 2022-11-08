@@ -6,21 +6,11 @@ import TimePicker from '../TimePicker';
 
 const StudyTable = ({lessons}) => {
 	
-	const daysName = ['شنبه','یکشنبه','دو شنبه','سه شنبه','چهارشنبه','پنجشنبه','جمعه']
-
 	if(lessons === undefined)
 		lessons = [];
 
-
 	return(
 		<CTable caption='top'>
-			<CTableCaption>
-				<CFormSelect>
-					{daysName.map((name,idx) =>
-						<option key={idx} >{daysName[idx]}</option>
-					)}
-				</CFormSelect>
-			</CTableCaption>
 			<CTableHead>
 				<CTableRow>
       				<CTableHeaderCell scope="col">درس</CTableHeaderCell>

@@ -4,7 +4,13 @@ import { Pie,PieChart,Line,LineChart,XAxis,YAxis } from 'recharts';
 import {compareType,compareLessons,compareSum,compareDetails,compareWeeks} from './ClassifyData';
 
 export const ProgressChart = ({currentWeek,previousWeek}) => {
-  let dataPoints = compareWeeks(currentWeek,previousWeek);
+  const [dataPoints,setDataPoints] = useState([]);
+
+  useEffect( () => {
+    setDataPoints( compareWeeks([currentWeek,previousWeek]) );
+    console.log(dataPoints);
+  },[]);
+
   return(
     <CCard>
       <CCardHeader>
@@ -23,20 +29,22 @@ export const ProgressChart = ({currentWeek,previousWeek}) => {
 
 export const LessonsChart = ({data}) => {
 
-  let dataPoints = [];
+  const [dataPoints,setDataPoints] = useState([]);
   const [type,setType] = useState(1);
 
-  if(type == 1){
-    dataPoints = compareType(data,type);
-  }else if(type == 2){
-    dataPoints = compareLessons(data,type);
-  }else if(type == 3){
-    dataPoints = compareLessons(data,type);
-  }else if(type == 4){
-    dataPoints = compareSum(data,type);
-  }else if(type == 5){
-    dataPoints = compareSum(data,type);  
-  }
+  useEffect( () => {
+    if(type == 1){
+      setDataPoints(compareType(data));
+    }else if(type == 2){
+      setDataPoints(compareLessons(data,type));
+    }else if(type == 3){
+      setDataPoints(compareLessons(data,type));
+    }else if(type == 4){
+      setDataPoints(compareSum(data,type));
+    }else if(type == 5){
+      setDataPoints(compareSum(data,type));  
+    }
+  },[type]);
 
   return(
     <CCard>
@@ -73,15 +81,19 @@ export const LessonsChart = ({data}) => {
  
 export const SingleLessonChart = ({data,lessons}) => {
 
-  const [lesson,setLesson] = useState({});
-  let dataPoints = compareDetails(data,lesson);
+  const [lesson,setLesson] = useState(-1);
+  const [dataPoints,setDataPoints] = useState([]);
+  
+  useEffect( () => {
+      setDataPoints(compareDetails(data,lesson));
+  },[lesson]);
 
   return(
     <CCard>
       <CCardHeader>
         <CFormSelect onChange={(e) => setLesson(e.target.value)}>
           {lessons.map((lesson) => 
-            <option key={lesson.id} value={lesson} >{lesson.title}</option>
+            <option key={lesson.id} value={lesson.id} >{lesson.title}</option>
           )}
         </CFormSelect>
       </CCardHeader>
